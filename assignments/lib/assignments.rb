@@ -1,4 +1,5 @@
 module Assignments
+  # Commands
   class RegisterProject
     attr_accessor :uuid
     attr_accessor :name
@@ -7,6 +8,10 @@ module Assignments
       @uuid = uuid
       @name = name
     end
+  end
+
+  # Domain Events
+  class ProjectRegistered < RailsEventStore::Event
   end
 end
 

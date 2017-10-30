@@ -9,7 +9,15 @@ module Assignments
     end
 
     def register(name)
+      apply(ProjectRegistered.new(data: {
+        uuid: @uuid,
+        name: name
+      }))
+    end
 
+    private
+
+    def apply_project_registered(event)
     end
   end
 end
