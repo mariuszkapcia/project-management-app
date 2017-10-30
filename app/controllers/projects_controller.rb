@@ -1,4 +1,8 @@
 class ProjectsController < ApplicationController
+  def index
+    render json: [], status: :ok
+  end
+
   def create
     command_bus.call(register_project)
 

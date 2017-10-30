@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController do
   specify do
+    get '/projects'
+    expect(response).to have_http_status(200)
+    expected_response([])
+  end
+
+  specify do
     post '/projects', params: awesome_project
     expect(response).to have_http_status(201)
   end
@@ -15,7 +21,7 @@ RSpec.describe ProjectsController do
     }
   end
 
-  def parsed_body
-    JSON.parse(response.body)
+  def expected_response(expected)
+    expect(JSON.parse(response.body)).to match(expected)
   end
 end
