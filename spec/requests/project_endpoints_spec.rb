@@ -4,7 +4,7 @@ RSpec.describe ProjectsController do
   specify do
     post '/projects'
 
-    expect(response).to have_http_status(204)
+    expect(response).to have_http_status(201)
   end
 
   def parsed_body
