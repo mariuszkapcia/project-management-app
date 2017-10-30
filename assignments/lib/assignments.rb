@@ -9,3 +9,5 @@ module Assignments
     end
   end
 end
+
+require_dependency 'assignments/project_services'
