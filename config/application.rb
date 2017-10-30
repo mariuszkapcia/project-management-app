@@ -19,6 +19,7 @@ Bundler.require(*Rails.groups)
 
 module RecruitmentApp
   class Application < Rails::Application
+    config.paths.add 'assignments/lib', eager_load: true
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
