@@ -12,6 +12,9 @@ class ProjectsController < ApplicationController
   private
 
   def register_project
-    Assignments::RegisterProject.new(params[:uuid], params[:name])
+    Assignments::RegisterProject.new(
+      uuid: params[:uuid],
+      name: params[:name]
+    )
   end
 end
