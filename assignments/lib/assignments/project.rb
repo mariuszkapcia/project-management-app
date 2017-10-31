@@ -9,7 +9,7 @@ module Assignments
     end
 
     def register(name)
-      apply(ProjectRegistered.new(data: {
+      apply(Assignments::ProjectRegistered.new(data: {
         uuid: @uuid,
         name: name
       }))

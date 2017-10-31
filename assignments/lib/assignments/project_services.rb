@@ -6,7 +6,7 @@ module Assignments
     private
 
     def with_project(uuid)
-      Project.new(uuid).tap do |project|
+      Assignments::Project.new(uuid).tap do |project|
         load_project(uuid, project)
         yield(project)
         store_project(project)

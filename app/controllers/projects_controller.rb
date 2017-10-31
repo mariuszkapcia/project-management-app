@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    render json: [], status: :ok
+    render json: projects_read_model.all, status: :ok
   end
 
   def create

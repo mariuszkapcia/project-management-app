@@ -74,6 +74,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    pg (0.21.0)
     pry (0.11.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -159,7 +160,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.13)
     thor (0.20.0)
     thread_safe (0.3.6)
     tzinfo (1.2.4)
@@ -175,6 +175,7 @@ DEPENDENCIES
   arkency-command_bus (~> 0.4.0)
   bounded_context (~> 0.18.2)
   listen (>= 3.0.5, < 3.2)
+  pg (~> 0.21.0)
   pry-byebug
   puma (~> 3.7)
   rails (~> 5.1.2)
@@ -183,7 +184,6 @@ DEPENDENCIES
   rspec-rails (~> 3.7, >= 3.7.1)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3
   tzinfo-data
 
 BUNDLED WITH

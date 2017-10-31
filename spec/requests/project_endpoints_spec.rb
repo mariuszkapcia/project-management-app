@@ -10,6 +10,8 @@ RSpec.describe ProjectsController do
   specify do
     post '/projects', params: awesome_project
     expect(response).to have_http_status(201)
+    get '/projects'
+    expected_response([awesome_project])
   end
 
   private

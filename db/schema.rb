@@ -10,9 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030232049) do
+ActiveRecord::Schema.define(version: 20171030234620) do
 
-  create_table "event_store_events", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "event_store_events", id: :serial, force: :cascade do |t|
     t.string "stream", null: false
     t.string "event_type", null: false
     t.string "event_id", null: false
@@ -23,6 +26,10 @@ ActiveRecord::Schema.define(version: 20171030232049) do
     t.index ["event_id"], name: "index_event_store_events_on_event_id", unique: true
     t.index ["event_type"], name: "index_event_store_events_on_event_type"
     t.index ["stream"], name: "index_event_store_events_on_stream"
+  end
+
+  create_table "projects", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
+    t.string "name"
   end
 
 end

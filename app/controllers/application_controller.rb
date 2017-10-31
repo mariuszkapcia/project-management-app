@@ -9,6 +9,12 @@ class ApplicationController < ActionController::API
   end
 
   def configure_event_handlers(client)
+    client.subscribe(
+      ->(event) { projects_read_model.handle(event) },
+      [
+        Assignments::ProjectRegistered
+      ]
+    )
   end
 
   def command_bus
@@ -22,5 +28,9 @@ class ApplicationController < ActionController::API
       Assignments::RegisterProject,
       Assignments::RegisterProjectService.new(event_store)
     )
+  end
+
+  def projects_read_model
+    @projects_read_model ||= ProjectsReadModel.new
   end
 end
