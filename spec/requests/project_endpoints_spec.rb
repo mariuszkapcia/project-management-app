@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProjectsController do
+RSpec.describe ProjectsController, type: :request do
   specify do
     get '/projects'
     expect(response).to have_http_status(200)
