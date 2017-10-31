@@ -17,7 +17,7 @@ class ProjectsReadModel
 
   def create_project(uuid, name)
     ::Project.create!(
-      id: uuid,
+      uuid: uuid,
       name: name
     )
   end
