@@ -14,6 +14,10 @@ class ProjectDetailsReadModel
     end
   end
 
+  def all
+    ::ProjectDetails.all
+  end
+
   def find(uuid)
     ::ProjectDetails.find_by(uuid: uuid)
   end

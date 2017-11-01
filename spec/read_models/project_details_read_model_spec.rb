@@ -1,14 +1,14 @@
 RSpec.describe 'Project details read model' do
   specify 'creates project' do
-    projects_read_model.handle(project_registered)
-    expect(projects_read_model.all.size).to eq(1)
+    project_details_read_model.handle(project_registered)
+    expect(project_details_read_model.all.size).to eq(1)
     assert_project_correct
   end
 
   specify 'estimate the project' do
-    projects_read_model.handle(project_registered)
-    projects_read_model.handle(project_estimated)
-    expect(projects_read_model.all.size).to eq(1)
+    project_details_read_model.handle(project_registered)
+    project_details_read_model.handle(project_estimated)
+    expect(project_details_read_model.all.size).to eq(1)
     assert_project_with_estimation_correct
   end
 
@@ -52,11 +52,11 @@ RSpec.describe 'Project details read model' do
     40
   end
 
-  def projects_read_model
-    @projects_read_model ||= ProjectsReadModel.new
+  def project_details_read_model
+    @project_details_read_model ||= ProjectDetailsReadModel.new
   end
 
   def first_project
-    projects_read_model.all.first
+    project_details_read_model.all.first
   end
 end
