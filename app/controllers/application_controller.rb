@@ -26,7 +26,7 @@ class ApplicationController < ActionController::API
   def configure_command_handlers(command_bus)
     command_bus.register(
       Assignments::RegisterProject,
-      Assignments::RegisterProjectService.new(event_store)
+      Assignments::RegisterProjectService.new(event_store: event_store)
     )
   end
 
