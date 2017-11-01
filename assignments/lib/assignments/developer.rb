@@ -8,10 +8,11 @@ module Assignments
       @uuid = uuid
     end
 
-    def register(fullname)
+    def register(fullname, email)
       apply(Assignments::DeveloperRegistered.new(data: {
         uuid:     @uuid,
-        fullname: fullname
+        fullname: fullname,
+        email:    email
       }))
     end
 

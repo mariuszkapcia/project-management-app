@@ -7,7 +7,8 @@ module Assignments
         .new(event_store: event_store)
         .call(RegisterDeveloper.new(
           uuid:     developer_uuid,
-          fullname: developer_fullname
+          fullname: developer_fullname,
+          email:    developer_email
         ))
 
       expect(event_store).to(have_published(developer_registered))
@@ -32,6 +33,10 @@ module Assignments
 
     def developer_fullname
       'Ignacy Ignacy'
+    end
+
+    def developer_email
+      'ignacy@onet.pl'
     end
 
     def event_store
