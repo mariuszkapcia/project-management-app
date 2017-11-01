@@ -26,6 +26,9 @@ module Assignments
 
   class ProjectEstimated < RailsEventStore::Event
   end
+
+  class DeveloperRegistered < RailsEventStore::Event
+  end
 end
 
 require_dependency 'assignments/project_services'
