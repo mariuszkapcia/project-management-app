@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/projects/:uuid', to: 'projects#show'
 
   get '/developers', to: 'developers#index'
+  post '/developers', to: 'developers#create'
 
   post '/assignments', to: 'assignments#create'
 
