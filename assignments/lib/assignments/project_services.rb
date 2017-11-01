@@ -27,7 +27,7 @@ module Assignments
   end
 
   class RegisterProjectService < ProjectService
-    def initialize(event_store)
+    def initialize(event_store:)
       @event_store = event_store
     end
 
