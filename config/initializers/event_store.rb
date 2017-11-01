@@ -1,6 +1,7 @@
 event_store = Rails.configuration.event_store
 projects_read_model = ProjectsReadModel.new
 project_details_read_model = ProjectDetailsReadModel.new
+developers_read_model = DevelopersReadModel.new
 
 event_store.subscribe(
   ->(event) { projects_read_model.handle(event) },
@@ -14,5 +15,12 @@ event_store.subscribe(
   [
     Assignments::ProjectRegistered,
     Assignments::ProjectEstimated
+  ]
+)
+
+event_store.subscribe(
+  ->(event) { developers_read_model.handle(event) },
+  [
+    Assignments::DeveloperRegistered
   ]
 )
