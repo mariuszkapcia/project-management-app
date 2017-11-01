@@ -1,4 +1,4 @@
-RSpec.describe 'Projects requests', type: :request do
+RSpec.describe 'Project requests', type: :request do
   specify 'empty list of projects' do
     get '/projects'
     expect(response).to have_http_status(200)

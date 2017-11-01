@@ -1,4 +1,4 @@
-RSpec.describe 'Assignments requests', type: :request do
+RSpec.describe 'Assignment requests', type: :request do
   specify 'empty list of assignments' do
     post '/assignments'
 

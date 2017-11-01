@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/projects', to: 'projects#index'
   get '/projects/:uuid', to: 'projects#show'
 
+  get '/developers', to: 'developers#index'
+
   post '/assignments', to: 'assignments#create'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
