@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_dependency '../lib/assignments'
+require_dependency 'assignments'
 
 module Assignments
   RSpec.describe 'ProjectServices' do
