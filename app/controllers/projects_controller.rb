@@ -3,6 +3,10 @@ class ProjectsController < ApplicationController
     render json: ProjectsReadModel.new.all, status: :ok
   end
 
+  def show
+    render json: ProjectDetailsReadModel.new.find(params[:uuid]), status: :ok
+  end
+
   def create
     command_bus.call(register_project)
 

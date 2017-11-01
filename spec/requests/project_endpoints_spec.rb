@@ -17,8 +17,8 @@ RSpec.describe 'Projects requests', type: :request do
     expect(response).to have_http_status(201)
     put "/projects/#{project_uuid}/estimate", params: { hours: project_estimation }
     expect(response).to have_http_status(200)
-    get '/projects'
-    expected_response([project])
+    get "/projects/#{project_uuid}"
+    expected_response(project_with_details)
   end
 
   private
@@ -27,6 +27,14 @@ RSpec.describe 'Projects requests', type: :request do
     {
       'uuid' => project_uuid,
       'name' => project_name
+    }
+  end
+
+  def project_with_details
+    {
+      'uuid'                => project_uuid,
+      'name'                => project_name,
+      'estimation_in_hours' => project_estimation
     }
   end
 
