@@ -33,6 +33,7 @@ module RecruitmentApp
     config.api_only = true
 
     config.event_store = RailsEventStore::Client.new
+    config.command_bus = Arkency::CommandBus.new
   end
 end
 
