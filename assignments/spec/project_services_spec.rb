@@ -2,7 +2,7 @@ require 'rails_helper'
 require_dependency 'assignments'
 
 module Assignments
-  RSpec.describe 'ProjectServices' do
+  RSpec.describe 'Project services' do
     specify do
       Assignments::RegisterProjectService
         .new(event_store: event_store)

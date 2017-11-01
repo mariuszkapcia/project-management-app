@@ -1,7 +1,7 @@
 require_dependency 'assignments'
 
 module Assignments
-  RSpec.describe Project do
+  RSpec.describe 'Project aggregate' do
     specify 'register new project' do
       project = Assignments::Project.new(project_uuid)
       project.register(project_name)
