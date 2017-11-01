@@ -20,6 +20,16 @@ module Assignments
     end
   end
 
+  class RegisterDeveloper
+    attr_accessor :uuid
+    attr_accessor :name
+
+    def initialize(uuid:, name:)
+      @uuid = uuid
+      @name = name
+    end
+  end
+
   # Domain Events
   class ProjectRegistered < RailsEventStore::Event
   end
@@ -32,3 +42,4 @@ module Assignments
 end
 
 require_dependency 'assignments/project_services'
+require_dependency 'assignments/developer_services'
