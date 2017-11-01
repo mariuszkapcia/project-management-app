@@ -17,6 +17,12 @@ module Assignments
       expect(project).to(have_applied(project_estimated))
     end
 
+    specify 'only register project can be estimated' do
+      project = Assignments::Project.new(project_uuid)
+
+      expect { project.estimate(project_estimation) }.to raise_error(Assignments::ProjectNotRegistered)
+    end
+
     private
 
     def project_registered

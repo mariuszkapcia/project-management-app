@@ -1,11 +1,14 @@
 require 'aggregate_root'
 
 module Assignments
+  ProjectNotRegistered = Class.new(StandardError)
+
   class Project
     include AggregateRoot
 
     def initialize(uuid)
-      @uuid = uuid
+      @uuid  = uuid
+      @state = :draft
     end
 
     def register(name)
@@ -16,6 +19,8 @@ module Assignments
     end
 
     def estimate(hours)
+      raise Assignments::ProjectNotRegistered if @state == :draft
+
       apply(Assignments::ProjectEstimated.new(data: {
         uuid:  @uuid,
         hours: hours
@@ -25,6 +30,7 @@ module Assignments
     private
 
     def apply_project_registered(event)
+      @state = :registered
     end
 
     def apply_project_estimated(event)
