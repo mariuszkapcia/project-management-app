@@ -10,3 +10,8 @@ command_bus.register(
   Assignments::EstimateProject,
   Assignments::EstimateProjectService.new(event_store: event_store)
 )
+
+command_bus.register(
+  Assignments::RegisterDeveloper,
+  Assignments::RegisterDeveloperService.new(event_store: event_store)
+)
