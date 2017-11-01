@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Projects read model' do
   specify 'creates project' do
     projects_read_model.handle(project_registered)

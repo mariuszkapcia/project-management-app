@@ -13,6 +13,7 @@ group :development, :test do
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.7', '>= 3.7.1'
   gem 'rails_event_store-rspec', '~> 0.18.2'
+  gem 'database_cleaner', '~> 1.6', '>= 1.6.2', require: false
 end
 
 group :development do

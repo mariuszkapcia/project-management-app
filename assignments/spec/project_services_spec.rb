@@ -1,4 +1,3 @@
-require 'rails_helper'
 require_dependency 'assignments'
 
 module Assignments

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Projects controller', type: :request do
   specify do
     get '/projects'
@@ -18,9 +16,17 @@ RSpec.describe 'Projects controller', type: :request do
 
   def awesome_project
     {
-      'uuid' => '64e60dee-15a4-4ce1-ac5f-dad76bb4e1a0',
-      'name' => 'awesome_project'
+      'uuid' => awesome_project_uuid,
+      'name' => awesome_project_name
     }
+  end
+
+  def awesome_project_uuid
+    '64e60dee-15a4-4ce1-ac5f-dad76bb4e1a0'
+  end
+
+  def awesome_project_name
+    'awesome_project'
   end
 
   def expected_response(expected)

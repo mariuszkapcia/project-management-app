@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Assignments controller', type: :request do
   specify do
     post '/assignments'
