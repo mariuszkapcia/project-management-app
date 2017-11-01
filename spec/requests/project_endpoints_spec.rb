@@ -6,27 +6,49 @@ RSpec.describe 'Projects requests', type: :request do
   end
 
   specify 'creates and list one project' do
-    post '/projects', params: awesome_project
+    post '/projects', params: project
     expect(response).to have_http_status(201)
     get '/projects'
-    expected_response([awesome_project])
+    expected_response([project])
+  end
+
+  specify 'estimate the project' do
+    post '/projects', params: project
+    expect(response).to have_http_status(201)
+    put "/projects/#{project_uuid}/estimate", params: { hours: project_estimation }
+    expect(response).to have_http_status(200)
+    get '/projects'
+    expected_response([project_with_estimation])
   end
 
   private
 
-  def awesome_project
+  def project
     {
-      'uuid' => awesome_project_uuid,
-      'name' => awesome_project_name
+      'uuid'                => project_uuid,
+      'name'                => project_name,
+      'estimation_in_hours' => nil
     }
   end
 
-  def awesome_project_uuid
+  def project_with_estimation
+    {
+      'uuid'                => project_uuid,
+      'name'                => project_name,
+      'estimation_in_hours' => project_estimation
+    }
+  end
+
+  def project_uuid
     '64e60dee-15a4-4ce1-ac5f-dad76bb4e1a0'
   end
 
-  def awesome_project_name
+  def project_name
     'awesome_project'
+  end
+
+  def project_estimation
+    40
   end
 
   def expected_response(expected)

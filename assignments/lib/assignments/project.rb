@@ -15,9 +15,19 @@ module Assignments
       }))
     end
 
+    def estimate(hours)
+      apply(Assignments::ProjectEstimated.new(data: {
+        uuid:  @uuid,
+        hours: hours
+      }))
+    end
+
     private
 
     def apply_project_registered(event)
+    end
+
+    def apply_project_estimated(event)
     end
   end
 end
