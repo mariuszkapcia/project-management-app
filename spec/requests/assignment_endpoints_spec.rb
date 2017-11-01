@@ -1,5 +1,5 @@
-RSpec.describe 'Assignments controller', type: :request do
-  specify do
+RSpec.describe 'Assignments requests', type: :request do
+  specify 'empty list of assignments' do
     post '/assignments'
 
     expect(response).to have_http_status(204)

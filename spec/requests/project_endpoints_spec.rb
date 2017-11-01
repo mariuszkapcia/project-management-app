@@ -1,11 +1,11 @@
-RSpec.describe 'Projects controller', type: :request do
-  specify do
+RSpec.describe 'Projects requests', type: :request do
+  specify 'empty list of projects' do
     get '/projects'
     expect(response).to have_http_status(200)
     expected_response([])
   end
 
-  specify do
+  specify 'creates and list one project' do
     post '/projects', params: awesome_project
     expect(response).to have_http_status(201)
     get '/projects'

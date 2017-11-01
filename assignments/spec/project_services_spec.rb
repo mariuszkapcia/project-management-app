@@ -2,7 +2,7 @@ require_dependency 'assignments'
 
 module Assignments
   RSpec.describe 'Project services' do
-    specify do
+    specify 'register a new project' do
       Assignments::RegisterProjectService
         .new(event_store: event_store)
         .call(Assignments::RegisterProject.new(
