@@ -4,7 +4,7 @@ module Assignments
   RSpec.describe 'Developer aggregate' do
     specify 'register a new developer' do
       developer = Assignments::Developer.new(developer_uuid)
-      developer.register(developer_name)
+      developer.register(developer_fullname)
 
       expect(developer).to(have_applied(developer_registered))
     end
@@ -17,8 +17,8 @@ module Assignments
 
     def developer_data
       {
-        uuid: developer_uuid,
-        name: developer_name
+        uuid:     developer_uuid,
+        fullname: developer_fullname
       }
     end
 
@@ -26,8 +26,8 @@ module Assignments
       '62147dcd-d315-4120-b7ec-f6b00d10c223'
     end
 
-    def developer_name
-      'Ignacy'
+    def developer_fullname
+      'Ignacy Ignacy'
     end
   end
 end

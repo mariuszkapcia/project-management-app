@@ -22,11 +22,11 @@ module Assignments
 
   class RegisterDeveloper
     attr_accessor :uuid
-    attr_accessor :name
+    attr_accessor :fullname
 
-    def initialize(uuid:, name:)
-      @uuid = uuid
-      @name = name
+    def initialize(uuid:, fullname:)
+      @uuid     = uuid
+      @fullname = fullname
     end
   end
 

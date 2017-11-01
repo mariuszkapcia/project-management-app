@@ -33,7 +33,7 @@ module Assignments
 
     def call(command)
       with_developer(command.uuid) do |developer|
-        developer.register(command.name)
+        developer.register(command.fullname)
       end
     end
   end

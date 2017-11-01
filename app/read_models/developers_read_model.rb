@@ -4,7 +4,7 @@ class DevelopersReadModel
       when Assignments::DeveloperRegistered
         create_developer(
           event.data[:uuid],
-          event.data[:name]
+          event.data[:fullname]
         )
     end
   end
@@ -15,10 +15,10 @@ class DevelopersReadModel
 
   private
 
-  def create_developer(uuid, name)
+  def create_developer(uuid, fullname)
     ::Developer.create!(
-      uuid: uuid,
-      name: name
+      uuid:     uuid,
+      fullname: fullname
     )
   end
 end

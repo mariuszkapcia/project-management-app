@@ -9,13 +9,13 @@ RSpec.describe 'Developers read model' do
 
   def assert_developer_correct
     expect(first_developer.uuid).to eq(developer_uuid)
-    expect(first_developer.name).to eq(developer_name)
+    expect(first_developer.fullname).to eq(developer_fullname)
   end
 
   def developer_registered
     Assignments::DeveloperRegistered.new(data: {
-      uuid: developer_uuid,
-      name: developer_name
+      uuid:     developer_uuid,
+      fullname: developer_fullname
     })
   end
 
@@ -23,8 +23,8 @@ RSpec.describe 'Developers read model' do
     'ab6e9c30-2b1c-474d-824f-7b8f816ced99'
   end
 
-  def developer_name
-    'Ignacy'
+  def developer_fullname
+    'Ignacy Ignacy'
   end
 
   def developers_read_model

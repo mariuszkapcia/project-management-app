@@ -13,8 +13,8 @@ class DevelopersController < ApplicationController
 
   def register_developer
     Assignments::RegisterDeveloper.new(
-      uuid: params[:uuid],
-      name: params[:name]
+      uuid:     params[:uuid],
+      fullname: params[:fullname]
     )
   end
 end
