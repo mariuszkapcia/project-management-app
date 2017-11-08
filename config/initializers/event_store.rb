@@ -14,7 +14,8 @@ event_store.subscribe(
   ->(event) { project_details_read_model.handle(event) },
   [
     ProjectManagement::ProjectRegistered,
-    ProjectManagement::ProjectEstimated
+    ProjectManagement::ProjectEstimated,
+    ProjectManagement::DeveloperAssignedToProject
   ]
 )
 

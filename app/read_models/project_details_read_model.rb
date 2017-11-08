@@ -11,6 +11,12 @@ class ProjectDetailsReadModel
           event.data[:uuid],
           event.data[:hours]
         )
+      when ProjectManagement::DeveloperAssignedToProject
+        assign_developer(
+          event.data[:project_uuid],
+          event.data[:developer_uuid],
+          event.data[:developer_fullname]
+        )
     end
   end
 
@@ -35,5 +41,14 @@ class ProjectDetailsReadModel
     ::ProjectDetails.find_by(uuid: uuid).update(
       estimation_in_hours: hours
     )
+  end
+
+  def assign_developer(project_uuid, developer_uuid, developer_fullname)
+    project_details = ::ProjectDetails.find_by(uuid: project_uuid)
+    project_details.developers << {
+      uuid:     developer_uuid,
+      fullname: developer_fullname
+    }
+    project_details.save!
   end
 end

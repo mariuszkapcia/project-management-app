@@ -32,6 +32,13 @@ module ProjectManagement
     end
 
     specify 'assign developer to the project' do
+      ProjectManagement::RegisterProjectService
+        .new(event_store: event_store)
+        .call(ProjectManagement::RegisterProject.new(
+          uuid: project_uuid,
+          name: project_name
+        ))
+        
       ProjectManagement::AssignDeveloperToProjectService
         .new(event_store: event_store)
         .call(ProjectManagement::AssignDeveloperToProject.new(

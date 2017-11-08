@@ -18,7 +18,7 @@ RSpec.describe 'Project requests', type: :request do
     put "/projects/#{project_uuid}/estimate", params: { hours: project_estimation }
     expect(response).to have_http_status(200)
     get "/projects/#{project_uuid}"
-    expected_response(project_with_details)
+    expected_response(project_with_estimation)
   end
 
   specify 'assign developer to the project' do
@@ -29,6 +29,8 @@ RSpec.describe 'Project requests', type: :request do
     expect(response).to have_http_status(201)
     put "/projects/#{project_uuid}/assign_developer", params: { developer_uuid: ignacy_uuid }
     expect(response).to have_http_status(204)
+    get "/projects/#{project_uuid}"
+    expected_response(project_with_developers)
   end
 
   private
@@ -40,11 +42,21 @@ RSpec.describe 'Project requests', type: :request do
     }
   end
 
-  def project_with_details
+  def project_with_estimation
     {
       'uuid'                => project_uuid,
       'name'                => project_name,
-      'estimation_in_hours' => project_estimation
+      'estimation_in_hours' => project_estimation,
+      'developers'          => []
+    }
+  end
+
+  def project_with_developers
+    {
+      'uuid'                => project_uuid,
+      'name'                => project_name,
+      'estimation_in_hours' => nil,
+      'developers'          => [{ 'uuid' => ignacy_uuid, 'fullname' => ignacy_fullname }]
     }
   end
 
@@ -63,13 +75,17 @@ RSpec.describe 'Project requests', type: :request do
   def ignacy
     {
       'uuid'     => ignacy_uuid,
-      'fullname' => 'Ignacy Ignacy',
+      'fullname' => ignacy_fullname,
       'email'    => 'ignacy@onet.pl'
     }
   end
 
   def ignacy_uuid
     'c45d96d9-cdb0-4eec-9092-b3ea6c264648'
+  end
+
+  def ignacy_fullname
+    'Ignacy Ignacy'
   end
 
   def expected_response(expected)
