@@ -12,18 +12,34 @@ RSpec.describe 'Project details read model' do
     assert_project_with_estimation_correct
   end
 
+  specify 'assign developer to the project' do
+    project_details_read_model.handle(project_registered)
+    project_details_read_model.handle(developer_assigned)
+    expect(project_details_read_model.all.size).to eq(1)
+    assert_project_with_developers_correct
+  end
+
   private
 
   def assert_project_correct
     expect(first_project.uuid).to eq(project_uuid)
     expect(first_project.name).to eq(project_name)
     expect(first_project.estimation_in_hours).to eq(nil)
+    expect(first_project.developers).to eq([])
   end
 
   def assert_project_with_estimation_correct
     expect(first_project.uuid).to eq(project_uuid)
     expect(first_project.name).to eq(project_name)
     expect(first_project.estimation_in_hours).to eq(project_estimation)
+    expect(first_project.developers).to eq([])
+  end
+
+  def assert_project_with_developers_correct
+    expect(first_project.uuid).to eq(project_uuid)
+    expect(first_project.name).to eq(project_name)
+    expect(first_project.estimation_in_hours).to eq(nil)
+    expect(first_project.developers).to eq([{ 'uuid' => ignacy_uuid, 'fullname' => ignacy_fullname }])
   end
 
   def project_registered
@@ -40,6 +56,14 @@ RSpec.describe 'Project details read model' do
     })
   end
 
+  def developer_assigned
+    ProjectManagement::DeveloperAssignedToProject.new(data: {
+      project_uuid:       project_uuid,
+      developer_uuid:     ignacy_uuid,
+      developer_fullname: ignacy_fullname
+    })
+  end
+
   def project_uuid
     'ab6e9c30-2b1c-474d-824f-7b8f816ced99'
   end
@@ -50,6 +74,14 @@ RSpec.describe 'Project details read model' do
 
   def project_estimation
     40
+  end
+
+  def ignacy_uuid
+    '4b449030-a3c9-4568-9c40-0e8660d7c63b'
+  end
+
+  def ignacy_fullname
+    'Ignacy Ignacy'
   end
 
   def project_details_read_model
