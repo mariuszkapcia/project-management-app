@@ -73,7 +73,7 @@ module ProjectManagement
     end
 
     def developer_uuid
-      ''
+      'cf14299b-b3b3-4b99-b511-6aa315cdad95'
     end
 
     def developer_fullname
