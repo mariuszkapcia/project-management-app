@@ -6,21 +6,21 @@ developers_read_model = DevelopersReadModel.new
 event_store.subscribe(
   ->(event) { projects_read_model.handle(event) },
   [
-    Assignments::ProjectRegistered
+    ProjectManagement::ProjectRegistered
   ]
 )
 
 event_store.subscribe(
   ->(event) { project_details_read_model.handle(event) },
   [
-    Assignments::ProjectRegistered,
-    Assignments::ProjectEstimated
+    ProjectManagement::ProjectRegistered,
+    ProjectManagement::ProjectEstimated
   ]
 )
 
 event_store.subscribe(
   ->(event) { developers_read_model.handle(event) },
   [
-    Assignments::DeveloperRegistered
+    ProjectManagement::DeveloperRegistered
   ]
 )

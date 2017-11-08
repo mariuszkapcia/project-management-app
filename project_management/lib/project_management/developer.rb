@@ -1,6 +1,6 @@
 require 'aggregate_root'
 
-module Assignments
+module ProjectManagement
   class Developer
     include AggregateRoot
 
@@ -9,7 +9,7 @@ module Assignments
     end
 
     def register(fullname, email)
-      apply(Assignments::DeveloperRegistered.new(data: {
+      apply(ProjectManagement::DeveloperRegistered.new(data: {
         uuid:     @uuid,
         fullname: fullname,
         email:    email

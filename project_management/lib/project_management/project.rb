@@ -1,6 +1,6 @@
 require 'aggregate_root'
 
-module Assignments
+module ProjectManagement
   class Project
     include AggregateRoot
 
@@ -10,21 +10,21 @@ module Assignments
     end
 
     def register(name)
-      apply(Assignments::ProjectRegistered.new(data: {
+      apply(ProjectManagement::ProjectRegistered.new(data: {
         uuid: @uuid,
         name: name
       }))
     end
 
     def estimate(hours)
-      apply(Assignments::ProjectEstimated.new(data: {
+      apply(ProjectManagement::ProjectEstimated.new(data: {
         uuid:  @uuid,
         hours: hours
       }))
     end
 
     def assign_developer(uuid, fullname)
-      apply(Assignments::DeveloperAssignedToProject.new(data: {
+      apply(ProjectManagement::DeveloperAssignedToProject.new(data: {
         project_uuid:       @uuid,
         developer_uuid:     uuid,
         developer_fullname: fullname

@@ -1,11 +1,11 @@
-require_dependency 'assignments'
+require_dependency 'project_management'
 
-module Assignments
+module ProjectManagement
   RSpec.describe 'Project services' do
     specify 'register a new project' do
-      Assignments::RegisterProjectService
+      ProjectManagement::RegisterProjectService
         .new(event_store: event_store)
-        .call(Assignments::RegisterProject.new(
+        .call(ProjectManagement::RegisterProject.new(
           uuid: project_uuid,
           name: 'awesome_project'
         ))
@@ -14,16 +14,16 @@ module Assignments
     end
 
     specify 'estimate the project' do
-      Assignments::RegisterProjectService
+      ProjectManagement::RegisterProjectService
         .new(event_store: event_store)
-        .call(Assignments::RegisterProject.new(
+        .call(ProjectManagement::RegisterProject.new(
           uuid: project_uuid,
           name: project_name
         ))
 
-      Assignments::EstimateProjectService
+      ProjectManagement::EstimateProjectService
         .new(event_store: event_store)
-        .call(Assignments::EstimateProject.new(
+        .call(ProjectManagement::EstimateProject.new(
           uuid: project_uuid,
           hours: project_estimation
         ))
@@ -34,11 +34,11 @@ module Assignments
     private
 
     def project_registered
-      an_event(Assignments::ProjectRegistered).with_data(project_data)
+      an_event(ProjectManagement::ProjectRegistered).with_data(project_data)
     end
 
     def project_estimated
-      an_event(Assignments::ProjectEstimated).with_data(estimate_data)
+      an_event(ProjectManagement::ProjectEstimated).with_data(estimate_data)
     end
 
     def project_data

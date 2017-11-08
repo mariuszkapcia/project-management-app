@@ -1,4 +1,4 @@
-module Assignments
+module ProjectManagement
   # Commands
   class RegisterProject
     attr_accessor :uuid
@@ -46,5 +46,5 @@ module Assignments
   end
 end
 
-require_dependency 'assignments/project_services'
-require_dependency 'assignments/developer_services'
+require_dependency 'project_management/project_services'
+require_dependency 'project_management/developer_services'

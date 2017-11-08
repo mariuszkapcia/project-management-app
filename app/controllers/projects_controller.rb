@@ -22,14 +22,14 @@ class ProjectsController < ApplicationController
   private
 
   def register_project
-    Assignments::RegisterProject.new(
+    ProjectManagement::RegisterProject.new(
       uuid: params[:uuid],
       name: params[:name]
     )
   end
 
   def estimate_project
-    Assignments::EstimateProject.new(
+    ProjectManagement::EstimateProject.new(
       uuid:  params[:uuid],
       hours: params[:hours]
     )

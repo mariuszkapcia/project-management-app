@@ -1,12 +1,12 @@
 require 'aggregate_root'
 
-module Assignments
+module ProjectManagement
   class DeveloperService
 
     private
 
     def with_developer(uuid)
-      Assignments::Developer.new(uuid).tap do |developer|
+      ProjectManagement::Developer.new(uuid).tap do |developer|
         load_developer(uuid, developer)
         yield developer
         store_developer(developer)

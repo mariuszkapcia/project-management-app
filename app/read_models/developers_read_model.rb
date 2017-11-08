@@ -1,7 +1,7 @@
 class DevelopersReadModel
   def handle(event)
     case event
-      when Assignments::DeveloperRegistered
+      when ProjectManagement::DeveloperRegistered
         create_developer(
           event.data[:uuid],
           event.data[:fullname],

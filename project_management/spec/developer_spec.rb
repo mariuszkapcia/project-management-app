@@ -1,9 +1,9 @@
-require_dependency 'assignments'
+require_dependency 'project_management'
 
-module Assignments
+module ProjectManagement
   RSpec.describe 'Developer aggregate' do
     specify 'register a new developer' do
-      developer = Assignments::Developer.new(developer_uuid)
+      developer = ProjectManagement::Developer.new(developer_uuid)
       developer.register(developer_fullname, developer_email)
 
       expect(developer).to(have_applied(developer_registered))
@@ -12,7 +12,7 @@ module Assignments
     private
 
     def developer_registered
-      an_event(Assignments::DeveloperRegistered).with_data(developer_data)
+      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_data)
     end
 
     def developer_data

@@ -2,16 +2,16 @@ command_bus = Rails.configuration.command_bus
 event_store = Rails.configuration.event_store
 
 command_bus.register(
-  Assignments::RegisterProject,
-  Assignments::RegisterProjectService.new(event_store: event_store)
+  ProjectManagement::RegisterProject,
+  ProjectManagement::RegisterProjectService.new(event_store: event_store)
 )
 
 command_bus.register(
-  Assignments::EstimateProject,
-  Assignments::EstimateProjectService.new(event_store: event_store)
+  ProjectManagement::EstimateProject,
+  ProjectManagement::EstimateProjectService.new(event_store: event_store)
 )
 
 command_bus.register(
-  Assignments::RegisterDeveloper,
-  Assignments::RegisterDeveloperService.new(event_store: event_store)
+  ProjectManagement::RegisterDeveloper,
+  ProjectManagement::RegisterDeveloperService.new(event_store: event_store)
 )

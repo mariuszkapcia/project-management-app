@@ -27,14 +27,14 @@ RSpec.describe 'Project details read model' do
   end
 
   def project_registered
-    Assignments::ProjectRegistered.new(data: {
+    ProjectManagement::ProjectRegistered.new(data: {
       uuid: project_uuid,
       name: project_name
     })
   end
 
   def project_estimated
-    Assignments::ProjectEstimated.new(data: {
+    ProjectManagement::ProjectEstimated.new(data: {
       uuid:  project_uuid,
       hours: project_estimation
     })

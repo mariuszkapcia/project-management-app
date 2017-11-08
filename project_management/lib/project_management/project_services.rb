@@ -1,12 +1,12 @@
 require 'aggregate_root'
 
-module Assignments
+module ProjectManagement
   class ProjectService
 
     private
 
     def with_project(uuid)
-      Assignments::Project.new(uuid).tap do |project|
+      ProjectManagement::Project.new(uuid).tap do |project|
         load_project(uuid, project)
         yield(project)
         store_project(project)

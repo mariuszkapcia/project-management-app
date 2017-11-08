@@ -12,7 +12,7 @@ class DevelopersController < ApplicationController
   private
 
   def register_developer
-    Assignments::RegisterDeveloper.new(
+    ProjectManagement::RegisterDeveloper.new(
       uuid:     params[:uuid],
       fullname: params[:fullname],
       email:    params[:email]

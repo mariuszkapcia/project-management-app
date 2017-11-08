@@ -13,7 +13,7 @@ RSpec.describe 'Developers read model' do
   end
 
   def developer_registered
-    Assignments::DeveloperRegistered.new(data: {
+    ProjectManagement::DeveloperRegistered.new(data: {
       uuid:     developer_uuid,
       fullname: developer_fullname
     })

@@ -1,6 +1,6 @@
-require_dependency 'assignments'
+require_dependency 'project_management'
 
-module Assignments
+module ProjectManagement
   RSpec.describe 'Developer services' do
     specify 'register a new developer' do
       RegisterDeveloperService
@@ -17,7 +17,7 @@ module Assignments
     private
 
     def developer_registered
-      an_event(Assignments::DeveloperRegistered).with_data(developer_data)
+      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_data)
     end
 
     def developer_data

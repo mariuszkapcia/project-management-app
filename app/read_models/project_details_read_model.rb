@@ -1,12 +1,12 @@
 class ProjectDetailsReadModel
   def handle(event)
     case event
-      when Assignments::ProjectRegistered
+      when ProjectManagement::ProjectRegistered
         create_project(
           event.data[:uuid],
           event.data[:name]
         )
-      when Assignments::ProjectEstimated
+      when ProjectManagement::ProjectEstimated
         estimate_project(
           event.data[:uuid],
           event.data[:hours]

@@ -1,16 +1,16 @@
-require_dependency 'assignments'
+require_dependency 'project_management'
 
-module Assignments
+module ProjectManagement
   RSpec.describe 'Project aggregate' do
     specify 'register new project' do
-      project = Assignments::Project.new(project_uuid)
+      project = ProjectManagement::Project.new(project_uuid)
       project.register(project_name)
 
       expect(project).to(have_applied(project_registered))
     end
 
     specify 'estimate the project' do
-      project = Assignments::Project.new(project_uuid)
+      project = ProjectManagement::Project.new(project_uuid)
       project.register(project_name)
       project.estimate(project_estimation)
 
@@ -27,15 +27,15 @@ module Assignments
     private
 
     def project_registered
-      an_event(Assignments::ProjectRegistered).with_data(project_data)
+      an_event(ProjectManagement::ProjectRegistered).with_data(project_data)
     end
 
     def project_estimated
-      an_event(Assignments::ProjectEstimated).with_data(estimate_data)
+      an_event(ProjectManagement::ProjectEstimated).with_data(estimate_data)
     end
 
     def developer_assigned
-      an_event(Assignments::DeveloperAssignedToProject).with_data(developer_assigned_data)
+      an_event(ProjectManagement::DeveloperAssignedToProject).with_data(developer_assigned_data)
     end
 
     def project_data
