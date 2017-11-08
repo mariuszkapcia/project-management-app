@@ -14,6 +14,10 @@ class DevelopersReadModel
     ::Developer.all
   end
 
+  def find(uuid)
+    ::Developer.find(uuid)
+  end
+
   private
 
   def create_developer(uuid, fullname, email)

@@ -22,9 +22,12 @@ RSpec.describe 'Project requests', type: :request do
   end
 
   specify 'assign developer to the project' do
+    post '/developers', params: ignacy
+    expect(response).to have_http_status(201)
+
     post '/projects', params: project
     expect(response).to have_http_status(201)
-    put "/projects/#{project_uuid}/assign_developer", params: { developer_uuid: developer_uuid }
+    put "/projects/#{project_uuid}/assign_developer", params: { developer_uuid: ignacy_uuid }
     expect(response).to have_http_status(204)
   end
 
@@ -57,7 +60,15 @@ RSpec.describe 'Project requests', type: :request do
     40
   end
 
-  def developer_uuid
+  def ignacy
+    {
+      'uuid'     => ignacy_uuid,
+      'fullname' => 'Ignacy Ignacy',
+      'email'    => 'ignacy@onet.pl'
+    }
+  end
+
+  def ignacy_uuid
     'c45d96d9-cdb0-4eec-9092-b3ea6c264648'
   end
 

@@ -42,10 +42,12 @@ class ProjectsController < ApplicationController
   end
 
   def assign_developer_to_project
+    developer = DevelopersReadModel.new.find(params[:developer_uuid])
+
     ProjectManagement::AssignDeveloperToProject.new(
       project_uuid:       params[:uuid],
       developer_uuid:     params[:developer_uuid],
-      developer_fullname: ''
+      developer_fullname: developer.fullname
     )
   end
 end
