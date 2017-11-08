@@ -41,6 +41,9 @@ module Assignments
 
   class DeveloperRegistered < RailsEventStore::Event
   end
+
+  class DeveloperAssignedToProject < RailsEventStore::Event
+  end
 end
 
 require_dependency 'assignments/project_services'

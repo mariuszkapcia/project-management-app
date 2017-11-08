@@ -5,7 +5,8 @@ module Assignments
     include AggregateRoot
 
     def initialize(uuid)
-      @uuid  = uuid
+      @uuid       = uuid
+      @developers = []
     end
 
     def register(name)
@@ -22,12 +23,27 @@ module Assignments
       }))
     end
 
+    def assign_developer(uuid, fullname)
+      apply(Assignments::DeveloperAssignedToProject.new(data: {
+        project_uuid:       @uuid,
+        developer_uuid:     uuid,
+        developer_fullname: fullname
+      }))
+    end
+
     private
 
     def apply_project_registered(event)
     end
 
     def apply_project_estimated(event)
+    end
+
+    def apply_developer_assigned_to_project(event)
+      @developers << {
+        uuid:     event.data[:developer_uuid],
+        fullname: event.data[:developer_fullname]
+      }
     end
   end
 end

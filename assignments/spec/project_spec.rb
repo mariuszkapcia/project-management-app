@@ -17,6 +17,13 @@ module Assignments
       expect(project).to(have_applied(project_estimated))
     end
 
+    specify 'assign developer to the project' do
+      project = Assignments::Project.new(project_uuid)
+      project.assign_developer(developer_uuid, developer_fullname)
+
+      expect(project).to(have_applied(developer_assigned))
+    end
+
     private
 
     def project_registered
@@ -25,6 +32,10 @@ module Assignments
 
     def project_estimated
       an_event(Assignments::ProjectEstimated).with_data(estimate_data)
+    end
+
+    def developer_assigned
+      an_event(Assignments::DeveloperAssignedToProject).with_data(developer_assigned_data)
     end
 
     def project_data
@@ -41,6 +52,14 @@ module Assignments
       }
     end
 
+    def developer_assigned_data
+      {
+        project_uuid:       project_uuid,
+        developer_uuid:     developer_uuid,
+        developer_fullname: developer_fullname
+      }
+    end
+
     def project_uuid
       'ab6e9c30-2b1c-474d-824f-7b8f816ced99'
     end
@@ -51,6 +70,14 @@ module Assignments
 
     def project_estimation
       40
+    end
+
+    def developer_uuid
+      ''
+    end
+
+    def developer_fullname
+      'Ignacy Ignacy'
     end
   end
 end
