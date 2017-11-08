@@ -19,6 +19,12 @@ class ProjectsController < ApplicationController
     head :ok
   end
 
+  def assign_developer
+    command_bus.call(assign_developer_to_project)
+
+    head :no_content
+  end
+
   private
 
   def register_project
@@ -32,6 +38,14 @@ class ProjectsController < ApplicationController
     ProjectManagement::EstimateProject.new(
       uuid:  params[:uuid],
       hours: params[:hours]
+    )
+  end
+
+  def assign_developer_to_project
+    ProjectManagement::AssignDeveloperToProject.new(
+      project_uuid:       params[:uuid],
+      developer_uuid:     params[:developer_uuid],
+      developer_fullname: ''
     )
   end
 end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post '/projects', to: 'projects#create'
   put '/projects/:uuid/estimate', to: 'projects#estimate'
+  put '/projects/:uuid/assign_developer', to: 'projects#assign_developer'
   get '/projects', to: 'projects#index'
   get '/projects/:uuid', to: 'projects#show'
 

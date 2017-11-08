@@ -21,6 +21,13 @@ RSpec.describe 'Project requests', type: :request do
     expected_response(project_with_details)
   end
 
+  specify 'assign developer to the project' do
+    post '/projects', params: project
+    expect(response).to have_http_status(201)
+    put "/projects/#{project_uuid}/assign_developer", params: { developer_uuid: developer_uuid }
+    expect(response).to have_http_status(204)
+  end
+
   private
 
   def project
@@ -48,6 +55,10 @@ RSpec.describe 'Project requests', type: :request do
 
   def project_estimation
     40
+  end
+
+  def developer_uuid
+    'c45d96d9-cdb0-4eec-9092-b3ea6c264648'
   end
 
   def expected_response(expected)

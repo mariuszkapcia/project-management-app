@@ -12,6 +12,11 @@ command_bus.register(
 )
 
 command_bus.register(
+  ProjectManagement::AssignDeveloperToProject,
+  ProjectManagement::AssignDeveloperToProjectService.new(event_store: event_store)
+)
+
+command_bus.register(
   ProjectManagement::RegisterDeveloper,
   ProjectManagement::RegisterDeveloperService.new(event_store: event_store)
 )
