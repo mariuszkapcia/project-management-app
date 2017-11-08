@@ -18,7 +18,7 @@ module ProjectManagement
     end
 
     specify 'assign developer to the project' do
-      project = Assignments::Project.new(project_uuid)
+      project = ProjectManagement::Project.new(project_uuid)
       project.assign_developer(developer_uuid, developer_fullname)
 
       expect(project).to(have_applied(developer_assigned))
