@@ -18,5 +18,5 @@ command_bus.register(
 
 command_bus.register(
   ProjectManagement::RegisterDeveloper,
-  ProjectManagement::RegisterDeveloperService.new(event_store: event_store)
+  RegisterDeveloperService.new(event_store: event_store)
 )
