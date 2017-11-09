@@ -1,4 +1,4 @@
-class RegisterProjectService < ProjectService
+class RegisterProjectService < ProjectsService
   def initialize(event_store:)
     @event_store = event_store
   end

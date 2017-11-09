@@ -1,6 +1,6 @@
 require 'aggregate_root'
 
-class ProjectService
+class ProjectsService
 
   private
 

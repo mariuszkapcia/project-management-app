@@ -1,4 +1,4 @@
-class AssignDeveloperToProjectService < ProjectService
+class AssignDeveloperToProjectService < ProjectsService
   def initialize(event_store:)
     @event_store = event_store
   end
