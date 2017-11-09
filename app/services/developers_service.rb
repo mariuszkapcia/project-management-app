@@ -1,6 +1,6 @@
 require 'aggregate_root'
 
-class DeveloperService
+class DevelopersService
 
   private
 

@@ -1,4 +1,4 @@
-class RegisterDeveloperService < DeveloperService
+class RegisterDeveloperService < DevelopersService
   def initialize(event_store:)
     @event_store = event_store
   end
