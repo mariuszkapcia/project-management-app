@@ -1,15 +1,5 @@
 module ProjectManagement
   # Commands
-  class RegisterProject
-    attr_accessor :uuid
-    attr_accessor :name
-
-    def initialize(uuid:, name:)
-      @uuid = uuid
-      @name = name
-    end
-  end
-
   class EstimateProject
     attr_accessor :uuid
     attr_accessor :hours
@@ -57,6 +47,8 @@ module ProjectManagement
   class DeveloperAssignedToProject < RailsEventStore::Event
   end
 end
+
+require_dependency 'project_management/commands/register_project.rb'
 
 require_dependency 'project_management/project_services'
 require_dependency 'project_management/developer_services'
