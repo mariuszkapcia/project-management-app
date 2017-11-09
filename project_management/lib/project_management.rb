@@ -1,15 +1,5 @@
 module ProjectManagement
   # Commands
-  class EstimateProject
-    attr_accessor :uuid
-    attr_accessor :hours
-
-    def initialize(uuid:, hours:)
-      @uuid  = uuid
-      @hours = hours
-    end
-  end
-
   class AssignDeveloperToProject
     attr_accessor :project_uuid
     attr_accessor :developer_uuid
@@ -49,6 +39,7 @@ module ProjectManagement
 end
 
 require_dependency 'project_management/commands/register_project.rb'
+require_dependency 'project_management/commands/estimate_project.rb'
 
 require_dependency 'project_management/project_services'
 require_dependency 'project_management/developer_services'
