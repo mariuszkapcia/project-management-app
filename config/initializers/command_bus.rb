@@ -3,17 +3,17 @@ event_store = Rails.configuration.event_store
 
 command_bus.register(
   ProjectManagement::RegisterProject,
-  ProjectManagement::RegisterProjectService.new(event_store: event_store)
+  RegisterProjectService.new(event_store: event_store)
 )
 
 command_bus.register(
   ProjectManagement::EstimateProject,
-  ProjectManagement::EstimateProjectService.new(event_store: event_store)
+  EstimateProjectService.new(event_store: event_store)
 )
 
 command_bus.register(
   ProjectManagement::AssignDeveloperToProject,
-  ProjectManagement::AssignDeveloperToProjectService.new(event_store: event_store)
+  AssignDeveloperToProjectService.new(event_store: event_store)
 )
 
 command_bus.register(
