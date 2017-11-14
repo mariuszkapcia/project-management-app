@@ -8,19 +8,25 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    command_bus.call(register_project)
+    ProjectsService
+      .new(event_store: Rails.configuration.event_store)
+      .call(register_project)
 
     head :created
   end
 
   def estimate
-    command_bus.call(estimate_project)
+    ProjectsService
+      .new(event_store: Rails.configuration.event_store)
+      .call(estimate_project)
 
     head :no_content
   end
 
   def assign_developer
-    command_bus.call(assign_developer_to_project)
+    ProjectsService
+      .new(event_store: Rails.configuration.event_store)
+      .call(assign_developer_to_project)
 
     head :no_content
   end

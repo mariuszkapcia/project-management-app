@@ -1,48 +1,48 @@
-RSpec.describe 'Project services' do
+RSpec.describe 'ProjectsService' do
   specify 'register a new project' do
-    RegisterProjectService
+    ProjectsService
       .new(event_store: event_store)
-      .call(ProjectManagement::RegisterProject.new(
-        uuid: project_uuid,
-        name: 'awesome_project'
-      ))
+      .call(
+        ProjectManagement::RegisterProject.new(
+          uuid: project_uuid,
+          name: 'awesome_project')
+      )
 
       expect(event_store).to(have_published(project_registered))
   end
 
   specify 'estimate the project' do
-    RegisterProjectService
+    ProjectsService
       .new(event_store: event_store)
-      .call(ProjectManagement::RegisterProject.new(
-        uuid: project_uuid,
-        name: project_name
-      ))
-
-    EstimateProjectService
-      .new(event_store: event_store)
-      .call(ProjectManagement::EstimateProject.new(
-        uuid: project_uuid,
-        hours: project_estimation
-      ))
+      .call(
+        ProjectManagement::RegisterProject.new(
+          uuid: project_uuid,
+          name: project_name),
+        ProjectManagement::EstimateProject.new(
+          uuid: project_uuid,
+          hours: project_estimation)
+      )
 
     expect(event_store).to(have_published(project_estimated))
   end
 
   specify 'assign developer to the project' do
-    RegisterProjectService
+    ProjectsService
       .new(event_store: event_store)
-      .call(ProjectManagement::RegisterProject.new(
-        uuid: project_uuid,
-        name: project_name
-      ))
+      .call(
+        ProjectManagement::RegisterProject.new(
+          uuid: project_uuid,
+          name: project_name)
+      )
 
-    AssignDeveloperToProjectService
+    ProjectsService
       .new(event_store: event_store)
-      .call(ProjectManagement::AssignDeveloperToProject.new(
-        project_uuid:       project_uuid,
-        developer_uuid:     developer_uuid,
-        developer_fullname: developer_fullname
-      ))
+      .call(
+        ProjectManagement::AssignDeveloperToProject.new(
+          project_uuid:       project_uuid,
+          developer_uuid:     developer_uuid,
+          developer_fullname: developer_fullname)
+      )
 
       expect(event_store).to(have_published(developer_assigned))
   end
