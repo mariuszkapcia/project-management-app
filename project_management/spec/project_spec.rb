@@ -28,7 +28,8 @@ module ProjectManagement
       project          = ProjectManagement::Project.new(project_uuid)
       project_deadline = Time.current.yesterday.to_date.strftime('%d-%m-%Y')
 
-      expect{ project.assign_deadline(project_deadline) }.to raise_error ProjectManagement::DeadlineFromPast
+      expect{ project.assign_deadline(project_deadline) }
+        .to(raise_error(ProjectManagement::DeadlineFromPast))
     end
 
     specify 'assign developer to the project' do
