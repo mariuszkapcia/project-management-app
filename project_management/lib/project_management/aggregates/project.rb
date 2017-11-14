@@ -42,6 +42,14 @@ module ProjectManagement
       }))
     end
 
+    def assign_developer_working_hours(developer_uuid, hours_per_week)
+      apply(ProjectManagement::DeveloperWorkingHoursForProjectAssigned.new(data: {
+        project_uuid:   @uuid,
+        developer_uuid: developer_uuid,
+        hours_per_week: hours_per_week
+      }))
+    end
+
     private
 
     def apply_project_registered(event)
@@ -58,6 +66,9 @@ module ProjectManagement
     end
 
     def apply_deadline_assigned_to_project(event)
+    end
+
+    def apply_developer_working_hours_for_project_assigned(event)
     end
   end
 end

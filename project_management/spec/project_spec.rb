@@ -39,6 +39,13 @@ module ProjectManagement
       expect(project).to(have_applied(developer_assigned))
     end
 
+    specify 'assign developer working hours per week' do
+      project = ProjectManagement::Project.new(project_uuid)
+      project.assign_developer_working_hours(developer_uuid, developer_hours_per_week)
+
+      expect(project).to(have_applied(developer_working_hours_assigned))
+    end
+
     private
 
     def project_registered
@@ -55,6 +62,11 @@ module ProjectManagement
 
     def deadline_assigned
       an_event(ProjectManagement::DeadlineAssignedToProject).with_data(deadline_assigned_data)
+    end
+
+    def developer_working_hours_assigned
+      an_event(ProjectManagement::DeveloperWorkingHoursForProjectAssigned)
+        .with_data(developer_working_hours_assigned_data)
     end
 
     def project_data
@@ -86,6 +98,14 @@ module ProjectManagement
       }
     end
 
+    def developer_working_hours_assigned_data
+      {
+        project_uuid:   project_uuid,
+        developer_uuid: developer_uuid,
+        hours_per_week: developer_hours_per_week
+      }
+    end
+
     def project_uuid
       'ab6e9c30-2b1c-474d-824f-7b8f816ced99'
     end
@@ -108,6 +128,10 @@ module ProjectManagement
 
     def developer_fullname
       'Ignacy Ignacy'
+    end
+
+    def developer_hours_per_week
+      20
     end
   end
 end

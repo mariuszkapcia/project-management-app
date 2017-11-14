@@ -11,6 +11,7 @@ require_dependency 'project_management/domain_events/project_estimated.rb'
 require_dependency 'project_management/domain_events/developer_registered.rb'
 require_dependency 'project_management/domain_events/developer_assigned_to_project.rb'
 require_dependency 'project_management/domain_events/deadline_assigned_to_project.rb'
+require_dependency 'project_management/domain_events/developer_working_hours_for_project_assigned.rb'
 
 require_dependency 'project_management/aggregates/developer.rb'
 require_dependency 'project_management/aggregates/project.rb'
