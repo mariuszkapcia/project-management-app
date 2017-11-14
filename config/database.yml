@@ -5,12 +5,12 @@ default: &default
 
 development:
   <<: *default
-  database: recruitment_app_development
+  database: project_management_app_development
 
 test:
   <<: *default
-  database: recruitment_app_test
+  database: project_management_app_test
 
 production:
   <<: *default
-  database: recruitment_app_production
+  database: project_management_app_production

@@ -17,7 +17,7 @@ require 'aggregate_root'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module RecruitmentApp
+module ProjectManagementApp
   class Application < Rails::Application
     config.paths.add 'project_management/lib', eager_load: true
     # Initialize configuration defaults for originally generated Rails version.
