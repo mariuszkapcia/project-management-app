@@ -17,6 +17,20 @@ module ProjectManagement
       expect(project).to(have_applied(project_estimated))
     end
 
+    specify 'assign deadline for the project' do
+      project = ProjectManagement::Project.new(project_uuid)
+      project.assign_deadline(project_deadline)
+
+      expect(project).to(have_applied(deadline_assigned))
+    end
+
+    specify 'assigning deadline from the past is forbidden' do
+      project          = ProjectManagement::Project.new(project_uuid)
+      project_deadline = Time.current.yesterday.to_date.strftime('%d-%m-%Y')
+
+      expect{ project.assign_deadline(project_deadline) }.to raise_error ProjectManagement::DeadlineFromPast
+    end
+
     specify 'assign developer to the project' do
       project = ProjectManagement::Project.new(project_uuid)
       project.assign_developer(developer_uuid, developer_fullname)
@@ -36,6 +50,10 @@ module ProjectManagement
 
     def developer_assigned
       an_event(ProjectManagement::DeveloperAssignedToProject).with_data(developer_assigned_data)
+    end
+
+    def deadline_assigned
+      an_event(ProjectManagement::DeadlineAssignedToProject).with_data(deadline_assigned_data)
     end
 
     def project_data
@@ -60,6 +78,13 @@ module ProjectManagement
       }
     end
 
+    def deadline_assigned_data
+      {
+        uuid:     project_uuid,
+        deadline: project_deadline
+      }
+    end
+
     def project_uuid
       'ab6e9c30-2b1c-474d-824f-7b8f816ced99'
     end
@@ -70,6 +95,10 @@ module ProjectManagement
 
     def project_estimation
       40
+    end
+
+    def project_deadline
+      Time.current.to_date.strftime('%d-%m-%Y')
     end
 
     def developer_uuid
