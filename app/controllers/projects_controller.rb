@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   def estimate
     command_bus.call(estimate_project)
 
-    head :ok
+    head :no_content
   end
 
   def assign_developer
