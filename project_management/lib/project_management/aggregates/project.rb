@@ -1,7 +1,8 @@
 require 'aggregate_root'
 
 module ProjectManagement
-  DeadlineFromPast = Class.new(StandardError)
+  DeadlineFromPast     = Class.new(StandardError)
+  HoursPerWeekExceeded = Class.new(StandardError)
 
   class Project
     include AggregateRoot
@@ -43,6 +44,8 @@ module ProjectManagement
     end
 
     def assign_developer_working_hours(developer_uuid, hours_per_week)
+      raise HoursPerWeekExceeded if hours_per_week > 40
+
       apply(ProjectManagement::DeveloperWorkingHoursForProjectAssigned.new(data: {
         project_uuid:   @uuid,
         developer_uuid: developer_uuid,

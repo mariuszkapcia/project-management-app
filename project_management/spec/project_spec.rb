@@ -46,6 +46,14 @@ module ProjectManagement
       expect(project).to(have_applied(developer_working_hours_assigned))
     end
 
+    specify 'cannot assign more then 40 working hours per week' do
+      project        = ProjectManagement::Project.new(project_uuid)
+      hours_per_week = 50
+
+      expect{ project.assign_developer_working_hours(developer_uuid, hours_per_week) }
+        .to(raise_error(ProjectManagement::HoursPerWeekExceeded))
+    end
+
     private
 
     def project_registered
