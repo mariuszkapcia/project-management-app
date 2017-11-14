@@ -15,8 +15,3 @@ command_bus.register(
   ProjectManagement::AssignDeveloperToProject,
   AssignDeveloperToProjectService.new(event_store: event_store)
 )
-
-command_bus.register(
-  ProjectManagement::RegisterDeveloper,
-  RegisterDeveloperService.new(event_store: event_store)
-)

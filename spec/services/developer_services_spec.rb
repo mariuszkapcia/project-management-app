@@ -1,6 +1,6 @@
-RSpec.describe 'Developer services' do
+RSpec.describe 'DevelopersService' do
   specify 'register a new developer' do
-    RegisterDeveloperService
+    DevelopersService
       .new(event_store: event_store)
       .call(ProjectManagement::RegisterDeveloper.new(
         uuid:     developer_uuid,

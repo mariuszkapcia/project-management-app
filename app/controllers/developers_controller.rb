@@ -4,7 +4,9 @@ class DevelopersController < ApplicationController
   end
 
   def create
-    command_bus.call(register_developer)
+    DevelopersService
+      .new(event_store: Rails.configuration.event_store)
+      .call(register_developer)
 
     head :created
   end
