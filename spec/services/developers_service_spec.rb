@@ -2,11 +2,12 @@ RSpec.describe 'DevelopersService' do
   specify 'register a new developer' do
     DevelopersService
       .new(event_store: event_store)
-      .call(ProjectManagement::RegisterDeveloper.new(
-        uuid:     developer_uuid,
-        fullname: developer_fullname,
-        email:    developer_email
-      ))
+      .call(
+        ProjectManagement::RegisterDeveloper.new(
+          uuid:     developer_uuid,
+          fullname: developer_fullname,
+          email:    developer_email)
+      )
 
     expect(event_store).to(have_published(developer_registered))
   end
