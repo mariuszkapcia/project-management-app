@@ -1,9 +1,9 @@
 module ProjectManagement
-  DeadlineFromPast     = Class.new(StandardError)
-  HoursPerWeekExceeded = Class.new(StandardError)
-
   class Project
     include AggregateRoot
+
+    DeadlineFromPast     = Class.new(StandardError)
+    HoursPerWeekExceeded = Class.new(StandardError)
 
     def initialize(uuid)
       @uuid       = uuid

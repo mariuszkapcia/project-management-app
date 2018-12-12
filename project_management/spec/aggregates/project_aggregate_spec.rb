@@ -29,7 +29,7 @@ module ProjectManagement
       project_deadline = Time.current.yesterday.to_date.strftime('%d-%m-%Y')
 
       expect{ project.assign_deadline(project_deadline) }
-        .to(raise_error(ProjectManagement::DeadlineFromPast))
+        .to(raise_error(ProjectManagement::Project::DeadlineFromPast))
     end
 
     specify 'assign developer to the project' do
@@ -51,7 +51,7 @@ module ProjectManagement
       hours_per_week = 50
 
       expect{ project.assign_developer_working_hours(developer_uuid, hours_per_week) }
-        .to(raise_error(ProjectManagement::HoursPerWeekExceeded))
+        .to(raise_error(ProjectManagement::Project::HoursPerWeekExceeded))
     end
 
     private
