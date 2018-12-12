@@ -1,4 +1,4 @@
-# Domain-driven design, CQRS, and Event Sorucing demo application
+# Domain-driven design, CQRS, and Event Sourcing demo application
 
 ## Ruby version
 
