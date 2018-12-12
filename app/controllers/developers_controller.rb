@@ -5,7 +5,7 @@ class DevelopersController < ApplicationController
 
   def create
     DevelopersService
-      .new(event_store: Rails.configuration.event_store)
+      .new(event_store: event_store)
       .call(register_developer)
 
     head :created
@@ -19,5 +19,9 @@ class DevelopersController < ApplicationController
       fullname: params[:fullname],
       email:    params[:email]
     )
+  end
+
+  def event_store
+    Rails.configuration.event_store
   end
 end
