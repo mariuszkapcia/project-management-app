@@ -1,5 +1,5 @@
 class ProjectsReadModel
-  def handle(event)
+  def call(event)
     case event
       when ProjectManagement::ProjectRegistered
         create_project(

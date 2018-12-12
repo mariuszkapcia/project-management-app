@@ -1,5 +1,5 @@
 class DevelopersReadModel
-  def handle(event)
+  def call(event)
     case event
       when ProjectManagement::DeveloperRegistered
         create_developer(

@@ -1,6 +1,6 @@
 RSpec.describe 'Projects read model' do
   specify 'creates project' do
-    projects_read_model.handle(project_registered)
+    projects_read_model.call(project_registered)
     expect(projects_read_model.all.size).to eq(1)
     assert_project_correct
   end

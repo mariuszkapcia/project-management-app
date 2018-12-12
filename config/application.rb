@@ -11,7 +11,6 @@ require 'action_view/railtie'
 # require 'action_cable/engine'
 # require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
-require 'aggregate_root'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -32,11 +31,8 @@ module ProjectManagementApp
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.event_store = RailsEventStore::Client.new
-    config.command_bus = Arkency::CommandBus.new
+    config.to_prepare do
+      Rails.configuration.event_store = RailsEventStore::Client.new
+    end
   end
-end
-
-AggregateRoot.configure do |config|
-  config.default_event_store = Rails.configuration.event_store
 end

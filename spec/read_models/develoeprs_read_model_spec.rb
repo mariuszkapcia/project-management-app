@@ -1,6 +1,6 @@
 RSpec.describe 'Developers read model' do
   specify 'creates developer' do
-    developers_read_model.handle(developer_registered)
+    developers_read_model.call(developer_registered)
     expect(developers_read_model.all.size).to eq(1)
     assert_developer_correct
   end

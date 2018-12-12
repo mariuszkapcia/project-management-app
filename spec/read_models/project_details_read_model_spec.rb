@@ -1,20 +1,20 @@
 RSpec.describe 'Project details read model' do
   specify 'creates project' do
-    project_details_read_model.handle(project_registered)
+    project_details_read_model.call(project_registered)
     expect(project_details_read_model.all.size).to eq(1)
     assert_project_correct
   end
 
   specify 'estimate the project' do
-    project_details_read_model.handle(project_registered)
-    project_details_read_model.handle(project_estimated)
+    project_details_read_model.call(project_registered)
+    project_details_read_model.call(project_estimated)
     expect(project_details_read_model.all.size).to eq(1)
     assert_project_with_estimation_correct
   end
 
   specify 'assign developer to the project' do
-    project_details_read_model.handle(project_registered)
-    project_details_read_model.handle(developer_assigned)
+    project_details_read_model.call(project_registered)
+    project_details_read_model.call(developer_assigned)
     expect(project_details_read_model.all.size).to eq(1)
     assert_project_with_developers_correct
   end

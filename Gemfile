@@ -12,7 +12,7 @@ gem 'puma', '~> 3.7'
 group :development, :test do
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.7', '>= 3.7.1'
-  gem 'rails_event_store-rspec', '~> 0.18.2'
+  gem 'rails_event_store-rspec', '~> 0.35.0'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.2', require: false
 end
 
@@ -24,6 +24,5 @@ end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'rails_event_store', '~> 0.18.2'
+gem 'rails_event_store', '~> 0.35.0'
 gem 'arkency-command_bus', '~> 0.4.0'
-gem 'bounded_context', '~> 0.18.2'
