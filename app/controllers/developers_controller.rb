@@ -4,7 +4,7 @@ class DevelopersController < ApplicationController
   end
 
   def create
-    DevelopersService
+    ProjectManagement::DevelopersCommandHandler
       .new(event_store: event_store)
       .call(register_developer)
 
