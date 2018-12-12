@@ -11,14 +11,14 @@ module ProjectManagement
     end
 
     def register(name)
-      apply(ProjectManagement::ProjectRegistered.new(data: {
+      apply(ProjectManagement::ProjectRegistered.strict(data: {
         uuid: @uuid,
         name: name
       }))
     end
 
     def estimate(hours)
-      apply(ProjectManagement::ProjectEstimated.new(data: {
+      apply(ProjectManagement::ProjectEstimated.strict(data: {
         uuid:  @uuid,
         hours: hours
       }))
@@ -27,14 +27,14 @@ module ProjectManagement
     def assign_deadline(deadline)
       raise DeadlineFromPast if deadline.to_date < Time.current.to_date
 
-      apply(ProjectManagement::DeadlineAssignedToProject.new(data: {
+      apply(ProjectManagement::DeadlineAssignedToProject.strict(data: {
         uuid:     @uuid,
         deadline: deadline
       }))
     end
 
     def assign_developer(uuid, fullname)
-      apply(ProjectManagement::DeveloperAssignedToProject.new(data: {
+      apply(ProjectManagement::DeveloperAssignedToProject.strict(data: {
         project_uuid:       @uuid,
         developer_uuid:     uuid,
         developer_fullname: fullname
@@ -44,7 +44,7 @@ module ProjectManagement
     def assign_developer_working_hours(developer_uuid, hours_per_week)
       raise HoursPerWeekExceeded if hours_per_week > 40
 
-      apply(ProjectManagement::DeveloperWorkingHoursForProjectAssigned.new(data: {
+      apply(ProjectManagement::DeveloperWorkingHoursForProjectAssigned.strict(data: {
         project_uuid:   @uuid,
         developer_uuid: developer_uuid,
         hours_per_week: hours_per_week

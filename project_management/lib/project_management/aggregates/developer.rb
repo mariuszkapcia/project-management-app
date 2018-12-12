@@ -7,7 +7,7 @@ module ProjectManagement
     end
 
     def register(fullname, email)
-      apply(ProjectManagement::DeveloperRegistered.new(data: {
+      apply(ProjectManagement::DeveloperRegistered.strict(data: {
         uuid:     @uuid,
         fullname: fullname,
         email:    email

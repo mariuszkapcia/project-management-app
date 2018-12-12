@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   def estimate_project
     ProjectManagement::EstimateProject.new(
       uuid:  params[:uuid],
-      hours: params[:hours]
+      hours: params[:hours].to_i
     )
   end
 
