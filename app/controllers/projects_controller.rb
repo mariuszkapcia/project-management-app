@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 
   def create
     ProjectsService
-      .new(event_store: Rails.configuration.event_store)
+      .new(event_store: event_store)
       .call(register_project)
 
     head :created
@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
 
   def estimate
     ProjectsService
-      .new(event_store: Rails.configuration.event_store)
+      .new(event_store: event_store)
       .call(estimate_project)
 
     head :no_content
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
 
   def assign_developer
     ProjectsService
-      .new(event_store: Rails.configuration.event_store)
+      .new(event_store: event_store)
       .call(assign_developer_to_project)
 
     head :no_content
@@ -55,5 +55,9 @@ class ProjectsController < ApplicationController
       developer_uuid:     params[:developer_uuid],
       developer_fullname: developer.fullname
     )
+  end
+
+  def event_store
+    Rails.configuration.event_store
   end
 end
