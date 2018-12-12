@@ -26,3 +26,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails_event_store', '~> 0.35.0'
 gem 'arkency-command_bus', '~> 0.4.0'
+gem 'sprockets', '~> 3.7', '>= 3.7.2'
