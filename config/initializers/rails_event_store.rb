@@ -17,7 +17,7 @@ Rails.configuration.to_prepare do
     )
 
     es.subscribe(
-      DevelopersReadModel,
+      UI::DeveloperListReadModel,
       to: [
         ProjectManagement::DeveloperRegistered
       ]

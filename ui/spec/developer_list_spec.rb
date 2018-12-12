@@ -1,7 +1,7 @@
 RSpec.describe 'Developers read model' do
   specify 'creates developer' do
-    developers_read_model.call(developer_registered)
-    expect(developers_read_model.all.size).to eq(1)
+    read_model.call(developer_registered)
+    expect(read_model.all.size).to eq(1)
     assert_developer_correct
   end
 
@@ -27,11 +27,11 @@ RSpec.describe 'Developers read model' do
     'Ignacy Ignacy'
   end
 
-  def developers_read_model
-    @developers_read_model ||= DevelopersReadModel.new
+  def read_model
+    @developer_list_read_model ||= UI::DeveloperListReadModel.new
   end
 
   def first_developer
-    developers_read_model.all.first
+    read_model.all.first
   end
 end

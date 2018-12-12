@@ -1,6 +1,6 @@
 class DevelopersController < ApplicationController
   def index
-    render json: DevelopersReadModel.new.all, status: :ok
+    render json: UI::DeveloperListReadModel.new.all, status: :ok
   end
 
   def create

@@ -18,17 +18,11 @@ Bundler.require(*Rails.groups)
 
 module ProjectManagementApp
   class Application < Rails::Application
-    config.paths.add 'project_management/lib', eager_load: true
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    config.paths.add 'project_management/lib', eager_load: true
+    config.paths.add 'ui/lib',                 eager_load: true
 
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
     config.to_prepare do
