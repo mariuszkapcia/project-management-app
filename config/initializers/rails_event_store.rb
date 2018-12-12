@@ -1,7 +1,7 @@
 Rails.configuration.to_prepare do
   Rails.configuration.event_store.tap do |es|
     es.subscribe(
-      ProjectsReadModel,
+      UI::ProjectListReadModel,
       to: [
         ProjectManagement::ProjectRegistered
       ]

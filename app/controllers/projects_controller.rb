@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    render json: ProjectsReadModel.new.all, status: :ok
+    render json: UI::ProjectListReadModel.new.all, status: :ok
   end
 
   def show
