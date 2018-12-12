@@ -10,17 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212230427) do
+ActiveRecord::Schema.define(version: 20181212232327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pgcrypto"
-
-  create_table "developers", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
-    t.string "fullname"
-    t.string "email"
-    t.index ["email"], name: "index_developers_on_email", unique: true
-  end
 
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "event_type", null: false
@@ -40,13 +34,19 @@ ActiveRecord::Schema.define(version: 20181212230427) do
     t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
   end
 
-  create_table "project_details", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
+  create_table "ui_developer_list_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
+    t.string "fullname"
+    t.string "email"
+    t.index ["email"], name: "index_ui_developer_list_read_model_on_email", unique: true
+  end
+
+  create_table "ui_project_details_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
     t.string "name"
     t.integer "estimation_in_hours"
     t.jsonb "developers", default: []
   end
 
-  create_table "projects", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
+  create_table "ui_project_list_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
     t.string "name"
   end
 
