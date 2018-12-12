@@ -17,3 +17,4 @@ require_dependency 'project_management/aggregates/developer.rb'
 require_dependency 'project_management/aggregates/project.rb'
 
 require_dependency 'project_management/command_handlers/developers_command_handler.rb'
+require_dependency 'project_management/command_handlers/projects_command_handler.rb'

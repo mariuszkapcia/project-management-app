@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    ProjectsService
+    ProjectManagement::ProjectsCommandHandler
       .new(event_store: event_store)
       .call(register_project)
 
@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   end
 
   def estimate
-    ProjectsService
+    ProjectManagement::ProjectsCommandHandler
       .new(event_store: event_store)
       .call(estimate_project)
 
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   end
 
   def assign_developer
-    ProjectsService
+    ProjectManagement::ProjectsCommandHandler
       .new(event_store: event_store)
       .call(assign_developer_to_project)
 
