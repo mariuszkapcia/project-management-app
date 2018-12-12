@@ -8,7 +8,7 @@ Rails.configuration.to_prepare do
     )
 
     es.subscribe(
-      ProjectDetailsReadModel,
+      UI::ProjectDetailsReadModel,
       to: [
         ProjectManagement::ProjectRegistered,
         ProjectManagement::ProjectEstimated,

@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    render json: ProjectDetailsReadModel.new.find(params[:uuid]), status: :ok
+    render json: UI::ProjectDetailsReadModel.new.find(params[:uuid]), status: :ok
   end
 
   def create
