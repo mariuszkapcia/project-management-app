@@ -1,5 +1,3 @@
-require 'aggregate_root'
-
 module ProjectManagement
   DeadlineFromPast     = Class.new(StandardError)
   HoursPerWeekExceeded = Class.new(StandardError)

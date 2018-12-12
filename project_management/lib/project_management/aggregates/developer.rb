@@ -1,5 +1,3 @@
-require 'aggregate_root'
-
 module ProjectManagement
   class Developer
     include AggregateRoot

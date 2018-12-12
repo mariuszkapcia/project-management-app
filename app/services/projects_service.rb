@@ -1,5 +1,3 @@
-require 'aggregate_root'
-
 class ProjectsService
   def initialize(event_store:)
     @event_store = event_store
