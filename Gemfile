@@ -26,4 +26,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails_event_store', '~> 0.35.0'
 gem 'arkency-command_bus', '~> 0.4.0'
+
+# NOTE: Github detected some potential security vulnerabilities
 gem 'sprockets', '~> 3.7', '>= 3.7.2'
+gem 'ffi', '~> 1.9', '>= 1.9.25'
+gem 'nokogiri', '~> 1.8', '>= 1.8.5'
+gem 'activejob', '~> 5.1', '>= 5.1.6.1'
+gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
+gem 'loofah', '~> 2.2', '>= 2.2.3'
