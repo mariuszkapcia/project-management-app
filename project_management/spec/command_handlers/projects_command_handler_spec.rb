@@ -1,62 +1,34 @@
 require_dependency 'project_management'
 
 require_relative '../support/test_attributes'
+require_relative '../support/test_actors'
 
 module ProjectManagement
   RSpec.describe 'ProjectsCommandHandler' do
     include TestAttributes
+    include TestActors
 
     specify 'register a new project' do
-      ProjectManagement::ProjectsCommandHandler
-        .new(event_store: event_store)
-        .call(
-          ProjectManagement::RegisterProject.new(
-            uuid: project_topsecretdddproject[:uuid],
-            name: project_topsecretdddproject[:name]
-          )
-        )
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
 
-        expect(event_store).to(have_published(project_registered))
+      expect(event_store).to(have_published(project_registered))
     end
 
     specify 'estimate the project' do
-      ProjectManagement::ProjectsCommandHandler
-        .new(event_store: event_store)
-        .call(
-          ProjectManagement::RegisterProject.new(
-            uuid: project_topsecretdddproject[:uuid],
-            name: project_topsecretdddproject[:name]
-          ),
-          ProjectManagement::EstimateProject.new(
-            uuid:  project_topsecretdddproject[:uuid],
-            hours: project_topsecretdddproject[:estimation]
-          )
-        )
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
+      project.estimate(project_topsecretdddproject[:estimation])
 
       expect(event_store).to(have_published(project_estimated))
     end
 
     specify 'assign developer to the project' do
-      ProjectManagement::ProjectsCommandHandler
-        .new(event_store: event_store)
-        .call(
-          ProjectManagement::RegisterProject.new(
-            uuid: project_topsecretdddproject[:uuid],
-            name: project_topsecretdddproject[:name]
-          )
-        )
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
+      project.assign_developer(developer_ignacy)
 
-      ProjectManagement::ProjectsCommandHandler
-        .new(event_store: event_store)
-        .call(
-          ProjectManagement::AssignDeveloperToProject.new(
-            project_uuid:       project_topsecretdddproject[:uuid],
-            developer_uuid:     developer_ignacy[:uuid],
-            developer_fullname: developer_ignacy[:fullname]
-          )
-        )
-
-        expect(event_store).to(have_published(developer_assigned))
+      expect(event_store).to(have_published(developer_assigned))
     end
 
     private

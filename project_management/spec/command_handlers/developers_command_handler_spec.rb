@@ -1,21 +1,16 @@
 require_dependency 'project_management'
 
 require_relative '../support/test_attributes'
+require_relative '../support/test_actors'
 
 module ProjectManagement
   RSpec.describe 'DevelopersCommandHandler' do
     include TestAttributes
+    include TestActors
 
     specify 'register a new developer' do
-      ProjectManagement::DevelopersCommandHandler
-        .new(event_store: event_store)
-        .call(
-          ProjectManagement::RegisterDeveloper.new(
-            uuid:     developer_ignacy[:uuid],
-            fullname: developer_ignacy[:fullname],
-            email:    developer_ignacy[:email]
-          )
-        )
+      developer = instance_of_developer(event_store: event_store)
+      developer.register(developer_ignacy)
 
       expect(event_store).to(have_published(developer_registered))
     end
