@@ -52,6 +52,15 @@ module ProjectManagement
       expect(project).to(have_applied(developer_assigned))
     end
 
+    specify 'cannot assign same developer twice' do
+      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.assign_developer(developer_ignacy[:uuid], developer_ignacy[:fullname])
+
+      expect do
+        project.assign_developer(developer_ignacy[:uuid], developer_ignacy[:fullname])
+      end.to raise_error(ProjectManagement::Project::DeveloperAlreadyAssigned)
+    end
+
     specify 'assign developer working hours per week' do
       project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
       project.assign_developer_working_hours(developer_ignacy[:uuid], developer_ignacy[:hours_per_week])

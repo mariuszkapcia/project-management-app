@@ -5,6 +5,7 @@ module ProjectManagement
     HasBeenAlreadyRegistered = Class.new(StandardError)
     DeadlineFromPast         = Class.new(StandardError)
     HoursPerWeekExceeded     = Class.new(StandardError)
+    DeveloperAlreadyAssigned = Class.new(StandardError)
 
     def initialize(uuid)
       @uuid       = uuid
@@ -38,6 +39,8 @@ module ProjectManagement
     end
 
     def assign_developer(uuid, fullname)
+      raise DeveloperAlreadyAssigned if @developers.any? { |developer| developer[:uuid] == uuid }
+
       apply(ProjectManagement::DeveloperAssignedToProject.strict(data: {
         project_uuid:       @uuid,
         developer_uuid:     uuid,
