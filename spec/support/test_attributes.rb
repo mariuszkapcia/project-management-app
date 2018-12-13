@@ -9,11 +9,13 @@ module TestAttributes
   end
 
   def project_topsecretdddproject
+    @deadline ||= 1.hour.from_now.utc.to_datetime
+
     {
       uuid:       'ab6e9c30-2b1c-474d-824f-7b8f816ced99',
       name:       '#TopSecretDDDProject',
       estimation: 40,
-      deadline:   Time.current.to_date.strftime('%d-%m-%Y')
+      deadline:   @deadline
     }
   end
 end
