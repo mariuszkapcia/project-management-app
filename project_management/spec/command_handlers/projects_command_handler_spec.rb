@@ -35,6 +35,19 @@ module ProjectManagement
       expect(event_store).to(have_published(developer_assigned))
     end
 
+    specify 'assign developer working hours in the project' do
+      # TODO: Pass faked DeveloperList read model to Projects command handler.
+      developer = instance_of_developer(event_store: event_store)
+      developer.register(developer_ignacy)
+
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
+      project.assign_developer(developer_ignacy)
+      project.assign_developer_working_hours(developer_ignacy[:uuid], developer_ignacy[:hours_per_week])
+
+      expect(event_store).to(have_published(developer_working_hours_for_project_assigned))
+    end
+
     private
 
     def project_registered
@@ -47,6 +60,12 @@ module ProjectManagement
 
     def developer_assigned
       an_event(ProjectManagement::DeveloperAssignedToProject).with_data(developer_assigned_data).strict
+    end
+
+    def developer_working_hours_for_project_assigned
+      an_event(ProjectManagement::DeveloperWorkingHoursForProjectAssigned)
+        .with_data(developer_working_hours_for_project_assigned_data)
+        .strict
     end
 
     def project_registered_data
@@ -68,6 +87,14 @@ module ProjectManagement
         project_uuid:       project_topsecretdddproject[:uuid],
         developer_uuid:     developer_ignacy[:uuid],
         developer_fullname: developer_ignacy[:fullname]
+      }
+    end
+
+    def developer_working_hours_for_project_assigned_data
+      {
+        project_uuid:   project_topsecretdddproject[:uuid],
+        developer_uuid: developer_ignacy[:uuid],
+        hours_per_week: developer_ignacy[:hours_per_week]
       }
     end
 

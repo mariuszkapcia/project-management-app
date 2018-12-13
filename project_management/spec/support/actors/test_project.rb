@@ -36,6 +36,18 @@ module ProjectManagement
         )
     end
 
+    def assign_developer_working_hours(developer_uuid, hours_per_week)
+      @command_handler
+        .new(event_store: @event_store)
+        .call(
+          ProjectManagement::AssignDeveloperWorkingHours.new(
+            project_uuid:   @uuid,
+            developer_uuid: developer_uuid,
+            hours_per_week: hours_per_week
+          )
+        )
+    end
+
     private
 
     def initialize(event_store: Rails.configuration.event_store)

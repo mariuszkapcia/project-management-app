@@ -7,9 +7,10 @@ module ProjectManagement
       @developer_list_read_model = DeveloperList::Retriever.new(event_store: @event_store)
       @command_bus               = Arkency::CommandBus.new
       {
-        ProjectManagement::RegisterProject          => method(:register),
-        ProjectManagement::EstimateProject          => method(:estimate),
-        ProjectManagement::AssignDeveloperToProject => method(:assign_developer)
+        ProjectManagement::RegisterProject             => method(:register),
+        ProjectManagement::EstimateProject             => method(:estimate),
+        ProjectManagement::AssignDeveloperToProject    => method(:assign_developer),
+        ProjectManagement::AssignDeveloperWorkingHours => method(:assign_developer_working_hours)
       }.map{ |klass, handler| @command_bus.register(klass, handler) }
     end
 
@@ -49,6 +50,16 @@ module ProjectManagement
       ActiveRecord::Base.transaction do
         with_project(cmd.project_uuid) do |project|
           project.assign_developer(cmd.developer_uuid, cmd.developer_fullname)
+        end
+      end
+    end
+
+    def assign_developer_working_hours(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_project(cmd.project_uuid) do |project|
+          project.assign_developer_working_hours(cmd.developer_uuid, cmd.hours_per_week)
         end
       end
     end
