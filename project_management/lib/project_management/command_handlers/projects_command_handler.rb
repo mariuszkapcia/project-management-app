@@ -18,21 +18,33 @@ module ProjectManagement
 
     private
 
-    def register(command)
-      with_project(command.uuid) do |project|
-        project.register(command.name)
+    def register(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_project(cmd.uuid) do |project|
+          project.register(cmd.name)
+        end
       end
     end
 
-    def estimate(command)
-      with_project(command.uuid) do |project|
-        project.estimate(command.hours)
+    def estimate(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_project(cmd.uuid) do |project|
+          project.estimate(cmd.hours)
+        end
       end
     end
 
-    def assign_developer(command)
-      with_project(command.project_uuid) do |project|
-        project.assign_developer(command.developer_uuid, command.developer_fullname)
+    def assign_developer(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_project(cmd.project_uuid) do |project|
+          project.assign_developer(cmd.developer_uuid, cmd.developer_fullname)
+        end
       end
     end
 

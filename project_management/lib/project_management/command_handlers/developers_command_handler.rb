@@ -16,9 +16,13 @@ module ProjectManagement
 
     private
 
-    def register(command)
-      with_developer(command.uuid) do |developer|
-        developer.register(command.fullname, command.email)
+    def register(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_developer(cmd.uuid) do |developer|
+          developer.register(cmd.fullname, cmd.email)
+        end
       end
     end
 
