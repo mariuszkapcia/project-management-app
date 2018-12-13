@@ -1,10 +1,14 @@
 require_dependency 'project_management'
 
+require_relative '../support/test_attributes'
+
 module ProjectManagement
   RSpec.describe 'Developer aggregate' do
+    include TestAttributes
+
     specify 'register a new developer' do
-      developer = ProjectManagement::Developer.new(developer_uuid)
-      developer.register(developer_fullname, developer_email)
+      developer = ProjectManagement::Developer.new(developer_ignacy[:uuid])
+      developer.register(developer_ignacy[:fullname], developer_ignacy[:email])
 
       expect(developer).to(have_applied(developer_registered))
     end
@@ -12,27 +16,15 @@ module ProjectManagement
     private
 
     def developer_registered
-      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_data).strict
+      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_registered_data).strict
     end
 
-    def developer_data
+    def developer_registered_data
       {
-        uuid:     developer_uuid,
-        fullname: developer_fullname,
-        email:    developer_email
+        uuid:     developer_ignacy[:uuid],
+        fullname: developer_ignacy[:fullname],
+        email:    developer_ignacy[:email]
       }
-    end
-
-    def developer_uuid
-      '62147dcd-d315-4120-b7ec-f6b00d10c223'
-    end
-
-    def developer_fullname
-      'Ignacy Ignacy'
-    end
-
-    def developer_email
-      'ignacy@gmail.com'
     end
   end
 end
