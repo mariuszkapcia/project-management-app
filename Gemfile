@@ -35,3 +35,8 @@ gem 'nokogiri', '~> 1.8', '>= 1.8.5'
 gem 'activejob', '~> 5.1', '>= 5.1.6.1'
 gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
 gem 'loofah', '~> 2.2', '>= 2.2.3'
+
+# NOTE: UI
+gem 'sassc-rails', '~> 2.0'
+gem 'turbolinks', '~> 5.2'
+gem 'uglifier', '~> 4.1', '>= 4.1.20'
