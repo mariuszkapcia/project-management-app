@@ -22,6 +22,7 @@ module UI
     specify 'assign developer to the project' do
       read_model.call(project_registered)
       read_model.call(developer_assigned)
+      read_model.call(developer_working_hours_for_project_assigned)
       expect(read_model.all.size).to eq(1)
       assert_project_with_developers_correct
     end
@@ -47,7 +48,12 @@ module UI
       expect(first_project.name).to eq(project_topsecretdddproject[:name])
       expect(first_project.estimation_in_hours).to eq(nil)
       expect(first_project.developers).to eq(
-        [{ 'uuid' => developer_ignacy[:uuid], 'fullname' => developer_ignacy[:fullname] }]
+        [
+          { 'uuid'           => developer_ignacy[:uuid],
+            'fullname'       => developer_ignacy[:fullname],
+            'hours_per_week' => developer_ignacy[:hours_per_week]
+          }
+        ]
       )
     end
 
@@ -70,6 +76,14 @@ module UI
         project_uuid:       project_topsecretdddproject[:uuid],
         developer_uuid:     developer_ignacy[:uuid],
         developer_fullname: developer_ignacy[:fullname]
+      })
+    end
+
+    def developer_working_hours_for_project_assigned
+      ProjectManagement::DeveloperWorkingHoursForProjectAssigned.new(data: {
+        project_uuid:   project_topsecretdddproject[:uuid],
+        developer_uuid: developer_ignacy[:uuid],
+        hours_per_week: developer_ignacy[:hours_per_week]
       })
     end
 

@@ -44,6 +44,25 @@ RSpec.describe 'Project requests', type: :request do
     expected_response(project_with_developers)
   end
 
+  specify 'assign working hours to the project' do
+    post '/developers', params: ignacy
+    expect(response).to have_http_status(201)
+
+    post '/projects', params: project
+    expect(response).to have_http_status(201)
+
+    put "/projects/#{project_topsecretdddproject[:uuid]}/assign_developer",
+      params: { developer_uuid: developer_ignacy[:uuid] }
+    expect(response).to have_http_status(204)
+
+    put "/projects/#{project_topsecretdddproject[:uuid]}/assign_working_hours",
+      params: { developer_uuid: developer_ignacy[:uuid], hours_per_week: developer_ignacy[:hours_per_week] }
+    expect(response).to have_http_status(204)
+
+    get "/projects/#{project_topsecretdddproject[:uuid]}"
+    expected_response(project_with_developers_and_hours)
+  end
+
   private
 
   def project
@@ -67,7 +86,28 @@ RSpec.describe 'Project requests', type: :request do
       'uuid'                => project_topsecretdddproject[:uuid],
       'name'                => project_topsecretdddproject[:name],
       'estimation_in_hours' => nil,
-      'developers'          => [{ 'uuid' => developer_ignacy[:uuid], 'fullname' => developer_ignacy[:fullname] }]
+      'developers'          => [
+        {
+          'uuid'           => developer_ignacy[:uuid],
+          'fullname'       => developer_ignacy[:fullname],
+          'hours_per_week' => 0
+        }
+      ]
+    }
+  end
+
+  def project_with_developers_and_hours
+    {
+      'uuid'                => project_topsecretdddproject[:uuid],
+      'name'                => project_topsecretdddproject[:name],
+      'estimation_in_hours' => nil,
+      'developers'          => [
+        {
+          'uuid'           => developer_ignacy[:uuid],
+          'fullname'       => developer_ignacy[:fullname],
+          'hours_per_week' => developer_ignacy[:hours_per_week]
+        }
+      ]
     }
   end
 

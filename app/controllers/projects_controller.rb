@@ -31,6 +31,14 @@ class ProjectsController < ApplicationController
     head :no_content
   end
 
+  def assign_working_hours
+    ProjectManagement::ProjectsCommandHandler
+      .new(event_store: event_store)
+      .call(assign_working_hours_to_project)
+
+    head :no_content
+  end
+
   private
 
   def register_project
@@ -54,6 +62,14 @@ class ProjectsController < ApplicationController
       project_uuid:       params[:id],
       developer_uuid:     params[:developer_uuid],
       developer_fullname: developer.fullname
+    )
+  end
+
+  def assign_working_hours_to_project
+    ProjectManagement::AssignDeveloperWorkingHours.new(
+      project_uuid:   params[:id],
+      developer_uuid: params[:developer_uuid],
+      hours_per_week: params[:hours_per_week].to_i
     )
   end
 
