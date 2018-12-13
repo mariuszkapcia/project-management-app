@@ -1,7 +1,11 @@
 require_dependency 'ui'
 
+require_relative './support/test_attributes'
+
 module UI
   RSpec.describe 'Project details read model' do
+    include TestAttributes
+
     specify 'creates project' do
       read_model.call(project_registered)
       expect(read_model.all.size).to eq(1)
@@ -25,66 +29,48 @@ module UI
     private
 
     def assert_project_correct
-      expect(first_project.uuid).to eq(project_uuid)
-      expect(first_project.name).to eq(project_name)
+      expect(first_project.uuid).to eq(project_topsecretdddproject[:uuid])
+      expect(first_project.name).to eq(project_topsecretdddproject[:name])
       expect(first_project.estimation_in_hours).to eq(nil)
       expect(first_project.developers).to eq([])
     end
 
     def assert_project_with_estimation_correct
-      expect(first_project.uuid).to eq(project_uuid)
-      expect(first_project.name).to eq(project_name)
-      expect(first_project.estimation_in_hours).to eq(project_estimation)
+      expect(first_project.uuid).to eq(project_topsecretdddproject[:uuid])
+      expect(first_project.name).to eq(project_topsecretdddproject[:name])
+      expect(first_project.estimation_in_hours).to eq(project_topsecretdddproject[:estimation])
       expect(first_project.developers).to eq([])
     end
 
     def assert_project_with_developers_correct
-      expect(first_project.uuid).to eq(project_uuid)
-      expect(first_project.name).to eq(project_name)
+      expect(first_project.uuid).to eq(project_topsecretdddproject[:uuid])
+      expect(first_project.name).to eq(project_topsecretdddproject[:name])
       expect(first_project.estimation_in_hours).to eq(nil)
-      expect(first_project.developers).to eq([{ 'uuid' => ignacy_uuid, 'fullname' => ignacy_fullname }])
+      expect(first_project.developers).to eq(
+        [{ 'uuid' => developer_ignacy[:uuid], 'fullname' => developer_ignacy[:fullname] }]
+      )
     end
 
     def project_registered
       ProjectManagement::ProjectRegistered.new(data: {
-        uuid: project_uuid,
-        name: project_name
+        uuid: project_topsecretdddproject[:uuid],
+        name: project_topsecretdddproject[:name]
       })
     end
 
     def project_estimated
       ProjectManagement::ProjectEstimated.new(data: {
-        uuid:  project_uuid,
-        hours: project_estimation
+        uuid:  project_topsecretdddproject[:uuid],
+        hours: project_topsecretdddproject[:estimation]
       })
     end
 
     def developer_assigned
       ProjectManagement::DeveloperAssignedToProject.new(data: {
-        project_uuid:       project_uuid,
-        developer_uuid:     ignacy_uuid,
-        developer_fullname: ignacy_fullname
+        project_uuid:       project_topsecretdddproject[:uuid],
+        developer_uuid:     developer_ignacy[:uuid],
+        developer_fullname: developer_ignacy[:fullname]
       })
-    end
-
-    def project_uuid
-      'ab6e9c30-2b1c-474d-824f-7b8f816ced99'
-    end
-
-    def project_name
-      'awesome_project'
-    end
-
-    def project_estimation
-      40
-    end
-
-    def ignacy_uuid
-      '4b449030-a3c9-4568-9c40-0e8660d7c63b'
-    end
-
-    def ignacy_fullname
-      'Ignacy Ignacy'
     end
 
     def read_model
