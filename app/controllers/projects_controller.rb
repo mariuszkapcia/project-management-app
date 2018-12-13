@@ -39,6 +39,14 @@ class ProjectsController < ApplicationController
     head :no_content
   end
 
+  def assign_deadline
+    ProjectManagement::ProjectsCommandHandler
+      .new(event_store: event_store)
+      .call(assign_deadline_to_project)
+
+    head :no_content
+  end
+
   private
 
   def register_project
@@ -70,6 +78,13 @@ class ProjectsController < ApplicationController
       project_uuid:   params[:id],
       developer_uuid: params[:developer_uuid],
       hours_per_week: params[:hours_per_week].to_i
+    )
+  end
+
+  def assign_deadline_to_project
+    ProjectManagement::AssignDeadline.new(
+      project_uuid: params[:id],
+      deadline:     Time.at(params[:deadline].to_i).utc.to_datetime
     )
   end
 

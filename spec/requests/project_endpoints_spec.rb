@@ -63,6 +63,18 @@ RSpec.describe 'Project requests', type: :request do
     expected_response(project_with_developers_and_hours)
   end
 
+  specify 'assign deadline to project' do
+    post '/projects', params: project
+    expect(response).to have_http_status(201)
+
+    put "/projects/#{project_topsecretdddproject[:uuid]}/assign_deadline",
+      params: { deadline: project_topsecretdddproject[:deadline].to_i }
+    expect(response).to have_http_status(204)
+
+    get "/projects/#{project_topsecretdddproject[:uuid]}"
+    expected_response(project_with_deadline)
+  end
+
   private
 
   def project
@@ -78,6 +90,17 @@ RSpec.describe 'Project requests', type: :request do
       'name'                => project_topsecretdddproject[:name],
       'estimation_in_hours' => project_topsecretdddproject[:estimation],
       'deadline'            => nil,
+      'developers'          => []
+    }
+  end
+
+  # TODO: Handle deadline in a better way.
+  def project_with_deadline
+    {
+      'uuid'                => project_topsecretdddproject[:uuid],
+      'name'                => project_topsecretdddproject[:name],
+      'estimation_in_hours' => nil,
+      'deadline'            => project_topsecretdddproject[:deadline].strftime('%FT%T.000Z'),
       'developers'          => []
     }
   end
