@@ -10,7 +10,7 @@ module ProjectManagement
       event_store.publish(developer_registered, stream_name: 'stream_name')
 
       read_model_builder.call(developer_registered)
-      developers = read_model_retriever.retrieve
+      developers = read_model_retriever.retrieve.developers
 
       expect(developers.size).to eq(1)
     end

@@ -1,8 +1,16 @@
 module ProjectManagement
   class DeveloperList::Retriever
     def retrieve
-      state = reply_state
-      state.developers
+      @state = reply_state
+      self
+    end
+
+    def developers
+      @state.developers
+    end
+
+    def exists?(developer_uuid)
+      @state.developers.any? { |developer| developer[:uuid] == developer_uuid }
     end
 
     private
