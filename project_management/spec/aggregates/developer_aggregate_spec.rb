@@ -32,7 +32,7 @@ module ProjectManagement
     end
 
     def developer_email
-      'ignacy@onet.pl'
+      'ignacy@gmail.com'
     end
   end
 end

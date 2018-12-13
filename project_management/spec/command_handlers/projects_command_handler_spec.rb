@@ -1,7 +1,7 @@
 require_dependency 'project_management'
 
 module ProjectManagement
-  RSpec.describe 'ProjectsService' do
+  RSpec.describe 'ProjectsCommandHandler' do
     specify 'register a new project' do
       ProjectManagement::ProjectsCommandHandler
         .new(event_store: event_store)

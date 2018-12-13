@@ -76,7 +76,7 @@ RSpec.describe 'Project requests', type: :request do
     {
       'uuid'     => ignacy_uuid,
       'fullname' => ignacy_fullname,
-      'email'    => 'ignacy@onet.pl'
+      'email'    => 'ignacy@gmail.com'
     }
   end
 

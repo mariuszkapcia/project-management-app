@@ -1,7 +1,7 @@
 require_dependency 'project_management'
 
 module ProjectManagement
-  RSpec.describe 'DevelopersService' do
+  RSpec.describe 'DevelopersCommandHandler' do
     specify 'register a new developer' do
       ProjectManagement::DevelopersCommandHandler
         .new(event_store: event_store)
@@ -37,7 +37,7 @@ module ProjectManagement
     end
 
     def developer_email
-      'ignacy@onet.pl'
+      'ignacy@gmail.com'
     end
 
     def event_store

@@ -18,7 +18,7 @@ RSpec.describe 'Developer requests', type: :request do
     {
       'uuid'     => '99912b93-ba22-48da-ac83-f49a74db22e4',
       'fullname' => 'Ignacy Ignacy',
-      'email'    => 'ignacy@onet.pl'
+      'email'    => 'ignacy@gmail.com'
     }
   end
 
