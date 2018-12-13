@@ -1,5 +1,11 @@
 class ConfigureProjectManagementBoundedContext
   def call
+    @event_store.subscribe(
+      ProjectManagement::DeveloperList::Builder.new(event_store: @event_store),
+      to: [
+        ProjectManagement::DeveloperRegistered
+      ]
+    )
   end
 
   private
