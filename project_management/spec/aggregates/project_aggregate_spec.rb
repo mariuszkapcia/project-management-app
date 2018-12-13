@@ -13,6 +13,15 @@ module ProjectManagement
       expect(project).to(have_applied(project_registered))
     end
 
+    specify 'project cannot be registered twice' do
+      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.register(project_topsecretdddproject[:name])
+
+      expect do
+        project.register(project_topsecretdddproject[:name])
+      end.to raise_error(ProjectManagement::Project::HasBeenAlreadyRegistered)
+    end
+
     specify 'estimate the project' do
       project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
       project.register(project_topsecretdddproject[:name])

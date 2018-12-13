@@ -2,15 +2,19 @@ module ProjectManagement
   class Project
     include AggregateRoot
 
-    DeadlineFromPast     = Class.new(StandardError)
-    HoursPerWeekExceeded = Class.new(StandardError)
+    HasBeenAlreadyRegistered = Class.new(StandardError)
+    DeadlineFromPast         = Class.new(StandardError)
+    HoursPerWeekExceeded     = Class.new(StandardError)
 
     def initialize(uuid)
       @uuid       = uuid
+      @state      = nil
       @developers = []
     end
 
     def register(name)
+      raise HasBeenAlreadyRegistered if @state == :registered
+
       apply(ProjectManagement::ProjectRegistered.strict(data: {
         uuid: @uuid,
         name: name
@@ -54,6 +58,7 @@ module ProjectManagement
     private
 
     def apply_project_registered(event)
+      @state = :registered
     end
 
     def apply_project_estimated(event)
