@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    render json: UI::ProjectDetailsReadModel.new.find(params[:uuid]), status: :ok
+    render json: UI::ProjectDetailsReadModel.new.find(params[:id]), status: :ok
   end
 
   def create
@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
 
   def estimate_project
     ProjectManagement::EstimateProject.new(
-      uuid:  params[:uuid],
+      uuid:  params[:id],
       hours: params[:hours].to_i
     )
   end
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
     developer = UI::DeveloperListReadModel.new.find(params[:developer_uuid])
 
     ProjectManagement::AssignDeveloperToProject.new(
-      project_uuid:       params[:uuid],
+      project_uuid:       params[:id],
       developer_uuid:     params[:developer_uuid],
       developer_fullname: developer.fullname
     )
