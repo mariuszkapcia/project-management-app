@@ -63,14 +63,24 @@ module ProjectManagement
 
     specify 'assign developer working hours per week' do
       project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.assign_developer(developer_ignacy[:uuid], developer_ignacy[:fullname])
       project.assign_developer_working_hours(developer_ignacy[:uuid], developer_ignacy[:hours_per_week])
 
       expect(project).to(have_applied(developer_working_hours_assigned))
     end
 
+    specify 'cannot assign working hours to the developer from outside the project' do
+      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+
+      expect do
+        project.assign_developer_working_hours(developer_ignacy[:uuid], developer_ignacy[:hours_per_week])
+      end.to raise_error(ProjectManagement::Project::DeveloperNotFound)
+    end
+
     specify 'cannot assign more then 40 working hours per week' do
-      project        = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
       hours_per_week = 50
+      project        = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.assign_developer(developer_ignacy[:uuid], developer_ignacy[:fullname])
 
       expect{ project.assign_developer_working_hours(developer_ignacy[:uuid], hours_per_week) }
         .to(raise_error(ProjectManagement::Project::HoursPerWeekExceeded))
