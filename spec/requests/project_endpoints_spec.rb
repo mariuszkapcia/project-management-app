@@ -77,6 +77,7 @@ RSpec.describe 'Project requests', type: :request do
       'uuid'                => project_topsecretdddproject[:uuid],
       'name'                => project_topsecretdddproject[:name],
       'estimation_in_hours' => project_topsecretdddproject[:estimation],
+      'deadline'            => nil,
       'developers'          => []
     }
   end
@@ -86,6 +87,7 @@ RSpec.describe 'Project requests', type: :request do
       'uuid'                => project_topsecretdddproject[:uuid],
       'name'                => project_topsecretdddproject[:name],
       'estimation_in_hours' => nil,
+      'deadline'            => nil,
       'developers'          => [
         {
           'uuid'           => developer_ignacy[:uuid],
@@ -101,6 +103,7 @@ RSpec.describe 'Project requests', type: :request do
       'uuid'                => project_topsecretdddproject[:uuid],
       'name'                => project_topsecretdddproject[:name],
       'estimation_in_hours' => nil,
+      'deadline'            => nil,
       'developers'          => [
         {
           'uuid'           => developer_ignacy[:uuid],

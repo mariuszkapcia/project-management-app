@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212232327) do
+ActiveRecord::Schema.define(version: 20181213210821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20181212232327) do
     t.string "name"
     t.integer "estimation_in_hours"
     t.jsonb "developers", default: []
+    t.datetime "deadline"
   end
 
   create_table "ui_project_list_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
