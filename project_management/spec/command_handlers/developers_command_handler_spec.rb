@@ -18,13 +18,14 @@ module ProjectManagement
     private
 
     def developer_registered
-      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_data)
+      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_data).strict
     end
 
     def developer_data
       {
         uuid:     developer_uuid,
-        fullname: developer_fullname
+        fullname: developer_fullname,
+        email:    developer_email
       }
     end
 

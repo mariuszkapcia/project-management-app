@@ -53,15 +53,15 @@ module ProjectManagement
     private
 
     def project_registered
-      an_event(ProjectManagement::ProjectRegistered).with_data(project_data)
+      an_event(ProjectManagement::ProjectRegistered).with_data(project_data).strict
     end
 
     def project_estimated
-      an_event(ProjectManagement::ProjectEstimated).with_data(estimate_data)
+      an_event(ProjectManagement::ProjectEstimated).with_data(estimate_data).strict
     end
 
     def developer_assigned
-      an_event(ProjectManagement::DeveloperAssignedToProject).with_data(developer_assigned_data)
+      an_event(ProjectManagement::DeveloperAssignedToProject).with_data(developer_assigned_data).strict
     end
 
     def project_data
