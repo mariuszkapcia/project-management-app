@@ -1,10 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
-# Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 require 'rspec/rails'
+require 'rails_event_store/rspec'
 require 'database_cleaner'
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -20,18 +19,21 @@ RSpec.configure do |config|
   end
   config.disable_monkey_patching!
   config.order = :random
+  config.shared_context_metadata_behavior = :apply_to_host_groups
   config.formatter = :documentation
 
   Kernel.srand(config.seed)
 
   config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:deletion)
   end
 
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 end
