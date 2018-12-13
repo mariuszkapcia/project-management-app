@@ -1,4 +1,8 @@
+require_relative '../support/test_attributes'
+
 RSpec.describe 'Project requests', type: :request do
+  include TestAttributes
+
   specify 'empty list of projects' do
     get '/projects'
     expect(response).to have_http_status(200)
@@ -8,6 +12,7 @@ RSpec.describe 'Project requests', type: :request do
   specify 'creates and list one project' do
     post '/projects', params: project
     expect(response).to have_http_status(201)
+
     get '/projects'
     expected_response([project])
   end
@@ -15,9 +20,12 @@ RSpec.describe 'Project requests', type: :request do
   specify 'estimate the project' do
     post '/projects', params: project
     expect(response).to have_http_status(201)
-    put "/projects/#{project_uuid}/estimate", params: { hours: project_estimation }
+
+    put "/projects/#{project_topsecretdddproject[:uuid]}/estimate",
+      params: { hours: project_topsecretdddproject[:estimation] }
     expect(response).to have_http_status(204)
-    get "/projects/#{project_uuid}"
+
+    get "/projects/#{project_topsecretdddproject[:uuid]}"
     expected_response(project_with_estimation)
   end
 
@@ -27,9 +35,12 @@ RSpec.describe 'Project requests', type: :request do
 
     post '/projects', params: project
     expect(response).to have_http_status(201)
-    put "/projects/#{project_uuid}/assign_developer", params: { developer_uuid: ignacy_uuid }
+
+    put "/projects/#{project_topsecretdddproject[:uuid]}/assign_developer",
+      params: { developer_uuid: developer_ignacy[:uuid] }
     expect(response).to have_http_status(204)
-    get "/projects/#{project_uuid}"
+
+    get "/projects/#{project_topsecretdddproject[:uuid]}"
     expected_response(project_with_developers)
   end
 
@@ -37,55 +48,35 @@ RSpec.describe 'Project requests', type: :request do
 
   def project
     {
-      'uuid' => project_uuid,
-      'name' => project_name
+      'uuid' => project_topsecretdddproject[:uuid],
+      'name' => project_topsecretdddproject[:name]
     }
   end
 
   def project_with_estimation
     {
-      'uuid'                => project_uuid,
-      'name'                => project_name,
-      'estimation_in_hours' => project_estimation,
+      'uuid'                => project_topsecretdddproject[:uuid],
+      'name'                => project_topsecretdddproject[:name],
+      'estimation_in_hours' => project_topsecretdddproject[:estimation],
       'developers'          => []
     }
   end
 
   def project_with_developers
     {
-      'uuid'                => project_uuid,
-      'name'                => project_name,
+      'uuid'                => project_topsecretdddproject[:uuid],
+      'name'                => project_topsecretdddproject[:name],
       'estimation_in_hours' => nil,
-      'developers'          => [{ 'uuid' => ignacy_uuid, 'fullname' => ignacy_fullname }]
+      'developers'          => [{ 'uuid' => developer_ignacy[:uuid], 'fullname' => developer_ignacy[:fullname] }]
     }
-  end
-
-  def project_uuid
-    '64e60dee-15a4-4ce1-ac5f-dad76bb4e1a0'
-  end
-
-  def project_name
-    'awesome_project'
-  end
-
-  def project_estimation
-    40
   end
 
   def ignacy
     {
-      'uuid'     => ignacy_uuid,
-      'fullname' => ignacy_fullname,
-      'email'    => 'ignacy@gmail.com'
+      'uuid'     => developer_ignacy[:uuid],
+      'fullname' => developer_ignacy[:fullname],
+      'email'    => developer_ignacy[:email]
     }
-  end
-
-  def ignacy_uuid
-    'c45d96d9-cdb0-4eec-9092-b3ea6c264648'
-  end
-
-  def ignacy_fullname
-    'Ignacy Ignacy'
   end
 
   def expected_response(expected)

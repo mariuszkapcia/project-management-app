@@ -1,4 +1,8 @@
+require_relative '../support/test_attributes'
+
 RSpec.describe 'Developer requests', type: :request do
+  include TestAttributes
+
   specify 'empty list of developers' do
     get '/developers'
     expect(response).to have_http_status(200)
@@ -8,6 +12,7 @@ RSpec.describe 'Developer requests', type: :request do
   specify 'register a new developer' do
     post '/developers', params: ignacy
     expect(response).to have_http_status(201)
+
     get '/developers'
     expected_response([ignacy])
   end
@@ -16,9 +21,9 @@ RSpec.describe 'Developer requests', type: :request do
 
   def ignacy
     {
-      'uuid'     => '99912b93-ba22-48da-ac83-f49a74db22e4',
-      'fullname' => 'Ignacy Ignacy',
-      'email'    => 'ignacy@gmail.com'
+      'uuid'     => developer_ignacy[:uuid],
+      'fullname' => developer_ignacy[:fullname],
+      'email'    => developer_ignacy[:email]
     }
   end
 
