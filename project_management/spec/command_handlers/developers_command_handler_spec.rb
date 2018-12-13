@@ -1,15 +1,20 @@
 require_dependency 'project_management'
 
+require_relative '../support/test_attributes'
+
 module ProjectManagement
   RSpec.describe 'DevelopersCommandHandler' do
+    include TestAttributes
+
     specify 'register a new developer' do
       ProjectManagement::DevelopersCommandHandler
         .new(event_store: event_store)
         .call(
           ProjectManagement::RegisterDeveloper.new(
-            uuid:     developer_uuid,
-            fullname: developer_fullname,
-            email:    developer_email)
+            uuid:     developer_ignacy[:uuid],
+            fullname: developer_ignacy[:fullname],
+            email:    developer_ignacy[:email]
+          )
         )
 
       expect(event_store).to(have_published(developer_registered))
@@ -18,31 +23,21 @@ module ProjectManagement
     private
 
     def developer_registered
-      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_data).strict
+      an_event(ProjectManagement::DeveloperRegistered).with_data(developer_registered_data).strict
     end
 
-    def developer_data
+    def developer_registered_data
       {
-        uuid:     developer_uuid,
-        fullname: developer_fullname,
-        email:    developer_email
+        uuid:     developer_ignacy[:uuid],
+        fullname: developer_ignacy[:fullname],
+        email:    developer_ignacy[:email]
       }
     end
 
-    def developer_uuid
-      'cb69ec8a-9069-4679-8048-34344f220801'
-    end
-
-    def developer_fullname
-      'Ignacy Ignacy'
-    end
-
-    def developer_email
-      'ignacy@gmail.com'
-    end
-
     def event_store
-      Rails.configuration.event_store
+      RailsEventStore::Client.new.tap do |es|
+        ConfigureProjectManagementBoundedContext.new(event_store: es).call
+      end
     end
   end
 end
