@@ -1,13 +1,16 @@
 require_dependency 'project_management'
 
+require_relative '../support/test_attributes'
+
 module ProjectManagement
   RSpec.describe 'RegisterDeveloper command' do
+    include TestAttributes
 
     specify 'should validate presence of uuid' do
       cmd = ProjectManagement::RegisterDeveloper.new(
         uuid:     nil,
-        fullname: developer_fullname,
-        email:    developer_email
+        fullname: developer_ignacy[:fullname],
+        email:    developer_ignacy[:email]
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
@@ -16,8 +19,8 @@ module ProjectManagement
     specify 'should validate format of uuid' do
       cmd = ProjectManagement::RegisterDeveloper.new(
         uuid:     'wrong_uuid_format',
-        fullname: developer_fullname,
-        email:    developer_email
+        fullname: developer_ignacy[:fullname],
+        email:    developer_ignacy[:email]
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
@@ -25,9 +28,9 @@ module ProjectManagement
 
     specify 'should validate presence of fullname' do
       cmd = ProjectManagement::RegisterDeveloper.new(
-        uuid:     developer_uuid,
+        uuid:     developer_ignacy[:uuid],
         fullname: nil,
-        email:    developer_email
+        email:    developer_ignacy[:email]
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
@@ -35,26 +38,12 @@ module ProjectManagement
 
     specify 'should validate presence of email' do
       cmd = ProjectManagement::RegisterDeveloper.new(
-        uuid:     developer_uuid,
-        fullname: developer_fullname,
+        uuid:     developer_ignacy[:uuid],
+        fullname: developer_ignacy[:fullname],
         email:    nil
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
-    end
-
-    private
-
-    def developer_uuid
-      '99912b93-ba22-48da-ac83-f49a74db22e4'
-    end
-
-    def developer_fullname
-      'Ignacy Ignacy'
-    end
-
-    def developer_email
-      'ignacy@gmail.com'
     end
   end
 end
