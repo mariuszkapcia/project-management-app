@@ -8,7 +8,8 @@ module ProjectManagement
         ProjectManagement::RegisterProject             => method(:register),
         ProjectManagement::EstimateProject             => method(:estimate),
         ProjectManagement::AssignDeveloperToProject    => method(:assign_developer),
-        ProjectManagement::AssignDeveloperWorkingHours => method(:assign_developer_working_hours)
+        ProjectManagement::AssignDeveloperWorkingHours => method(:assign_developer_working_hours),
+        ProjectManagement::AssignDeadline              => method(:assign_deadline)
       }.map{ |klass, handler| @command_bus.register(klass, handler) }
     end
 
@@ -58,6 +59,16 @@ module ProjectManagement
       ActiveRecord::Base.transaction do
         with_project(cmd.project_uuid) do |project|
           project.assign_developer_working_hours(cmd.developer_uuid, cmd.hours_per_week)
+        end
+      end
+    end
+
+    def assign_deadline(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_project(cmd.project_uuid) do |project|
+          project.assign_deadline(cmd.deadline)
         end
       end
     end

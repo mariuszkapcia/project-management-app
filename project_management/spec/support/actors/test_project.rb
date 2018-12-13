@@ -48,6 +48,17 @@ module ProjectManagement
         )
     end
 
+    def assign_deadline(deadline)
+      @command_handler
+        .new(event_store: @event_store)
+        .call(
+          ProjectManagement::AssignDeadline.new(
+            project_uuid: @uuid,
+            deadline:     deadline
+          )
+        )
+    end
+
     private
 
     def initialize(event_store: Rails.configuration.event_store)

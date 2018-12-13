@@ -57,6 +57,14 @@ module ProjectManagement
       expect(event_store).to(have_published(developer_working_hours_for_project_assigned))
     end
 
+    specify 'assign deadline to the project' do
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
+      project.assign_deadline(project_topsecretdddproject[:deadline])
+
+      expect(event_store).to(have_published(deadline_assigned_to_project))
+    end
+
     private
 
     def project_registered
@@ -75,6 +83,10 @@ module ProjectManagement
       an_event(ProjectManagement::DeveloperWorkingHoursForProjectAssigned)
         .with_data(developer_working_hours_for_project_assigned_data)
         .strict
+    end
+
+    def deadline_assigned_to_project
+      an_event(ProjectManagement::DeadlineAssignedToProject).with_data(deadline_assigned_to_project_data).strict
     end
 
     def project_registered_data
@@ -104,6 +116,13 @@ module ProjectManagement
         project_uuid:   project_topsecretdddproject[:uuid],
         developer_uuid: developer_ignacy[:uuid],
         hours_per_week: developer_ignacy[:hours_per_week]
+      }
+    end
+
+    def deadline_assigned_to_project_data
+      {
+        uuid:     project_topsecretdddproject[:uuid],
+        deadline: project_topsecretdddproject[:deadline]
       }
     end
 
