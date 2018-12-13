@@ -24,6 +24,10 @@ module ProjectManagement
     end
 
     specify 'assign developer to the project' do
+      # TODO: Pass faked DeveloperList read model to Projects command handler.
+      developer = instance_of_developer(event_store: event_store)
+      developer.register(developer_ignacy)
+
       project = instance_of_project(event_store: event_store)
       project.register(project_topsecretdddproject)
       project.assign_developer(developer_ignacy)

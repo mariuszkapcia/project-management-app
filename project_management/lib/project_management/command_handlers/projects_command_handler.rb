@@ -1,8 +1,11 @@
 module ProjectManagement
+  DeveloperNotFound = Class.new(StandardError)
+
   class ProjectsCommandHandler
     def initialize(event_store:)
-      @event_store = event_store
-      @command_bus = Arkency::CommandBus.new
+      @event_store               = event_store
+      @developer_list_read_model = DeveloperList::Retriever.new(event_store: @event_store)
+      @command_bus               = Arkency::CommandBus.new
       {
         ProjectManagement::RegisterProject          => method(:register),
         ProjectManagement::EstimateProject          => method(:estimate),
@@ -40,6 +43,8 @@ module ProjectManagement
 
     def assign_developer(cmd)
       cmd.verify!
+
+      raise DeveloperNotFound unless @developer_list_read_model.retrieve.exists?(cmd.developer_uuid)
 
       ActiveRecord::Base.transaction do
         with_project(cmd.project_uuid) do |project|
