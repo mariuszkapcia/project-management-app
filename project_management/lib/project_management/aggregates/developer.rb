@@ -2,11 +2,16 @@ module ProjectManagement
   class Developer
     include AggregateRoot
 
+    HasBeenAlreadyRegistered = Class.new(StandardError)
+
     def initialize(uuid)
-      @uuid = uuid
+      @uuid  = uuid
+      @state = nil
     end
 
     def register(fullname, email)
+      raise HasBeenAlreadyRegistered if @state == :registered
+
       apply(ProjectManagement::DeveloperRegistered.strict(data: {
         uuid:     @uuid,
         fullname: fullname,
@@ -17,6 +22,7 @@ module ProjectManagement
     private
 
     def apply_developer_registered(event)
+      @state = :registered
     end
   end
 end

@@ -13,6 +13,15 @@ module ProjectManagement
       expect(developer).to(have_applied(developer_registered))
     end
 
+    specify 'developer cannot be registered twice' do
+      developer = ProjectManagement::Developer.new(developer_ignacy[:uuid])
+      developer.register(developer_ignacy[:fullname], developer_ignacy[:email])
+
+      expect do
+        developer.register(developer_ignacy[:fullname], developer_ignacy[:email])
+      end.to raise_error(ProjectManagement::Developer::HasBeenAlreadyRegistered)
+    end
+
     private
 
     def developer_registered
