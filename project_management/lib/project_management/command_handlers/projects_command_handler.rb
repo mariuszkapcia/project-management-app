@@ -1,6 +1,4 @@
 module ProjectManagement
-  DeveloperNotFound = Class.new(StandardError)
-
   class ProjectsCommandHandler
     def initialize(event_store:)
       @event_store               = event_store
@@ -45,7 +43,7 @@ module ProjectManagement
     def assign_developer(cmd)
       cmd.verify!
 
-      raise DeveloperNotFound unless @developer_list_read_model.retrieve.exists?(cmd.developer_uuid)
+      raise Project::DeveloperNotFound unless @developer_list_read_model.retrieve.exists?(cmd.developer_uuid)
 
       ActiveRecord::Base.transaction do
         with_project(cmd.project_uuid) do |project|

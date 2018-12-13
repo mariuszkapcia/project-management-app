@@ -35,6 +35,15 @@ module ProjectManagement
       expect(event_store).to(have_published(developer_assigned))
     end
 
+    specify 'cannot assign non existing developer to the project' do
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
+
+      expect do
+        project.assign_developer(developer_ignacy)
+      end.to raise_error(ProjectManagement::Project::DeveloperNotFound)
+    end
+
     specify 'assign developer working hours in the project' do
       # TODO: Pass faked DeveloperList read model to Projects command handler.
       developer = instance_of_developer(event_store: event_store)
