@@ -31,15 +31,16 @@ module ProjectManagement
     end
 
     specify 'assign deadline for the project' do
-      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
-      project.assign_deadline(project_topsecretdddproject[:deadline])
+      project          = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project_deadline = Deadline.new(project_topsecretdddproject[:deadline].to_i)
+      project.assign_deadline(project_deadline)
 
       expect(project).to(have_applied(deadline_assigned))
     end
 
     specify 'assigning deadline from the past is forbidden' do
       project          = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
-      project_deadline = Time.current.yesterday.to_date.strftime('%d-%m-%Y')
+      project_deadline = Deadline.new(DateTime.current.yesterday.to_i)
 
       expect{ project.assign_deadline(project_deadline) }
         .to(raise_error(ProjectManagement::Project::DeadlineFromPast))

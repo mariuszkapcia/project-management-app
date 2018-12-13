@@ -17,12 +17,12 @@ module ProjectManagement
       self.class == other.class && value == other.value ? 0 : -1
     end
 
-    def eql?(other)
-      value.eql?(other.value)
+    def <(other)
+      self.class == other.class && value < other.value
     end
 
     def to_datetime
-      Time.at(value).utc.to_datetime.strftime('%FT%T%:z')
+      Time.at(value).utc.to_datetime#.strftime('%FT%T%:z')
     end
   end
 end

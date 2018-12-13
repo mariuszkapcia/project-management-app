@@ -84,7 +84,7 @@ class ProjectsController < ApplicationController
   def assign_deadline_to_project
     ProjectManagement::AssignDeadline.new(
       project_uuid: params[:id],
-      deadline:     Time.at(params[:deadline].to_i).utc.to_datetime
+      deadline:     params[:deadline].to_i
     )
   end
 

@@ -66,9 +66,11 @@ module ProjectManagement
     def assign_deadline(cmd)
       cmd.verify!
 
+      deadline = Deadline.new(cmd.deadline)
+
       ActiveRecord::Base.transaction do
         with_project(cmd.project_uuid) do |project|
-          project.assign_deadline(cmd.deadline)
+          project.assign_deadline(deadline)
         end
       end
     end

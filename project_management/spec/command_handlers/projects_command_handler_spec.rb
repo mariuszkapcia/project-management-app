@@ -60,7 +60,7 @@ module ProjectManagement
     specify 'assign deadline to the project' do
       project = instance_of_project(event_store: event_store)
       project.register(project_topsecretdddproject)
-      project.assign_deadline(project_topsecretdddproject[:deadline])
+      project.assign_deadline(project_topsecretdddproject[:deadline].to_i)
 
       expect(event_store).to(have_published(deadline_assigned_to_project))
     end

@@ -30,13 +30,12 @@ module ProjectManagement
       }))
     end
 
-    # TODO: Add Deadline value object
     def assign_deadline(deadline)
-      raise DeadlineFromPast if deadline < DateTime.current
+      raise DeadlineFromPast if deadline < Deadline.new(DateTime.current.to_i)
 
       apply(ProjectManagement::DeadlineAssignedToProject.strict(data: {
         uuid:     @uuid,
-        deadline: deadline
+        deadline: deadline.to_datetime
       }))
     end
 
