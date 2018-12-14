@@ -17,6 +17,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'web-console', '~> 3.7'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -37,6 +38,7 @@ gem 'rails-html-sanitizer', '~> 1.0', '>= 1.0.4'
 gem 'loofah', '~> 2.2', '>= 2.2.3'
 
 # NOTE: UI
-gem 'sassc-rails', '~> 2.0'
+gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'turbolinks', '~> 5.2'
 gem 'uglifier', '~> 4.1', '>= 4.1.20'
+gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
