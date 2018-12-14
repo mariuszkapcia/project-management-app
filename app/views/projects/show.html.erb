@@ -41,7 +41,7 @@
   </tbody>
 </table>
 
-<h2>Approximate end: <%= approximate_end.present? ? approximate_end.to_date : 'N/A' %></h2>
+<h2 class='<%= project_on_time ? 'project-on-time' : 'project-not-on-time' %>'>Approximate end: <%= approximate_end.present? ? approximate_end.to_date : 'N/A' %></h2>
 
 <br/>
 

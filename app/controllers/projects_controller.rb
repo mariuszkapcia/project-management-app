@@ -17,10 +17,14 @@ class ProjectsController < ApplicationController
   def show
     project         = UI::ProjectDetailsReadModel.new.find(params[:id])
     approximate_end = UI::ProjectApproximateEndReadModel.new.for_project(params[:id])
+    project_on_time = project_on_time?(project, approximate_end)
 
     respond_to do |format|
       format.json { render json: project, status: :ok }
-      format.html { render action: :show, locals: { project: project, approximate_end: approximate_end } }
+      format.html do
+        render action: :show,
+               locals: { project: project, approximate_end: approximate_end, project_on_time: project_on_time }
+      end
     end
   end
 
@@ -224,6 +228,11 @@ class ProjectsController < ApplicationController
       project_uuid: params[:id],
       deadline:     params[:deadline].present? ? params[:deadline].to_i : nil
     )
+  end
+
+  def project_on_time?(project, approximate_end)
+    project.estimation_in_hours.present? && project.deadline.present? && approximate_end.present? &&
+      approximate_end <= project.deadline
   end
 
   def event_store
