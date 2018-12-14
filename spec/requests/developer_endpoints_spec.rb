@@ -4,16 +4,16 @@ RSpec.describe 'Developer requests', type: :request do
   include TestAttributes
 
   specify 'empty list of developers' do
-    get '/developers'
+    get '/developers', headers: { accept: 'application/json' }
     expect(response).to have_http_status(200)
     expected_response([])
   end
 
   specify 'register a new developer' do
-    post '/developers', params: ignacy
+    post '/developers', params: ignacy, headers: { accept: 'application/json' }
     expect(response).to have_http_status(201)
 
-    get '/developers'
+    get '/developers', headers: { accept: 'application/json' }
     expected_response([ignacy])
   end
 

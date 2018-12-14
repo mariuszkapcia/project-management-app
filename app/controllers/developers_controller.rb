@@ -1,6 +1,13 @@
 class DevelopersController < ApplicationController
   def index
-    render action: :index, locals: { developers: UI::DeveloperListReadModel.new.all }
+    respond_to do |format|
+      format.json do
+        render json: UI::DeveloperListReadModel.new.all, status: :ok
+      end
+      format.html do
+        render action: :index, locals: { developers: UI::DeveloperListReadModel.new.all }
+      end
+    end
   end
 
   def new
@@ -14,14 +21,21 @@ class DevelopersController < ApplicationController
       .new(event_store: event_store)
       .call(register_developer)
 
-    redirect_to developers_path, notice: 'Developer has been added successfully.'
+    respond_to do |format|
+      format.json do
+        head :created
+      end
+      format.html do
+        redirect_to developers_path, notice: 'Developer has been added successfully.'
+      end
+    end
   end
 
   private
 
   def register_developer
     ProjectManagement::RegisterDeveloper.new(
-      uuid:     params[:developer_uuid],
+      uuid:     params[:uuid],
       fullname: params[:fullname],
       email:    params[:email]
     )

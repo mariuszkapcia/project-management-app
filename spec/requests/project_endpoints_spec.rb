@@ -30,7 +30,7 @@ RSpec.describe 'Project requests', type: :request do
   end
 
   specify 'assign developer to the project' do
-    post '/developers', params: ignacy
+    post '/developers', params: ignacy, headers: { accept: 'application/json' }
     expect(response).to have_http_status(201)
 
     post '/projects', params: project
@@ -45,7 +45,7 @@ RSpec.describe 'Project requests', type: :request do
   end
 
   specify 'assign working hours to the project' do
-    post '/developers', params: ignacy
+    post '/developers', params: ignacy, headers: { accept: 'application/json' }
     expect(response).to have_http_status(201)
 
     post '/projects', params: project
