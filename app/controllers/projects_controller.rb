@@ -15,7 +15,12 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    render json: UI::ProjectDetailsReadModel.new.find(params[:id]), status: :ok
+    project = UI::ProjectDetailsReadModel.new.find(params[:id])
+
+    respond_to do |format|
+      format.json { render json: project, status: :ok }
+      format.html { render action: :show, locals: { project: project } }
+    end
   end
 
   def create
