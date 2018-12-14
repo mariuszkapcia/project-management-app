@@ -1,32 +1,31 @@
 class DevelopersController < ApplicationController
   def index
     respond_to do |format|
-      format.json do
-        render json: UI::DeveloperListReadModel.new.all, status: :ok
-      end
-      format.html do
-        render action: :index, locals: { developers: UI::DeveloperListReadModel.new.all }
-      end
+      format.json { render json: UI::DeveloperListReadModel.new.all, status: :ok }
+      format.html { render action: :index, locals: { developers: UI::DeveloperListReadModel.new.all } }
     end
   end
 
   def new
     developer_uuid = SecureRandom.uuid
 
-    render action: :new, locals: { developer_uuid: developer_uuid }
+    respond_to do |format|
+      format.html { render action: :new, locals: { developer_uuid: developer_uuid } }
+    end
   end
 
   def create
-    ProjectManagement::DevelopersCommandHandler
-      .new(event_store: event_store)
-      .call(register_developer)
-
     respond_to do |format|
-      format.json do
-        head :created
-      end
-      format.html do
-        redirect_to developers_path, notice: 'Developer has been added successfully.'
+      begin
+        ProjectManagement::DevelopersCommandHandler
+          .new(event_store: event_store)
+          .call(register_developer)
+
+        format.json { head :created }
+        format.html { redirect_to developers_path, notice: 'Developer has been added successfully.' }
+      rescue ProjectManagement::Developer::EmailAddressNotUniq => exception
+        format.json { render_error(:email_address_not_uniq, :unprocessable_entity) }
+        format.html { render action: :new, locals: { developer_uuid: params[:uuid] } }
       end
     end
   end

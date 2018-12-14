@@ -12,7 +12,17 @@ class ErrorHandler
     incorrect_uuid:                 { code: '1001' }
   }.freeze
 
-  ERRORS = GENERAL.freeze
+  DEVELOPERS = {
+    email_address_not_uniq:         { code: '2000' }
+  }.freeze
+
+  PROJECTS = {
+  }.freeze
+
+  ERRORS = GENERAL
+    .merge(DEVELOPERS)
+    .merge(PROJECTS)
+    .freeze
 
   def self.message_for(error_code)
     I18n.t(error_code.to_sym, scope: :error_handler)
