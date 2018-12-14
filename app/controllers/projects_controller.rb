@@ -57,6 +57,12 @@ class ProjectsController < ApplicationController
 
         format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been estimated successfully.' }
+      rescue ProjectManagement::Project::InvalidEstimation => exception
+        format.json { render_error(:invalid_estimation, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(:invalid_estimation)
+          render action: :new_estimation, locals: { project_uuid: params[:uuid], errors: [error] }
+        end
       rescue Command::ValidationError => exception
         format.json { render_error(exception.message, :unprocessable_entity) }
         format.html do

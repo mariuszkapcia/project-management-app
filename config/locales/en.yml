@@ -12,3 +12,4 @@ en:
     developer_already_assigned:       Developer already assigned to this project
     hours_per_week_exceeded:          Developers are not made from rubber, they can work only 40 hours per week.
     developer_hours_per_week_missing: Hours per week are missing
+    invalid_estimation:               Invalid estimation value
