@@ -1,13 +1,15 @@
 <h1>Project: <%= project.name %></h1>
 <p>
   <% if project.estimation_in_hours.present? %>
-    Estimation: <%= pluralize(project.estimation_in_hours, 'hour') %><br/>
+    Estimation: <%= pluralize(project.estimation_in_hours, 'hour') %>,
+    <%= link_to('Assign new estimation', new_estimation_project_path(project.uuid)) %><br/>
   <% else %>
     Estimation: <%= link_to('Estimate', new_estimation_project_path(project.uuid)) %><br/>
   <% end %>
 
   <% if project.deadline.present? %>
-    Deadline:   <%= project.deadline.to_date %><br/>
+    Deadline:   <%= project.deadline.to_date %>,
+    <%= link_to('Assign new deadline', new_deadline_project_path(project.uuid)) %><br/>
   <% else %>
     Deadline: <%= link_to('Assign deadline', new_deadline_project_path(project.uuid)) %><br/>
   <% end %>
