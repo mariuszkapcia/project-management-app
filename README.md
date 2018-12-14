@@ -1,4 +1,6 @@
-# Domain-driven design, CQRS, and Event Sourcing demo application
+# #TopSecretDDDProject
+
+Domain-driven design, CQRS, and Event Sourcing demo application
 
 ## Ruby version
 
