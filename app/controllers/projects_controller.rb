@@ -15,11 +15,12 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    project = UI::ProjectDetailsReadModel.new.find(params[:id])
+    project         = UI::ProjectDetailsReadModel.new.find(params[:id])
+    approximate_end = UI::ProjectApproximateEndReadModel.new.for_project(params[:id])
 
     respond_to do |format|
       format.json { render json: project, status: :ok }
-      format.html { render action: :show, locals: { project: project } }
+      format.html { render action: :show, locals: { project: project, approximate_end: approximate_end } }
     end
   end
 
