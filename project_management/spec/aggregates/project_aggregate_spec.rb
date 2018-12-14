@@ -30,6 +30,15 @@ module ProjectManagement
       expect(project).to(have_applied(project_estimated))
     end
 
+    specify 'cannot assign negative estimation' do
+      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.register(project_topsecretdddproject[:name])
+
+      expect do
+        project.estimate(-1)
+      end.to raise_error(ProjectManagement::Project::InvalidEstimation)
+    end
+
     specify 'assign deadline for the project' do
       project          = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
       project_deadline = Deadline.new(project_topsecretdddproject[:deadline].to_i)

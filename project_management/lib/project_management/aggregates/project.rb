@@ -7,6 +7,7 @@ module ProjectManagement
     HoursPerWeekExceeded     = Class.new(StandardError)
     DeveloperAlreadyAssigned = Class.new(StandardError)
     DeveloperNotFound        = Class.new(StandardError)
+    InvalidEstimation        = Class.new(StandardError)
 
     def initialize(uuid)
       @uuid       = uuid
@@ -24,6 +25,8 @@ module ProjectManagement
     end
 
     def estimate(hours)
+      raise InvalidEstimation if hours < 0
+
       apply(ProjectManagement::ProjectEstimated.strict(data: {
         uuid:  @uuid,
         hours: hours
