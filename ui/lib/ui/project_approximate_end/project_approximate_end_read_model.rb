@@ -6,15 +6,12 @@ module UI
           add_project(event.data[:uuid])
         when ProjectManagement::ProjectEstimated
           assign_estimation(event.data[:uuid], event.data[:hours])
-          calculate_aproximate_end
-        when ProjectManagement::DeadlineAssignedToProject
-          assign_deadline(event.data[:uuid], event.data[:deadline])
-          calculate_aproximate_end
+          calculate_aproximate_end(event.data[:uuid])
         when ProjectManagement::DeveloperWorkingHoursForProjectAssigned
           assign_developer_working_hours(
             event.data[:project_uuid], event.data[:developer_uuid], event.data[:hours_per_week]
           )
-          calculate_aproximate_end
+          calculate_aproximate_end(event.data[:project_uuid])
       end
     end
 
@@ -34,12 +31,6 @@ module UI
       project.save!
     end
 
-    def assign_deadline(project_uuid, deadline)
-      project          = UI::ProjectApproximateEnd::Project.find_by(uuid: project_uuid)
-      project.deadline = deadline
-      project.save!
-    end
-
     def assign_developer_working_hours(project_uuid, developer_uuid, hours_per_week)
       project                 = UI::ProjectApproximateEnd::Project.find_by(uuid: project_uuid)
       project.working_hours ||= {}
@@ -47,7 +38,18 @@ module UI
       project.save!
     end
 
-    def calculate_aproximate_end
+    def calculate_aproximate_end(project_uuid)
+      project = UI::ProjectApproximateEnd::Project.find_by(uuid: project_uuid)
+      return if project.estimation.nil? || project.working_hours.empty?
+
+      week_length  = 7
+      weekly_hours = project.working_hours.values.inject(0) do |hours_per_week, state|
+        state + hours_per_week
+      end
+      number_of_weeks = (project.estimation / weekly_hours.to_f).round
+
+      project.approximate_end = (number_of_weeks * week_length).days.from_now
+      project.save!
     end
   end
 end

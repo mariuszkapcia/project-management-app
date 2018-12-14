@@ -42,8 +42,7 @@ ActiveRecord::Schema.define(version: 20181214205534) do
 
   create_table "ui_project_aproximate_end_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
     t.integer "estimation"
-    t.datetime "deadline"
-    t.jsonb "working_hours", default: []
+    t.jsonb "working_hours", default: {}
     t.datetime "approximate_end"
   end
 
