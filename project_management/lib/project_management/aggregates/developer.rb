@@ -3,6 +3,7 @@ module ProjectManagement
     include AggregateRoot
 
     HasBeenAlreadyRegistered = Class.new(StandardError)
+    EmailAddressNotUniq      = Class.new(StandardError)
 
     def initialize(uuid)
       @uuid  = uuid

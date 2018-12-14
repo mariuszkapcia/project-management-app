@@ -13,6 +13,10 @@ module ProjectManagement
       @state.developers.any? { |developer| developer[:uuid] == developer_uuid }
     end
 
+    def email_taken?(email)
+      @state.developers.any? { |developer| developer[:email] == email }
+    end
+
     private
 
     def initialize(event_store:)

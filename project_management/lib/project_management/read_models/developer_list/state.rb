@@ -23,8 +23,8 @@ module ProjectManagement
 
     def apply_developer_registered(event)
       @developers << {
-        uuid:     event.data[:uuid],
-        fullname: event.data[:fullname]
+        uuid:  event.data[:uuid],
+        email: event.data[:email]
       }
     end
   end

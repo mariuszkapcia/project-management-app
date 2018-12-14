@@ -1,8 +1,9 @@
 module ProjectManagement
   class DevelopersCommandHandler
     def initialize(event_store:)
-      @event_store = event_store
-      @command_bus = Arkency::CommandBus.new
+      @event_store               = event_store
+      @developer_list_read_model = DeveloperList::Retriever.new(event_store: @event_store)
+      @command_bus               = Arkency::CommandBus.new
       {
         ProjectManagement::RegisterDeveloper => method(:register)
       }.map{ |klass, handler| @command_bus.register(klass, handler) }
@@ -16,9 +17,10 @@ module ProjectManagement
 
     private
 
-    # TODO: Validate uniq email address.
     def register(cmd)
       cmd.verify!
+
+      raise Developer::EmailAddressNotUniq if @developer_list_read_model.retrieve.email_taken?(cmd.email)
 
       ActiveRecord::Base.transaction do
         with_developer(cmd.uuid) do |developer|
