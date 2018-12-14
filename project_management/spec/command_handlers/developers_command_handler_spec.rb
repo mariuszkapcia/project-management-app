@@ -15,6 +15,15 @@ module ProjectManagement
       expect(event_store).to(have_published(developer_registered))
     end
 
+    specify 'cannot register developer without uniq email address' do
+      developer = instance_of_developer(event_store: event_store)
+      developer.register(developer_ignacy)
+
+      expect do
+        developer.register(developer_ignacy)
+      end.to raise_error(ProjectManagement::Developer::EmailAddressNotUniq)
+    end
+
     private
 
     def developer_registered
