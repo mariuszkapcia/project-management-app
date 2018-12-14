@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
           .call(register_project)
 
         format.json { head :created }
-        format.html { redirect_to projects_path, notice: 'Project has been added successfully.' }
+        format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been added successfully.' }
       end
     end
   end
