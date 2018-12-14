@@ -1,7 +1,7 @@
 <h1>Project: <%= project.name %></h1>
 <p>
   <% if project.estimation_in_hours.present? %>
-    Estimation: <%= project.estimation_in_hours %><br/>
+    Estimation: <%= pluralize(project.estimation_in_hours, 'hour') %><br/>
   <% else %>
     Estimation: <%= link_to('Estimate', new_estimation_project_path(project.uuid)) %><br/>
   <% end %>
