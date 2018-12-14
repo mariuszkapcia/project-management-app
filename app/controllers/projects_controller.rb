@@ -6,16 +6,29 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def new
+    project_uuid = SecureRandom.uuid
+
+    respond_to do |format|
+      format.html { render action: :new, locals: { project_uuid: project_uuid } }
+    end
+  end
+
   def show
     render json: UI::ProjectDetailsReadModel.new.find(params[:id]), status: :ok
   end
 
   def create
-    ProjectManagement::ProjectsCommandHandler
-      .new(event_store: event_store)
-      .call(register_project)
+    respond_to do |format|
+      begin
+        ProjectManagement::ProjectsCommandHandler
+          .new(event_store: event_store)
+          .call(register_project)
 
-    head :created
+        format.json { head :created }
+        format.html { redirect_to projects_path, notice: 'Project has been added successfully.' }
+      end
+    end
   end
 
   def estimate

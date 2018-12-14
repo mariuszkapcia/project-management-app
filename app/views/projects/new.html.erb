@@ -1,0 +1,28 @@
+<h1>New Project</h1>
+
+<% if local_assigns[:errors].present? %>
+  <div id='error_explanation'>
+    <div class='alert alert-danger'>
+      The form contains <%= pluralize(errors.count, 'error') %>.
+    </div>
+    <ul>
+    <% errors.each do |error| %>
+      <li><%= error[:message] %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag({ controller: 'projects', action: 'create' }, method: 'post') do %>
+  <%= hidden_field_tag(:uuid, project_uuid) %>
+
+  <div class="form-group">
+    <%= label_tag(:name) %>
+    <%= text_field_tag(:name, '', class: 'form-control') %>
+  </div>
+
+  </br>
+
+  <%= submit_tag('Add project', class: 'btn btn-primary') %>
+  <%= link_to 'Back', projects_path, class: 'btn btn-default' %>
+<% end %>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :projects, only: [:index, :show, :create] do
+  resources :projects, only: [:index, :show, :new, :create] do
     put :estimate, on: :member
     put :assign_developer, on: :member
     put :assign_working_hours, on: :member
