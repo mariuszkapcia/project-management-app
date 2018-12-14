@@ -8,6 +8,8 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <%= render 'layouts/navbar' %>
+
     <div class="container">
       <% flash.each do |key, value| %>
         <div class="alert <%= bootstrap_class_for(key) %>"><%= value %></div>
