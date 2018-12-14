@@ -19,6 +19,16 @@ class ConfigureUIBoundedContext
     )
 
     @event_store.subscribe(
+      UI::ProjectApproximateEndReadModel,
+      to: [
+        ProjectManagement::ProjectRegistered,
+        ProjectManagement::ProjectEstimated,
+        ProjectManagement::DeadlineAssignedToProject,
+        ProjectManagement::DeveloperWorkingHoursForProjectAssigned
+      ]
+    )
+
+    @event_store.subscribe(
       UI::DeveloperListReadModel,
       to: [
         ProjectManagement::DeveloperRegistered
