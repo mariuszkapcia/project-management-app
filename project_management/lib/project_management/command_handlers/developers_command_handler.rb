@@ -16,6 +16,7 @@ module ProjectManagement
 
     private
 
+    # TODO: Validate uniq email address.
     def register(cmd)
       cmd.verify!
 

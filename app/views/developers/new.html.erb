@@ -1,0 +1,18 @@
+<h1>New Developer</h1>
+
+<%= form_tag({ controller: 'developers', action: 'create' }, method: 'post') do %>
+  <%= hidden_field_tag(:developer_uuid, developer_uuid) %>
+
+  <%= label_tag(:fullname) %>
+  <%= text_field_tag(:fullname) %>
+
+  </br>
+
+  <%= label_tag(:email) %>
+  <%= text_field_tag(:email) %>
+
+  </br>
+
+  <%= submit_tag('Add developer', class: 'btn btn-primary') %>
+  <%= link_to 'Back', developers_path, class: 'btn btn-default' %>
+<% end %>

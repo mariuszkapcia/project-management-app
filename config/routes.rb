@@ -6,5 +6,5 @@ Rails.application.routes.draw do
     put :assign_deadline, on: :member
   end
 
-  resources :developers, only: [:index, :create]
+  resources :developers, only: [:index, :new, :create]
 end
