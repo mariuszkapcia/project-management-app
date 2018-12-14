@@ -1,15 +1,30 @@
 <h1>New Developer</h1>
 
+<% if local_assigns[:errors].present? %>
+  <div id='error_explanation'>
+    <div class='alert alert-danger'>
+      The form contains <%= pluralize(errors.count, 'error') %>.
+    </div>
+    <ul>
+    <% errors.each do |error| %>
+      <li><%= error[:message] %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_tag({ controller: 'developers', action: 'create' }, method: 'post') do %>
   <%= hidden_field_tag(:uuid, developer_uuid) %>
 
-  <%= label_tag(:fullname) %>
-  <%= text_field_tag(:fullname) %>
+  <div class="form-group">
+    <%= label_tag(:fullname) %>
+    <%= text_field_tag(:fullname, '', class: 'form-control') %>
+  </div>
 
-  </br>
-
-  <%= label_tag(:email) %>
-  <%= text_field_tag(:email) %>
+  <div class="form-group">
+    <%= label_tag(:email) %>
+    <%= text_field_tag(:email, '', class: 'form-control') %>
+  </div>
 
   </br>
 

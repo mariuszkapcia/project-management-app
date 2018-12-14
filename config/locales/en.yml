@@ -2,4 +2,4 @@ en:
   error_handler:
     internal_server_error:  Internal Server Error
     incorrect_uuid:         Incorrect UUID format
-    email_address_not_uniq: Developer email address is not uniq
+    email_address_not_uniq: Email address is not uniq

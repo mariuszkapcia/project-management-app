@@ -25,7 +25,10 @@ class DevelopersController < ApplicationController
         format.html { redirect_to developers_path, notice: 'Developer has been added successfully.' }
       rescue ProjectManagement::Developer::EmailAddressNotUniq => exception
         format.json { render_error(:email_address_not_uniq, :unprocessable_entity) }
-        format.html { render action: :new, locals: { developer_uuid: params[:uuid] } }
+        format.html do
+          error = ErrorHandler.json_for(:email_address_not_uniq)
+          render action: :new, locals: { developer_uuid: params[:uuid], errors: [error] }
+        end
       end
     end
   end
