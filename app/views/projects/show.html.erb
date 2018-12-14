@@ -13,6 +13,26 @@
   <% end %>
 </p>
 
+<h2>Developers</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fullname</th>
+      <th>Hours per week</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% project.developers.each do |developer| %>
+    <tr>
+      <td><%= developer['fullname'] %></td>
+      <td><%= developer['hours_per_week'] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
 <br/>
 
 <%= link_to 'Back', projects_path, class: "btn btn-default" %>
