@@ -55,7 +55,7 @@ class ProjectsController < ApplicationController
           .new(event_store: event_store)
           .call(estimate_project)
 
-        format.json { head :created }
+        format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been estimated successfully.' }
       rescue Command::ValidationError => exception
         format.json { render_error(exception.message, :unprocessable_entity) }
@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
           .new(event_store: event_store)
           .call(assign_developer_to_project)
 
-        format.json { head :created }
+        format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Develper has been assigned successfully.' }
       rescue ProjectManagement::Project::DeveloperAlreadyAssigned => exception
         developers = UI::DeveloperListReadModel.new.all
@@ -148,7 +148,7 @@ class ProjectsController < ApplicationController
           .new(event_store: event_store)
           .call(assign_deadline_to_project)
 
-        format.json { head :created }
+        format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Deadline has been assigned successfully.' }
       rescue ProjectManagement::Project::DeadlineFromPast => exception
         format.json { render_error(:deadline_from_past, :unprocessable_entity) }
