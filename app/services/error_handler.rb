@@ -26,7 +26,8 @@ class ErrorHandler
     developer_already_assigned:       { code: '3004' },
     hours_per_week_exceeded:          { code: '3005' },
     developer_hours_per_week_missing: { code: '3006' },
-    invalid_estimation:               { code: '3007' }
+    invalid_estimation:               { code: '3007' },
+    invalid_working_hours:            { code: '3008' }
   }.freeze
 
   ERRORS = GENERAL

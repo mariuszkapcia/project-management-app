@@ -130,6 +130,13 @@ class ProjectsController < ApplicationController
           render action: :new_weekly_hours_assignment,
                  locals: { project_uuid: params[:id], developer_uuid: params[:developer_uuid], errors: [error] }
         end
+      rescue ProjectManagement::Project::InvalidWorkingHours => exception
+        format.json { render_error(:invalid_working_hours, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(:invalid_working_hours)
+          render action: :new_weekly_hours_assignment,
+                 locals: { project_uuid: params[:id], developer_uuid: params[:developer_uuid], errors: [error] }
+        end
       rescue Command::ValidationError => exception
         format.json { render_error(exception.message, :unprocessable_entity) }
         format.html do
