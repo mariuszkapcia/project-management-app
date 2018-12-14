@@ -36,12 +36,23 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def estimate
-    ProjectManagement::ProjectsCommandHandler
-      .new(event_store: event_store)
-      .call(estimate_project)
+  def new_estimation
+    respond_to do |format|
+      format.html { render action: :new_estimation, locals: { project_uuid: params[:id] } }
+    end
+  end
 
-    head :no_content
+  def estimate
+    respond_to do |format|
+      begin
+        ProjectManagement::ProjectsCommandHandler
+          .new(event_store: event_store)
+          .call(estimate_project)
+
+        format.json { head :created }
+        format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been estimated successfully.' }
+      end
+    end
   end
 
   def assign_developer
