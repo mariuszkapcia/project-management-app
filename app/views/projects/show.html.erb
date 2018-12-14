@@ -5,7 +5,12 @@
   <% else %>
     Estimation: <%= link_to('Estimate', new_estimation_project_path(project.uuid)) %><br/>
   <% end %>
-  Deadline:   <%= project.deadline %>
+
+  <% if project.deadline.present? %>
+    Deadline:   <%= project.deadline.to_date %><br/>
+  <% else %>
+    Deadline: <%= link_to('Assign deadline', new_deadline_project_path(project.uuid)) %><br/>
+  <% end %>
 </p>
 
 <br/>

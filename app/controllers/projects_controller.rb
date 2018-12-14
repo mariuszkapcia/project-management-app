@@ -71,12 +71,29 @@ class ProjectsController < ApplicationController
     head :no_content
   end
 
-  def assign_deadline
-    ProjectManagement::ProjectsCommandHandler
-      .new(event_store: event_store)
-      .call(assign_deadline_to_project)
+  def new_deadline
+    respond_to do |format|
+      format.html { render action: :new_deadline, locals: { project_uuid: params[:id] } }
+    end
+  end
 
-    head :no_content
+  def assign_deadline
+    respond_to do |format|
+      begin
+        ProjectManagement::ProjectsCommandHandler
+          .new(event_store: event_store)
+          .call(assign_deadline_to_project)
+
+        format.json { head :created }
+        format.html { redirect_to project_path(params[:uuid]), notice: 'Deadline has been assigned successfully.' }
+      rescue ProjectManagement::Project::DeadlineFromPast => exception
+        format.json { render_error(:deadline_from_past, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(:deadline_from_past)
+          render action: :new_deadline, locals: { project_uuid: params[:uuid], errors: [error] }
+        end
+      end
+    end
   end
 
   private
@@ -114,6 +131,11 @@ class ProjectsController < ApplicationController
   end
 
   def assign_deadline_to_project
+    # NOTE: Convert deadline from web ui.
+    if (Float(params[:deadline]) == nil rescue true)
+      params[:deadline] = params[:deadline].to_datetime
+    end
+
     ProjectManagement::AssignDeadline.new(
       project_uuid: params[:id],
       deadline:     params[:deadline].to_i

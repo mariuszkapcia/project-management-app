@@ -3,3 +3,4 @@ en:
     internal_server_error:  Internal Server Error
     incorrect_uuid:         Incorrect UUID format
     email_address_not_uniq: Email address is not uniq
+    deadline_from_past:     Deadline from the past

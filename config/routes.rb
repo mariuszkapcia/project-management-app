@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     put :estimate, on: :member
     put :assign_developer, on: :member
     put :assign_working_hours, on: :member
+    get :new_deadline, on: :member
     put :assign_deadline, on: :member
   end
 

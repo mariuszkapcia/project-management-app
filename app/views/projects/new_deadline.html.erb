@@ -1,0 +1,28 @@
+<h1>Assign deadline</h1>
+
+<% if local_assigns[:errors].present? %>
+  <div id='error_explanation'>
+    <div class='alert alert-danger'>
+      The form contains <%= pluralize(errors.count, 'error') %>.
+    </div>
+    <ul>
+    <% errors.each do |error| %>
+      <li><%= error[:message] %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag({ controller: 'projects', action: 'assign_deadline' }, method: 'put') do %>
+  <%= hidden_field_tag(:uuid, project_uuid) %>
+
+  <div class='form-group'>
+    <%= label_tag(:deadline) %>
+    <%= date_field_tag(:deadline, '', class: 'form-control') %>
+  </div>
+
+  </br>
+
+  <%= submit_tag('Assign deadline', class: 'btn btn-primary') %>
+  <%= link_to 'Back', project_path(project_uuid), class: 'btn btn-default' %>
+<% end %>

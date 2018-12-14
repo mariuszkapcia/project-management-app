@@ -17,6 +17,7 @@ class ErrorHandler
   }.freeze
 
   PROJECTS = {
+    deadline_from_past:             { code: '3000' }
   }.freeze
 
   ERRORS = GENERAL
