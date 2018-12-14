@@ -1,6 +1,11 @@
 en:
   error_handler:
-    internal_server_error:  Internal Server Error
-    incorrect_uuid:         Incorrect UUID format
-    email_address_not_uniq: Email address is not uniq
-    deadline_from_past:     Deadline from the past
+    internal_server_error:      Internal Server Error
+    incorrect_uuid:             Incorrect UUID format
+    email_address_not_uniq:     Email address is not uniq
+    deadline_from_past:         Deadline from the past
+    developer_fullname_missing: Fullname is missing
+    developer_email_missing:    Email is missing
+    project_name_missing:       Name is missing
+    project_hours_missing:      Hours are missing
+    project_deadline_missing:   Deadline is missing

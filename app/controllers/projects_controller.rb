@@ -32,6 +32,12 @@ class ProjectsController < ApplicationController
 
         format.json { head :created }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been added successfully.' }
+      rescue Command::ValidationError => exception
+        format.json { render_error(exception.message, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(exception.message)
+          render action: :new, locals: { project_uuid: params[:uuid], errors: [error] }
+        end
       end
     end
   end
@@ -51,6 +57,12 @@ class ProjectsController < ApplicationController
 
         format.json { head :created }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been estimated successfully.' }
+      rescue Command::ValidationError => exception
+        format.json { render_error(exception.message, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(exception.message)
+          render action: :new_estimation, locals: { project_uuid: params[:uuid], errors: [error] }
+        end
       end
     end
   end
@@ -92,6 +104,12 @@ class ProjectsController < ApplicationController
           error = ErrorHandler.json_for(:deadline_from_past)
           render action: :new_deadline, locals: { project_uuid: params[:uuid], errors: [error] }
         end
+      rescue Command::ValidationError => exception
+        format.json { render_error(exception.message, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(exception.message)
+          render action: :new_deadline, locals: { project_uuid: params[:uuid], errors: [error] }
+        end
       end
     end
   end
@@ -108,7 +126,7 @@ class ProjectsController < ApplicationController
   def estimate_project
     ProjectManagement::EstimateProject.new(
       uuid:  params[:id],
-      hours: params[:hours].to_i
+      hours: params[:hours].present? ? params[:hours].to_i : nil
     )
   end
 
@@ -138,7 +156,7 @@ class ProjectsController < ApplicationController
 
     ProjectManagement::AssignDeadline.new(
       project_uuid: params[:id],
-      deadline:     params[:deadline].to_i
+      deadline:     params[:deadline].present? ? params[:deadline].to_i : nil
     )
   end
 

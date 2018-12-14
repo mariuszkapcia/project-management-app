@@ -13,11 +13,16 @@ class ErrorHandler
   }.freeze
 
   DEVELOPERS = {
-    email_address_not_uniq:         { code: '2000' }
+    email_address_not_uniq:         { code: '2000' },
+    developer_fullname_missing:     { code: '2001' },
+    developer_email_missing:        { code: '2002' }
   }.freeze
 
   PROJECTS = {
-    deadline_from_past:             { code: '3000' }
+    deadline_from_past:             { code: '3000' },
+    project_name_missing:           { code: '3001' },
+    project_hours_missing:          { code: '3002' },
+    project_deadline_missing:       { code: '3003' }
   }.freeze
 
   ERRORS = GENERAL

@@ -29,6 +29,12 @@ class DevelopersController < ApplicationController
           error = ErrorHandler.json_for(:email_address_not_uniq)
           render action: :new, locals: { developer_uuid: params[:uuid], errors: [error] }
         end
+      rescue Command::ValidationError => exception
+        format.json { render_error(exception.message, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(exception.message)
+          render action: :new, locals: { developer_uuid: params[:uuid], errors: [error] }
+        end
       end
     end
   end
