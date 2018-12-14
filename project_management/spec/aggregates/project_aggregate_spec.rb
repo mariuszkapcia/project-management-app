@@ -87,6 +87,15 @@ module ProjectManagement
       end.to raise_error(ProjectManagement::Project::DeveloperNotFound)
     end
 
+    specify 'cannot assign negative amount of working hours' do
+      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.assign_developer(developer_ignacy[:uuid], developer_ignacy[:fullname])
+
+      expect do
+        project.assign_developer_working_hours(developer_ignacy[:uuid], -1)
+      end.to raise_error(ProjectManagement::Project::InvalidWorkingHours)
+    end
+
     specify 'cannot assign more then 40 working hours per week' do
       hours_per_week = 50
       project        = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])

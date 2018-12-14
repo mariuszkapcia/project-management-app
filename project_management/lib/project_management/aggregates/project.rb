@@ -8,6 +8,7 @@ module ProjectManagement
     DeveloperAlreadyAssigned = Class.new(StandardError)
     DeveloperNotFound        = Class.new(StandardError)
     InvalidEstimation        = Class.new(StandardError)
+    InvalidWorkingHours      = Class.new(StandardError)
 
     def initialize(uuid)
       @uuid       = uuid
@@ -54,6 +55,7 @@ module ProjectManagement
 
     def assign_developer_working_hours(developer_uuid, hours_per_week)
       raise DeveloperNotFound unless @developers.any? { |developer| developer[:uuid] == developer_uuid }
+      raise InvalidWorkingHours if hours_per_week < 0
       raise HoursPerWeekExceeded if hours_per_week > 40
 
       apply(ProjectManagement::DeveloperWorkingHoursForProjectAssigned.strict(data: {
