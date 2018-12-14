@@ -1,1 +1,21 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Developers</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fullname</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% developers.each do |developer| %>
+      <tr>
+        <td><%= developer.fullname %></td>
+        <td><%= developer.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
