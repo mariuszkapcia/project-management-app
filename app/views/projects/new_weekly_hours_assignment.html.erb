@@ -1,0 +1,29 @@
+<h1>Assign weekly hours</h1>
+
+<% if local_assigns[:errors].present? %>
+  <div id='error_explanation'>
+    <div class='alert alert-danger'>
+      The form contains <%= pluralize(errors.count, 'error') %>.
+    </div>
+    <ul>
+    <% errors.each do |error| %>
+      <li><%= error[:message] %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag({ controller: 'projects', action: 'assign_working_hours' }, method: 'put') do %>
+  <%= hidden_field_tag(:uuid, project_uuid) %>
+  <%= hidden_field_tag(:developer_uuid, developer_uuid) %>
+
+  <div class="form-group">
+    <%= label_tag(:hours_per_week) %>
+    <%= number_field_tag(:hours_per_week, '', class: 'form-control') %>
+  </div>
+
+  </br>
+
+  <%= submit_tag('Assign', class: 'btn btn-primary') %>
+  <%= link_to 'Back', project_path(project_uuid), class: 'btn btn-default' %>
+<% end %>

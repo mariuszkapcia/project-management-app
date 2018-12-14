@@ -30,7 +30,12 @@
   <% project.developers.each do |developer| %>
     <tr>
       <td><%= developer['fullname'] %></td>
-      <td><%= developer['hours_per_week'] %></td>
+      <td>
+        <%= pluralize(developer['hours_per_week'], 'hour') %>,
+        <%=
+          link_to('Assign', new_weekly_hours_assignment_project_path(project.uuid, developer_uuid: developer['uuid']))
+        %>
+      </td>
     </tr>
   <% end %>
   </tbody>

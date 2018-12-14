@@ -97,12 +97,42 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def assign_working_hours
-    ProjectManagement::ProjectsCommandHandler
-      .new(event_store: event_store)
-      .call(assign_working_hours_to_project)
+  def new_weekly_hours_assignment
+    respond_to do |format|
+      format.html do
+        render action: :new_weekly_hours_assignment,
+               locals: { project_uuid: params[:id], developer_uuid: params[:developer_uuid] }
+      end
+    end
+  end
 
-    head :no_content
+  def assign_working_hours
+    respond_to do |format|
+      begin
+        ProjectManagement::ProjectsCommandHandler
+          .new(event_store: event_store)
+          .call(assign_working_hours_to_project)
+
+        format.json { head :no_content }
+        format.html do
+          redirect_to project_path(params[:uuid]), notice: 'Develper weekly hours has been assigned successfully.'
+        end
+      rescue ProjectManagement::Project::HoursPerWeekExceeded => exception
+        format.json { render_error(:hours_per_week_exceeded, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(:hours_per_week_exceeded)
+          render action: :new_weekly_hours_assignment,
+                 locals: { project_uuid: params[:id], developer_uuid: params[:developer_uuid], errors: [error] }
+        end
+      rescue Command::ValidationError => exception
+        format.json { render_error(exception.message, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(exception.message)
+          render action: :new_weekly_hours_assignment,
+                 locals: { project_uuid: params[:id], developer_uuid: params[:developer_uuid], errors: [error] }
+        end
+      end
+    end
   end
 
   def new_deadline
@@ -166,7 +196,7 @@ class ProjectsController < ApplicationController
     ProjectManagement::AssignDeveloperWorkingHours.new(
       project_uuid:   params[:id],
       developer_uuid: params[:developer_uuid],
-      hours_per_week: params[:hours_per_week].to_i
+      hours_per_week: params[:hours_per_week].present? ? params[:hours_per_week].to_i : nil
     )
   end
 
