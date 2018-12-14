@@ -4,16 +4,16 @@ RSpec.describe 'Project requests', type: :request do
   include TestAttributes
 
   specify 'empty list of projects' do
-    get '/projects'
+    get '/projects', headers: { accept: 'application/json' }
     expect(response).to have_http_status(200)
     expected_response([])
   end
 
   specify 'creates and list one project' do
-    post '/projects', params: project
+    post '/projects', params: project, headers: { accept: 'application/json' }
     expect(response).to have_http_status(201)
 
-    get '/projects'
+    get '/projects', headers: { accept: 'application/json' }
     expected_response([project])
   end
 

@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
   def index
-    render json: UI::ProjectListReadModel.new.all, status: :ok
+    respond_to do |format|
+      format.json { render json: UI::ProjectListReadModel.new.all, status: :ok }
+      format.html { render action: :index, locals: { projects: UI::ProjectListReadModel.new.all } }
+    end
   end
 
   def show
