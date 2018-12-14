@@ -67,12 +67,34 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def assign_developer
-    ProjectManagement::ProjectsCommandHandler
-      .new(event_store: event_store)
-      .call(assign_developer_to_project)
+  def new_assignment
+    developers = UI::DeveloperListReadModel.new.all
 
-    head :no_content
+    respond_to do |format|
+      format.html { render action: :new_assignment, locals: { project_uuid: params[:id], developers: developers } }
+    end
+  end
+
+  def assign_developer
+    respond_to do |format|
+      begin
+        ProjectManagement::ProjectsCommandHandler
+          .new(event_store: event_store)
+          .call(assign_developer_to_project)
+
+        format.json { head :created }
+        format.html { redirect_to project_path(params[:uuid]), notice: 'Develper has been assigned successfully.' }
+      rescue ProjectManagement::Project::DeveloperAlreadyAssigned => exception
+        developers = UI::DeveloperListReadModel.new.all
+
+        format.json { render_error(:developer_already_assigned, :unprocessable_entity) }
+        format.html do
+          error = ErrorHandler.json_for(:developer_already_assigned)
+          render action: :new_assignment,
+                 locals: { project_uuid: params[:uuid], developers: developers, errors: [error] }
+        end
+      end
+    end
   end
 
   def assign_working_hours

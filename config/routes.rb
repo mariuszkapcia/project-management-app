@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :show, :new, :create] do
     get :new_estimation, on: :member
     put :estimate, on: :member
+    get :new_assignment, on: :member
     put :assign_developer, on: :member
     put :assign_working_hours, on: :member
     get :new_deadline, on: :member

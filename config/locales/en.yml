@@ -9,3 +9,4 @@ en:
     project_name_missing:       Name is missing
     project_hours_missing:      Hours are missing
     project_deadline_missing:   Deadline is missing
+    developer_already_assigned: Developer alrady assigned to this project

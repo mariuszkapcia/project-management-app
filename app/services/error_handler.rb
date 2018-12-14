@@ -22,7 +22,8 @@ class ErrorHandler
     deadline_from_past:             { code: '3000' },
     project_name_missing:           { code: '3001' },
     project_hours_missing:          { code: '3002' },
-    project_deadline_missing:       { code: '3003' }
+    project_deadline_missing:       { code: '3003' },
+    developer_already_assigned:     { code: '3004' }
   }.freeze
 
   ERRORS = GENERAL
