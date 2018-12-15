@@ -1,3 +1,4 @@
+# TODO: Add missing spec.
 module UI
   class ProjectApproximateEndReadModel
     def call(event)
