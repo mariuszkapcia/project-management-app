@@ -45,6 +45,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Use a real queuing backend for Active Job (and separate queues per environment)
+  config.active_job.queue_adapter = :async
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
