@@ -15,5 +15,8 @@ module Accounting
     it { expect(Amount.new(3, 'PLN') * 2.0).to                    eq Amount.new(6, 'PLN') }
 
     it { expect(Amount.new(15.5, 'EUR').to_s).to                  eq('15.50 EUR') }
+
+    it { expect(Amount.new(-2.50, 'GBP').negative?).to            eq(true) }
+    it { expect(Amount.new(2.50, 'GBP').negative?).to             eq(false) }
   end
 end

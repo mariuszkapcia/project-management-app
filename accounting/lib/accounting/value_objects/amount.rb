@@ -11,6 +11,10 @@ module Accounting
       self.class == other.class && value == other.value && currency == other.currency ? 0 : -1
     end
 
+    def negative?
+      @value < 0
+    end
+
     def to_f
       value
     end
