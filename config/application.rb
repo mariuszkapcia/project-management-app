@@ -15,7 +15,12 @@ module ProjectManagementApp
     config.paths.add 'ui/lib',                 eager_load: true
 
     config.to_prepare do
-      Rails.configuration.event_store = RailsEventStore::Client.new
+      Rails.configuration.event_store = RailsEventStore::Client.new(
+        dispatcher: RubyEventStore::ComposedDispatcher.new(
+          RailsEventStore::AfterCommitAsyncDispatcher.new(scheduler: RailsEventStore::ActiveJobScheduler.new),
+          RubyEventStore::PubSub::Dispatcher.new
+        )
+      )
     end
   end
 end
