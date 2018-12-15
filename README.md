@@ -11,7 +11,7 @@ Available features:
 - Assign weekly working hours for each developer in the project.
 - See approximate date of finishing the project.
 
-Live demo available [here](https://limitless-forest-11376.herokuapp.com/)
+Live demo available [here](https://limitless-forest-11376.herokuapp.com/).
 
 ## Ruby version
 
