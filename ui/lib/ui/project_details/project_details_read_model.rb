@@ -18,33 +18,33 @@ module UI
     end
 
     def all
-      UI::ProjectDetails.all
+      UI::ProjectDetails::Project.all
     end
 
     def find(uuid)
-      UI::ProjectDetails.find_by(uuid: uuid)
+      UI::ProjectDetails::Project.find_by(uuid: uuid)
     end
 
     private
 
     def create_project(uuid, name)
-      UI::ProjectDetails.create!(uuid: uuid, name: name)
+      UI::ProjectDetails::Project.create!(uuid: uuid, name: name)
     end
 
     def estimate_project(uuid, hours)
-      project_details = UI::ProjectDetails.find_by(uuid: uuid)
+      project_details = UI::ProjectDetails::Project.find_by(uuid: uuid)
       project_details.estimation_in_hours = hours
       project_details.save!
     end
 
     def assign_deadline(uuid, deadline)
-      project_details = UI::ProjectDetails.find_by(uuid: uuid)
+      project_details = UI::ProjectDetails::Project.find_by(uuid: uuid)
       project_details.deadline = deadline
       project_details.save!
     end
 
     def assign_developer(project_uuid, developer_uuid, developer_fullname)
-      project_details = UI::ProjectDetails.find_by(uuid: project_uuid)
+      project_details = UI::ProjectDetails::Project.find_by(uuid: project_uuid)
       project_details.developers << {
         uuid:           developer_uuid,
         fullname:       developer_fullname,
@@ -54,7 +54,7 @@ module UI
     end
 
     def assign_developer_working_hours(project_uuid, developer_uuid, hours_per_week)
-      project_details             = UI::ProjectDetails.find_by(uuid: project_uuid)
+      project_details             = UI::ProjectDetails::Project.find_by(uuid: project_uuid)
       developer                   = find_developer(project_details.developers, developer_uuid)
       developer['hours_per_week'] = hours_per_week
       project_details.save!

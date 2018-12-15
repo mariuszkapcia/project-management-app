@@ -8,17 +8,17 @@ module UI
     end
 
     def all
-      UI::Developer.all
+      UI::DeveloperList::Developer.all
     end
 
     def find(uuid)
-      UI::Developer.find(uuid)
+      UI::DeveloperList::Developer.find(uuid)
     end
 
     private
 
     def create_developer(uuid, fullname, email)
-      UI::Developer.create!(uuid: uuid, fullname: fullname, email: email)
+      UI::DeveloperList::Developer.create!(uuid: uuid, fullname: fullname, email: email)
     end
   end
 end

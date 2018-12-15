@@ -8,13 +8,13 @@ module UI
     end
 
     def all
-      UI::Project.all
+      UI::ProjectList::Project.all
     end
 
     private
 
     def create_project(uuid, name)
-      UI::Project.create!(uuid: uuid, name: name)
+      UI::ProjectList::Project.create!(uuid: uuid, name: name)
     end
   end
 end
