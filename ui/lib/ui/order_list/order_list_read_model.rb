@@ -1,4 +1,3 @@
-# TODO: Add missing spec.
 module UI
   class OrderListReadModel
     def call(event)
