@@ -1,5 +1,11 @@
 class ConfigureProjectManagementAccountingMapping
   def call
+    @event_store.subscribe(
+      ProjectManagementAccountingMapping::ProjectRegisteredHandler,
+      to: [
+        ProjectManagement::ProjectRegistered
+      ]
+    )
   end
 
   private
