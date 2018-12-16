@@ -23,6 +23,10 @@ module Accounting
       "#{sprintf('%.2f', (cents / 100.to_f))} #{currency}"
     end
 
+    def hash
+      { cents: cents, currency: currency }
+    end
+
     def +(other)
       raise ArgumentError if currency != other.currency
 

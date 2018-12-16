@@ -2,7 +2,8 @@ module Accounting
   class OrderValuated < RailsEventStore::Event
     SCHEMA = {
       order_uuid:   String,
-      amount:       Integer
+      amount:       Integer,
+      currency:     String
     }.freeze
 
     def self.strict(data:)

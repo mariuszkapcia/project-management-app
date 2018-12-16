@@ -25,7 +25,9 @@ module Accounting
     specify 'valuate the order' do
       order = Accounting::Order.new(order_dddproject[:uuid])
       order.register(order_dddproject[:project_uuid], order_dddproject[:name])
-      order.valuate(order_dddproject[:amount])
+
+      amount = Amount.new(order_dddproject[:amount_cents], order_dddproject[:amount_currency])
+      order.valuate(amount)
 
       expect(order).to(have_applied(order_valuated))
     end
@@ -60,7 +62,8 @@ module Accounting
     def order_valuated_data
       {
         order_uuid: order_dddproject[:uuid],
-        amount:     order_dddproject[:amount]
+        amount:     order_dddproject[:amount_cents],
+        currency:   order_dddproject[:amount_currency]
       }
     end
   end

@@ -22,11 +22,12 @@ module Accounting
     end
 
     def valuate(amount)
-      raise InvalidAmount if amount < 0
+      raise InvalidAmount if amount.negative?
 
       apply(Accounting::OrderValuated.strict(data: {
         order_uuid: @uuid,
-        amount:     amount
+        amount:     amount.hash[:cents],
+        currency:   amount.hash[:currency]
       }))
     end
 
