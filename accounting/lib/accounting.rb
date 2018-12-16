@@ -3,6 +3,8 @@ end
 
 require_dependency 'accounting/aggregates/order.rb'
 
+require_dependency 'accounting/command_handlers/orders_command_handler.rb'
+
 require_dependency 'accounting/commands/register_order.rb'
 require_dependency 'accounting/commands/valuate_order.rb'
 
