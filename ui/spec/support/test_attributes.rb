@@ -17,5 +17,13 @@ module UI
         deadline:   Time.current.to_date.strftime('%d-%m-%Y')
       }
     end
+
+    def order_dddproject
+      {
+        uuid:         'ab6e9c30-2b1c-474d-824f-7b8f816ced99',
+        project_uuid: 'ab6e9c30-2b1c-474d-824f-7b8f816ced99',
+        name:         '#TopSecretDDDProject'
+      }
+    end
   end
 end
