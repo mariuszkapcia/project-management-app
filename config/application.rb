@@ -15,6 +15,8 @@ module ProjectManagementApp
     config.paths.add 'project_management/lib', eager_load: true
     config.paths.add 'ui/lib',                 eager_load: true
 
+    config.paths.add 'project_management_accounting_mapping/lib', eager_load: true
+
     config.to_prepare do
       Rails.configuration.event_store = RailsEventStore::Client.new(
         dispatcher: RubyEventStore::ComposedDispatcher.new(
