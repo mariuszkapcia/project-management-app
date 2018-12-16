@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   end
 
   resources :developers, only: [:index, :new, :create]
+  resources :orders, only: [:index]
 end
