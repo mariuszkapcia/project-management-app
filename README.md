@@ -12,6 +12,11 @@ Available features:
 - See approximate date of finishing the project.
 - Automatically add a new order after the new project is added.
 
+Features to do:
+- Valuate the order.
+- Add process manager for sending notification that all necessary information about project and order were provided.
+- Add notifications bounded context.
+
 Live demo available [here](https://limitless-forest-11376.herokuapp.com/).
 
 ## Ruby version
