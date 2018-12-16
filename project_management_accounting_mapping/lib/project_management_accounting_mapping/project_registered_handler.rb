@@ -1,3 +1,4 @@
+# TODO: Make this handler async
 module ProjectManagementAccountingMapping
   class ProjectRegisteredHandler
     def call(event)
