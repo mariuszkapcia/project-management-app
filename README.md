@@ -10,6 +10,7 @@ Available features:
 - Assign developers to the project.
 - Assign weekly working hours for each developer in the project.
 - See approximate date of finishing the project.
+- Automatically add a new order after the new project is added.
 
 Live demo available [here](https://limitless-forest-11376.herokuapp.com/).
 
