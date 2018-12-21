@@ -6,6 +6,13 @@ class ConfigureProjectManagementBoundedContext
         ProjectManagement::DeveloperRegistered
       ]
     )
+
+    @event_store.subscribe(
+      ProjectManagement::OrderList::Builder.new(event_store: @event_store),
+      to: [
+        Accounting::OrderRegistered
+      ]
+    )
   end
 
   private
