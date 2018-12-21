@@ -1,7 +1,8 @@
-# TODO: Make this handler async
 module ProjectManagementAccountingMapping
-  class ProjectRegisteredHandler
-    def call(event)
+  class ProjectRegisteredHandler < ActiveJob::Base
+    prepend RailsEventStore::AsyncHandler
+
+    def perform(event)
       Accounting::OrdersCommandHandler
         .new(event_store: event_store)
         .call(
