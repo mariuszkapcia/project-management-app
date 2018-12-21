@@ -38,7 +38,7 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter = :test
+  config.active_job.queue_adapter = :sidekiq
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

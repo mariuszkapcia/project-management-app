@@ -5,8 +5,10 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rails_event_store/rspec'
 require 'database_cleaner'
+require 'sidekiq/testing'
 
 ActiveRecord::Migration.maintain_test_schema!
+Sidekiq::Testing.inline!
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

@@ -1,3 +1,5 @@
+require 'sidekiq/testing'
+
 require_relative '../support/test_attributes'
 
 RSpec.describe 'Order requests', type: :request do
