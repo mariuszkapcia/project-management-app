@@ -172,6 +172,9 @@ GEM
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
+    rspec-sidekiq (3.0.3)
+      rspec-core (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
     rspec-support (3.8.0)
     ruby_dep (1.5.0)
     ruby_event_store (0.35.0)
@@ -252,6 +255,7 @@ DEPENDENCIES
   rails_event_store (~> 0.35.0)
   rails_event_store-rspec (~> 0.35.0)
   rspec-rails (~> 3.7, >= 3.7.1)
+  rspec-sidekiq (~> 3.0, >= 3.0.3)
   sass-rails (~> 5.0, >= 5.0.7)
   sidekiq (~> 5.2, >= 5.2.3)
   spring
