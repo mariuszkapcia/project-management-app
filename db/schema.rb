@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181216215557) do
+ActiveRecord::Schema.define(version: 20190104135047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,10 +38,6 @@ ActiveRecord::Schema.define(version: 20181216215557) do
     t.string "fullname"
     t.string "email"
     t.index ["email"], name: "index_ui_developer_list_read_model_on_email", unique: true
-  end
-
-  create_table "ui_order_list_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
-    t.string "name"
   end
 
   create_table "ui_project_aproximate_end_read_model", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
