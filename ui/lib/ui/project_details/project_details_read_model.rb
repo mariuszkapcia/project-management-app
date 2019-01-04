@@ -1,3 +1,4 @@
+# TODO: Add missing spec for DeadlineAssignedToProject.
 module UI
   class ProjectDetailsReadModel
     def call(event)
@@ -5,7 +6,7 @@ module UI
         when ProjectManagement::ProjectRegistered
           create_project(event.data[:uuid], event.data[:name])
         when ProjectManagement::ProjectEstimated
-          estimate_project(event.data[:uuid], event.data[:hours])
+          estimate_project(event.data[:project_uuid], event.data[:hours])
         when ProjectManagement::DeadlineAssignedToProject
           assign_deadline(event.data[:project_uuid], event.data[:deadline])
         when ProjectManagement::DeveloperAssignedToProject
@@ -31,8 +32,8 @@ module UI
       UI::ProjectDetails::Project.create!(uuid: uuid, name: name)
     end
 
-    def estimate_project(uuid, hours)
-      project_details = UI::ProjectDetails::Project.find_by(uuid: uuid)
+    def estimate_project(project_uuid, hours)
+      project_details                     = UI::ProjectDetails::Project.find_by(uuid: project_uuid)
       project_details.estimation_in_hours = hours
       project_details.save!
     end

@@ -29,8 +29,8 @@ module ProjectManagement
       raise InvalidEstimation if hours < 0
 
       apply(ProjectManagement::ProjectEstimated.strict(data: {
-        uuid:  @uuid,
-        hours: hours
+        project_uuid: @uuid,
+        hours:        hours
       }))
     end
 

@@ -66,8 +66,8 @@ module UI
 
     def project_estimated
       ProjectManagement::ProjectEstimated.new(data: {
-        uuid:  project_topsecretdddproject[:uuid],
-        hours: project_topsecretdddproject[:estimation]
+        project_uuid: project_topsecretdddproject[:uuid],
+        hours:        project_topsecretdddproject[:estimation]
       })
     end
 

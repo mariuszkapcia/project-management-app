@@ -6,8 +6,8 @@ module UI
         when ProjectManagement::ProjectRegistered
           add_project(event.data[:uuid])
         when ProjectManagement::ProjectEstimated
-          assign_estimation(event.data[:uuid], event.data[:hours])
-          calculate_aproximate_end(event.data[:uuid])
+          assign_estimation(event.data[:project_uuid], event.data[:hours])
+          calculate_aproximate_end(event.data[:project_uuid])
         when ProjectManagement::DeveloperWorkingHoursForProjectAssigned
           assign_developer_working_hours(
             event.data[:project_uuid], event.data[:developer_uuid], event.data[:hours_per_week]

@@ -98,8 +98,8 @@ module ProjectManagement
 
     def project_estimated_data
       {
-        uuid:  project_topsecretdddproject[:uuid],
-        hours: project_topsecretdddproject[:estimation]
+        project_uuid: project_topsecretdddproject[:uuid],
+        hours:        project_topsecretdddproject[:estimation]
       }
     end
 
