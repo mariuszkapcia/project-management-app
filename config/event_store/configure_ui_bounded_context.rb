@@ -33,13 +33,6 @@ class ConfigureUIBoundedContext
         ProjectManagement::DeveloperRegistered
       ]
     )
-
-    @event_store.subscribe(
-      UI::OrderListReadModel,
-      to: [
-        Accounting::OrderRegistered
-      ]
-    )
   end
 
   private
