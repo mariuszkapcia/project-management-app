@@ -18,6 +18,10 @@ module Notifications
 
     def send_project_kickoff_email(cmd)
       cmd.verify!
+
+      Notifications::ProjectKickoffMailer
+        .new(event_store: @event_store)
+        .deliver(cmd.project_uuid, cmd.project_name)
     end
   end
 end
