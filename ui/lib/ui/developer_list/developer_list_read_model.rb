@@ -1,22 +1,24 @@
 module UI
-  class NotificationListReadModel
+  class DeveloperListReadModel
     def call(event)
       case event
-        when Notifications::ProjectKickoffEmailSent
-          generate_project_kickoff_notification(event.data[:project_name])
+        when ProjectManagement::DeveloperRegistered
+          create_developer(event.data[:developer_uuid], event.data[:fullname], event.data[:email])
       end
     end
 
     def all
-      UI::NotificationList::Notification.all
+      UI::DeveloperList::Developer.all
+    end
+
+    def find(uuid)
+      UI::DeveloperList::Developer.find(uuid)
     end
 
     private
 
-    def generate_project_kickoff_notification(project_name)
-      UI::NotificationList::Notification.create!(
-        message: "Project #{project_name} is ready to kickoff!"
-      )
+    def create_developer(developer_uuid, fullname, email)
+      UI::DeveloperList::Developer.create!(uuid: developer_uuid, fullname: fullname, email: email)
     end
   end
 end
