@@ -90,22 +90,22 @@ module ProjectManagement
 
     def project_registered
       ProjectManagement::ProjectRegistered.new(data: {
-        uuid: project_topsecretdddproject[:uuid],
-        name: project_topsecretdddproject[:name]
+        project_uuid: project_topsecretdddproject[:uuid],
+        name:         project_topsecretdddproject[:name]
       })
     end
 
     def project_estimated
       ProjectManagement::ProjectEstimated.new(data: {
-        uuid:  project_topsecretdddproject[:uuid],
-        hours: project_topsecretdddproject[:estimation]
+        project_uuid: project_topsecretdddproject[:uuid],
+        hours:        project_topsecretdddproject[:estimation]
       })
     end
 
     def deadline_assigned_to_project
       ProjectManagement::DeadlineAssignedToProject.new(data: {
-        uuid:     project_topsecretdddproject[:uuid],
-        deadline: project_topsecretdddproject[:deadline]
+        project_uuid: project_topsecretdddproject[:uuid],
+        deadline:     project_topsecretdddproject[:deadline]
       })
     end
 
