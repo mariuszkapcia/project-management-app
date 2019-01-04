@@ -3,7 +3,7 @@ module UI
     def call(event)
       case event
         when ProjectManagement::DeveloperRegistered
-          create_developer(event.data[:uuid], event.data[:fullname], event.data[:email])
+          create_developer(event.data[:developer_uuid], event.data[:fullname], event.data[:email])
       end
     end
 
@@ -17,8 +17,8 @@ module UI
 
     private
 
-    def create_developer(uuid, fullname, email)
-      UI::DeveloperList::Developer.create!(uuid: uuid, fullname: fullname, email: email)
+    def create_developer(developer_uuid, fullname, email)
+      UI::DeveloperList::Developer.create!(uuid: developer_uuid, fullname: fullname, email: email)
     end
   end
 end

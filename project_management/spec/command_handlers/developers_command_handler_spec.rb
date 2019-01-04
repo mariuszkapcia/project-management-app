@@ -32,9 +32,9 @@ module ProjectManagement
 
     def developer_registered_data
       {
-        uuid:     developer_ignacy[:uuid],
-        fullname: developer_ignacy[:fullname],
-        email:    developer_ignacy[:email]
+        developer_uuid: developer_ignacy[:uuid],
+        fullname:       developer_ignacy[:fullname],
+        email:          developer_ignacy[:email]
       }
     end
 

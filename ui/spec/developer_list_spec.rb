@@ -17,12 +17,14 @@ module UI
     def assert_developer_correct
       expect(first_developer.uuid).to eq(developer_ignacy[:uuid])
       expect(first_developer.fullname).to eq(developer_ignacy[:fullname])
+      expect(first_developer.email).to eq(developer_ignacy[:email])
     end
 
     def developer_registered
       ProjectManagement::DeveloperRegistered.new(data: {
-        uuid:     developer_ignacy[:uuid],
-        fullname: developer_ignacy[:fullname]
+        developer_uuid: developer_ignacy[:uuid],
+        fullname:       developer_ignacy[:fullname],
+        email:          developer_ignacy[:email]
       })
     end
 

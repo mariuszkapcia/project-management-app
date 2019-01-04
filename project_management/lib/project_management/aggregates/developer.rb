@@ -14,9 +14,9 @@ module ProjectManagement
       raise HasBeenAlreadyRegistered if @state == :registered
 
       apply(ProjectManagement::DeveloperRegistered.strict(data: {
-        uuid:     @uuid,
-        fullname: fullname,
-        email:    email
+        developer_uuid: @uuid,
+        fullname:       fullname,
+        email:          email
       }))
     end
 
