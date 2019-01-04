@@ -6,6 +6,7 @@ module ProjectManagement
       attr_reader :project_name
 
       def initialize
+        @project_name        = nil
         @estimation_provided = false
         @deadline_provided   = false
 
