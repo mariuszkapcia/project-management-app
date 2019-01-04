@@ -17,6 +17,8 @@ class ProjectsController < ApplicationController
   def show
     project         = UI::ProjectDetailsReadModel.new.find(params[:id])
     approximate_end = UI::ProjectApproximateEndReadModel.new.for_project(params[:id])
+    raise ActionController::RoutingError.new('Not Found') if project.nil?
+
     project_on_time = project_on_time?(project, approximate_end)
 
     respond_to do |format|
