@@ -15,7 +15,7 @@ module UI
 
     def generate_project_kickoff_notification(project_name)
       UI::NotificationList::Notification.create!(
-        message: "Project #{project_name} is ready to kickoff!"
+        message: "#{project_name} is ready to kickoff!"
       )
     end
   end
