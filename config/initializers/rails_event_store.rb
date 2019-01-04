@@ -19,6 +19,7 @@ Rails.configuration.to_prepare do
     config.default_event_store = event_store
   end
 
+  # NOTE: Global command bus for process managers and sagas.
   command_bus.register(
     Notifications::SendProjectKickoffEmail,
     Notifications::NotificationsCommandHandler.new(event_store: event_store)
