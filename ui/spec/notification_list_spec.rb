@@ -15,7 +15,7 @@ module UI
     private
 
     def assert_notification_correct
-      expect(first_notification.message).to eq("Project #{project_topsecretdddproject[:name]} is ready to kickoff!")
+      expect(first_notification.message).to eq("#{project_topsecretdddproject[:name]} is ready to kickoff!")
     end
 
     def project_kickoff_email_sent
