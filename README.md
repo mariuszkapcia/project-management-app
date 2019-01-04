@@ -10,10 +10,7 @@ Available features:
 - Assign developers to the project.
 - Assign weekly working hours for each developer in the project.
 - See approximate date of finishing the project.
-
-Features to do:
-- Add process manager for sending notification that all necessary information about project were provided.
-- Add notifications bounded context.
+- Send project kickoff notification when deadline and estimation are provided.
 
 Live demo available [here](https://limitless-forest-11376.herokuapp.com/).
 
