@@ -131,8 +131,8 @@ module ProjectManagement
 
     def project_registered_date
       {
-        uuid: project_topsecretdddproject[:uuid],
-        name: project_topsecretdddproject[:name]
+        project_uuid: project_topsecretdddproject[:uuid],
+        name:         project_topsecretdddproject[:name]
       }
     end
 

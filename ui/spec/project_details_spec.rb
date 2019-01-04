@@ -59,8 +59,8 @@ module UI
 
     def project_registered
       ProjectManagement::ProjectRegistered.new(data: {
-        uuid: project_topsecretdddproject[:uuid],
-        name: project_topsecretdddproject[:name]
+        project_uuid: project_topsecretdddproject[:uuid],
+        name:         project_topsecretdddproject[:name]
       })
     end
 

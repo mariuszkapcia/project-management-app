@@ -1,8 +1,8 @@
 module ProjectManagement
   class ProjectRegistered < RailsEventStore::Event
     SCHEMA = {
-      uuid: String,
-      name: String
+      project_uuid: String,
+      name:         String
     }.freeze
 
     def self.strict(data:)
