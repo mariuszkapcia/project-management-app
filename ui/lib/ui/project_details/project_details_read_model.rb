@@ -7,7 +7,7 @@ module UI
         when ProjectManagement::ProjectEstimated
           estimate_project(event.data[:uuid], event.data[:hours])
         when ProjectManagement::DeadlineAssignedToProject
-          assign_deadline(event.data[:uuid], event.data[:deadline])
+          assign_deadline(event.data[:project_uuid], event.data[:deadline])
         when ProjectManagement::DeveloperAssignedToProject
           assign_developer(event.data[:project_uuid], event.data[:developer_uuid], event.data[:developer_fullname])
         when ProjectManagement::DeveloperWorkingHoursForProjectAssigned
@@ -37,8 +37,8 @@ module UI
       project_details.save!
     end
 
-    def assign_deadline(uuid, deadline)
-      project_details = UI::ProjectDetails::Project.find_by(uuid: uuid)
+    def assign_deadline(project_uuid, deadline)
+      project_details          = UI::ProjectDetails::Project.find_by(uuid: project_uuid)
       project_details.deadline = deadline
       project_details.save!
     end

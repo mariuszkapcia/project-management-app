@@ -38,8 +38,8 @@ module ProjectManagement
       raise DeadlineFromPast if deadline < Deadline.new(DateTime.current.to_i)
 
       apply(ProjectManagement::DeadlineAssignedToProject.strict(data: {
-        uuid:     @uuid,
-        deadline: deadline.to_datetime
+        project_uuid: @uuid,
+        deadline:     deadline.to_datetime
       }))
     end
 

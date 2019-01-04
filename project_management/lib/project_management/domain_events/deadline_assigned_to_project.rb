@@ -1,8 +1,8 @@
 module ProjectManagement
   class DeadlineAssignedToProject < RailsEventStore::Event
     SCHEMA = {
-      uuid:     String,
-      deadline: DateTime
+      project_uuid: String,
+      deadline:     DateTime
     }.freeze
 
     def self.strict(data:)

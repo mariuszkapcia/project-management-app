@@ -121,8 +121,8 @@ module ProjectManagement
 
     def deadline_assigned_to_project_data
       {
-        uuid:     project_topsecretdddproject[:uuid],
-        deadline: project_topsecretdddproject[:deadline]
+        project_uuid: project_topsecretdddproject[:uuid],
+        deadline:     project_topsecretdddproject[:deadline]
       }
     end
 
