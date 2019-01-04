@@ -45,5 +45,15 @@ module ProjectManagement
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
     end
+
+    specify 'should validate format of email' do
+      cmd = ProjectManagement::RegisterDeveloper.new(
+        uuid:     developer_ignacy[:uuid],
+        fullname: developer_ignacy[:fullname],
+        email:    'wrong_email_format'
+      )
+
+      expect { cmd.verify! }.to raise_error(Command::ValidationError)
+    end
   end
 end

@@ -14,3 +14,4 @@ en:
     developer_hours_per_week_missing: Hours per week are missing
     invalid_estimation:               Invalid estimation value
     invalid_working_hours:            Invalid working hours
+    developer_email_incorrect:        Incorrect email

@@ -15,7 +15,8 @@ class ErrorHandler
   DEVELOPERS = {
     email_address_not_uniq:           { code: '2000' },
     developer_fullname_missing:       { code: '2001' },
-    developer_email_missing:          { code: '2002' }
+    developer_email_missing:          { code: '2002' },
+    developer_email_incorrect:        { code: '2003' }
   }.freeze
 
   PROJECTS = {
