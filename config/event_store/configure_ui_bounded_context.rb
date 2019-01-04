@@ -33,6 +33,13 @@ class ConfigureUIBoundedContext
         ProjectManagement::DeveloperRegistered
       ]
     )
+
+    @event_store.subscribe(
+      UI::NotificationListReadModel,
+      to: [
+        Notifications::ProjectKickoffEmailSent
+      ]
+    )
   end
 
   private
