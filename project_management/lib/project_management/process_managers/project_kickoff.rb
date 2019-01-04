@@ -1,5 +1,7 @@
 module ProjectManagement
-  class ProjectKickoff
+  class ProjectKickoff < ActiveJob::Base
+    prepend RailsEventStore::AsyncHandler
+
     class State
       attr_reader :project_name
 
@@ -73,7 +75,7 @@ module ProjectManagement
     end
 
     def call(event)
-      stream_name  = "ProjectKickoff$#{event.data[:uuid]}"
+      stream_name  = "ProjectKickoff$#{event.data[:project_uuid]}"
 
       state = State.new
       state.load(stream_name, event_store: @event_store)
@@ -84,7 +86,7 @@ module ProjectManagement
       if !process_already_ended && state.ready_to_kickoff?
         @command_bus.call(
           Notifications::SendProjectKickoffEmail.new(
-            project_uuid: event.data[:uuid],
+            project_uuid: event.data[:project_uuid],
             project_name: state.project_name
           )
         )
