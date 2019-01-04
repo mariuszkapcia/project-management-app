@@ -1,0 +1,17 @@
+<h1>Notifications</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Message</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.message %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
