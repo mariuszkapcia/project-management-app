@@ -105,6 +105,36 @@ module ProjectManagement
         .to(raise_error(ProjectManagement::Project::HoursPerWeekExceeded))
     end
 
+    specify 'kick off a project' do
+      project_deadline = Deadline.new(project_topsecretdddproject[:deadline].to_i)
+      project          = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.register(project_topsecretdddproject[:name])
+      project.estimate(project_topsecretdddproject[:estimation])
+      project.assign_deadline(project_deadline)
+      project.kick_off
+
+      expect(project).to(have_applied(project_kicked_off))
+    end
+
+    specify 'cannot kick off project without estimation' do
+      project_deadline = Deadline.new(project_topsecretdddproject[:deadline].to_i)
+      project          = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.register(project_topsecretdddproject[:name])
+      project.assign_deadline(project_deadline)
+
+      expect{ project.kick_off }
+        .to(raise_error(ProjectManagement::Project::NotReadyForKickOff))
+    end
+
+    specify 'cannot kick off project without deadline' do
+      project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
+      project.register(project_topsecretdddproject[:name])
+      project.estimate(project_topsecretdddproject[:estimation])
+
+      expect{ project.kick_off }
+        .to(raise_error(ProjectManagement::Project::NotReadyForKickOff))
+    end
+
     private
 
     def project_registered
@@ -127,6 +157,10 @@ module ProjectManagement
       an_event(ProjectManagement::DeveloperWorkingHoursForProjectAssigned)
         .with_data(developer_working_hours_assigned_data)
         .strict
+    end
+
+    def project_kicked_off
+      an_event(ProjectManagement::ProjectKickedOff).with_data(project_kicked_off_data).strict
     end
 
     def project_registered_date
@@ -163,6 +197,12 @@ module ProjectManagement
         project_uuid:   project_topsecretdddproject[:uuid],
         developer_uuid: developer_ignacy[:uuid],
         hours_per_week: developer_ignacy[:hours_per_week]
+      }
+    end
+
+    def project_kicked_off_data
+      {
+        project_uuid: project_topsecretdddproject[:uuid]
       }
     end
   end

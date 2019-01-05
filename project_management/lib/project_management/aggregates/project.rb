@@ -9,11 +9,14 @@ module ProjectManagement
     DeveloperNotFound        = Class.new(StandardError)
     InvalidEstimation        = Class.new(StandardError)
     InvalidWorkingHours      = Class.new(StandardError)
+    NotReadyForKickOff       = Class.new(StandardError)
 
     def initialize(uuid)
-      @uuid       = uuid
-      @state      = nil
-      @developers = []
+      @uuid                = uuid
+      @state               = nil
+      @developers          = []
+      @estimation_provided = false
+      @deadline_provided   = false
     end
 
     def register(name)
@@ -65,6 +68,14 @@ module ProjectManagement
       }))
     end
 
+    def kick_off
+      raise NotReadyForKickOff if !@estimation_provided || !@deadline_provided
+
+      apply(ProjectManagement::ProjectKickedOff.strict(data: {
+        project_uuid: @uuid
+      }))
+    end
+
     private
 
     def apply_project_registered(event)
@@ -72,6 +83,7 @@ module ProjectManagement
     end
 
     def apply_project_estimated(event)
+      @estimation_provided = true
     end
 
     def apply_developer_assigned_to_project(event)
@@ -82,9 +94,14 @@ module ProjectManagement
     end
 
     def apply_deadline_assigned_to_project(event)
+      @deadline_provided = true
     end
 
     def apply_developer_working_hours_for_project_assigned(event)
+    end
+
+    def apply_project_kicked_off(event)
+      @state = :kicked_off
     end
   end
 end
