@@ -10,7 +10,7 @@ module Notifications
     end
 
     def find(project_uuid)
-      @state.projects.any? { |project| project[:uuid] == project_uuid }
+      @state.projects.find { |project| project[:uuid] == project_uuid }
     end
 
     private
