@@ -59,6 +59,16 @@ module ProjectManagement
         )
     end
 
+    def kick_off
+      @command_handler
+        .new(event_store: @event_store)
+        .call(
+          ProjectManagement::KickOffProject.new(
+            project_uuid: @uuid
+          )
+        )
+    end
+
     private
 
     def initialize(event_store: Rails.configuration.event_store)

@@ -9,7 +9,8 @@ module ProjectManagement
         ProjectManagement::EstimateProject             => method(:estimate),
         ProjectManagement::AssignDeveloperToProject    => method(:assign_developer),
         ProjectManagement::AssignDeveloperWorkingHours => method(:assign_developer_working_hours),
-        ProjectManagement::AssignDeadline              => method(:assign_deadline)
+        ProjectManagement::AssignDeadline              => method(:assign_deadline),
+        ProjectManagement::KickOffProject              => method(:kick_off_project)
       }.map{ |klass, handler| @command_bus.register(klass, handler) }
     end
 
@@ -71,6 +72,16 @@ module ProjectManagement
       ActiveRecord::Base.transaction do
         with_project(cmd.project_uuid) do |project|
           project.assign_deadline(deadline)
+        end
+      end
+    end
+
+    def kick_off_project(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_project(cmd.project_uuid) do |project|
+          project.kick_off
         end
       end
     end

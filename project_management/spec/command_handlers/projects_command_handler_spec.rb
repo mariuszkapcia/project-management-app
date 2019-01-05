@@ -65,6 +65,16 @@ module ProjectManagement
       expect(event_store).to(have_published(deadline_assigned_to_project))
     end
 
+    specify 'kick off project' do
+      project = instance_of_project(event_store: event_store)
+      project.register(project_topsecretdddproject)
+      project.estimate(project_topsecretdddproject[:estimation])
+      project.assign_deadline(project_topsecretdddproject[:deadline].to_i)
+      project.kick_off
+
+      expect(event_store).to(have_published(project_kicked_off))
+    end
+
     private
 
     def project_registered
@@ -87,6 +97,10 @@ module ProjectManagement
 
     def deadline_assigned_to_project
       an_event(ProjectManagement::DeadlineAssignedToProject).with_data(deadline_assigned_to_project_data).strict
+    end
+
+    def project_kicked_off
+      an_event(ProjectManagement::ProjectKickedOff).with_data(project_kicked_off_data).strict
     end
 
     def project_registered_data
@@ -123,6 +137,12 @@ module ProjectManagement
       {
         project_uuid: project_topsecretdddproject[:uuid],
         deadline:     project_topsecretdddproject[:deadline]
+      }
+    end
+
+    def project_kicked_off_data
+      {
+        project_uuid: project_topsecretdddproject[:uuid]
       }
     end
 
