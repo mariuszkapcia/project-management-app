@@ -21,8 +21,8 @@ Rails.configuration.to_prepare do
 
   # NOTE: Global command bus for process managers and sagas.
   command_bus.register(
-    Notifications::SendProjectKickoffEmail,
-    Notifications::NotificationsCommandHandler.new(event_store: event_store)
+    ProjectManagement::KickOffProject,
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store)
   )
 
   ConfigureProjectManagementBoundedContext.new(event_store: event_store).call

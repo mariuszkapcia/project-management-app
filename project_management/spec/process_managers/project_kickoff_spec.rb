@@ -21,7 +21,7 @@ module ProjectManagement
       end
 
       expect(command_bus.commands.size).to eq(1)
-      expect(command_bus.commands.first.as_json).to eq(send_project_kickoff_email.as_json)
+      expect(command_bus.commands.first.as_json).to eq(kick_off_project.as_json)
     end
 
     specify 'email is sent only once' do
@@ -38,7 +38,7 @@ module ProjectManagement
       end
 
       expect(command_bus.commands.size).to eq(1)
-      expect(command_bus.commands.first.as_json).to eq(send_project_kickoff_email.as_json)
+      expect(command_bus.commands.first.as_json).to eq(kick_off_project.as_json)
     end
 
     specify 'email is not sent without deadline' do
@@ -109,10 +109,9 @@ module ProjectManagement
       })
     end
 
-    def send_project_kickoff_email
-      Notifications::SendProjectKickoffEmail.new(
-        project_uuid: project_topsecretdddproject[:uuid],
-        project_name: project_topsecretdddproject[:name]
+    def kick_off_project
+      ProjectManagement::KickOffProject.new(
+        project_uuid: project_topsecretdddproject[:uuid]
       )
     end
 

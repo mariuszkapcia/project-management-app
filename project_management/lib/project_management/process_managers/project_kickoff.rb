@@ -86,9 +86,8 @@ module ProjectManagement
 
       if !process_already_ended && state.ready_to_kickoff?
         @command_bus.call(
-          Notifications::SendProjectKickoffEmail.new(
-            project_uuid: event.data[:project_uuid],
-            project_name: state.project_name
+          ProjectManagement::KickOffProject.new(
+            project_uuid: event.data[:project_uuid]
           )
         )
       end
