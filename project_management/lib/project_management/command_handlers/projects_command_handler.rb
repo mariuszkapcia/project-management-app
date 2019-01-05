@@ -35,7 +35,7 @@ module ProjectManagement
       cmd.verify!
 
       ActiveRecord::Base.transaction do
-        with_project(cmd.uuid) do |project|
+        with_project(cmd.project_uuid) do |project|
           project.estimate(cmd.hours)
         end
       end

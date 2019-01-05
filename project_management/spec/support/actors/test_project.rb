@@ -18,8 +18,8 @@ module ProjectManagement
         .new(event_store: @event_store)
         .call(
           ProjectManagement::EstimateProject.new(
-            uuid:  @uuid,
-            hours: estimation
+            project_uuid: @uuid,
+            hours:        estimation
           )
         )
     end

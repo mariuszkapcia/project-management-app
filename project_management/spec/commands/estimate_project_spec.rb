@@ -6,19 +6,19 @@ module ProjectManagement
   RSpec.describe 'EstimateProject command' do
     include TestAttributes
 
-    specify 'should validate presence of uuid' do
+    specify 'should validate presence of project_uuid' do
       cmd = ProjectManagement::EstimateProject.new(
-        uuid:  nil,
-        hours: project_topsecretdddproject[:estimation]
+        project_uuid: nil,
+        hours:        project_topsecretdddproject[:estimation]
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
     end
 
-    specify 'should validate format of uuid' do
+    specify 'should validate format of project_uuid' do
       cmd = ProjectManagement::EstimateProject.new(
-        uuid:  'wrong_uuid_format',
-        hours: project_topsecretdddproject[:estimation]
+        project_uuid: 'wrong_uuid_format',
+        hours:        project_topsecretdddproject[:estimation]
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)
@@ -26,8 +26,8 @@ module ProjectManagement
 
     specify 'should validate presence of hours' do
       cmd = ProjectManagement::EstimateProject.new(
-        uuid:  project_topsecretdddproject[:uuid],
-        hours: nil
+        project_uuid: project_topsecretdddproject[:uuid],
+        hours:        nil
       )
 
       expect { cmd.verify! }.to raise_error(Command::ValidationError)

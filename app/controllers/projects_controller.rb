@@ -197,8 +197,8 @@ class ProjectsController < ApplicationController
 
   def estimate_project
     ProjectManagement::EstimateProject.new(
-      uuid:  params[:id],
-      hours: params[:hours].present? ? params[:hours].to_i : nil
+      project_uuid: params[:id],
+      hours:        params[:hours].present? ? params[:hours].to_i : nil
     )
   end
 
