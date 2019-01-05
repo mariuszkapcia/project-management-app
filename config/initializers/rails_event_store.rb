@@ -31,5 +31,5 @@ Rails.configuration.to_prepare do
   ConfigureNotificationsBoundedContext.new(event_store: event_store).call
   ConfigureUIBoundedContext.new(event_store: event_store).call
 
-  ConfigureProjectKickoffProcessManager.new(event_store: event_store, command_bus: command_bus).call
+  ConfigureProjectKickoffProcessManager.new(event_store: event_store).call
 end

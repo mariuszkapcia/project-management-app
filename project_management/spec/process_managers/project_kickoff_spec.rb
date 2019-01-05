@@ -10,14 +10,17 @@ module ProjectManagement
 
     specify 'happy path' do
       command_bus = FakeCommandBus.new
-      process     = ProjectKickoff.new(event_store: event_store, command_bus: command_bus)
+      process     = ProjectKickoff.new
+
+      override_event_store_with(event_store)
+      override_command_bus_with(command_bus)
 
       given([
         project_registered,
         project_estimated,
         deadline_assigned_to_project
       ]).each do |event|
-        process.call(event)
+        process.perform(event_to_serialized_record(event).to_h)
       end
 
       expect(command_bus.commands.size).to eq(1)
@@ -26,7 +29,10 @@ module ProjectManagement
 
     specify 'email is sent only once' do
       command_bus = FakeCommandBus.new
-      process     = ProjectKickoff.new(event_store: event_store, command_bus: command_bus)
+      process     = ProjectKickoff.new
+
+      override_event_store_with(event_store)
+      override_command_bus_with(command_bus)
 
       given([
         project_registered,
@@ -34,7 +40,7 @@ module ProjectManagement
         deadline_assigned_to_project,
         project_estimated
       ]).each do |event|
-        process.call(event)
+        process.perform(event_to_serialized_record(event).to_h)
       end
 
       expect(command_bus.commands.size).to eq(1)
@@ -43,13 +49,16 @@ module ProjectManagement
 
     specify 'email is not sent without deadline' do
       command_bus = FakeCommandBus.new
-      process     = ProjectKickoff.new(event_store: event_store, command_bus: command_bus)
+      process     = ProjectKickoff.new
+
+      override_event_store_with(event_store)
+      override_command_bus_with(command_bus)
 
       given([
         project_registered,
         project_estimated
       ]).each do |event|
-        process.call(event)
+        process.perform(event_to_serialized_record(event).to_h)
       end
 
       expect(command_bus.commands.size).to eq(0)
@@ -57,13 +66,16 @@ module ProjectManagement
 
     specify 'email is not sent without estimation' do
       command_bus = FakeCommandBus.new
-      process     = ProjectKickoff.new(event_store: event_store, command_bus: command_bus)
+      process     = ProjectKickoff.new
+
+      override_event_store_with(event_store)
+      override_command_bus_with(command_bus)
 
       given([
         project_registered,
         deadline_assigned_to_project
       ]).each do |event|
-        process.call(event)
+        process.perform(event_to_serialized_record(event).to_h)
       end
 
       expect(command_bus.commands.size).to eq(0)
@@ -115,9 +127,30 @@ module ProjectManagement
       )
     end
 
+    def event_to_serialized_record(event)
+      RubyEventStore::SerializedRecord.new(
+        event_id:   event.event_id,
+        metadata:   YAML.dump(event.metadata.to_h),
+        data:       YAML.dump(event.data),
+        event_type: event.class.name
+      )
+    end
+
+    # TODO: Is there any better way?
+    def override_event_store_with(even_store)
+      allow(Rails.configuration).to receive(:event_store).and_return(event_store)
+    end
+
+    # TODO: Is there any better way?
+    def override_command_bus_with(command_bus)
+      allow(Rails.configuration).to receive(:command_bus).and_return(command_bus)
+    end
+
     def event_store
-      RailsEventStore::Client.new.tap do |es|
-        ConfigureProjectManagementBoundedContext.new(event_store: es).call
+      @event_store ||= begin
+        RailsEventStore::Client.new.tap do |es|
+          ConfigureProjectManagementBoundedContext.new(event_store: es).call
+        end
       end
     end
   end

@@ -70,27 +70,30 @@ module ProjectManagement
 
     private_constant :State
 
-    def initialize(command_bus:, event_store:)
-      @command_bus = command_bus
-      @event_store = event_store
-    end
-
-    def call(event)
+    def perform(event)
       stream_name  = "ProjectKickoff$#{event.data[:project_uuid]}"
 
       state = State.new
-      state.load(stream_name, event_store: @event_store)
+      state.load(stream_name, event_store: event_store)
       process_already_ended = state.ready_to_kickoff?
       state.apply(event)
-      state.store(stream_name, event_store: @event_store)
+      state.store(stream_name, event_store: event_store)
 
       if !process_already_ended && state.ready_to_kickoff?
-        @command_bus.call(
+        command_bus.call(
           ProjectManagement::KickOffProject.new(
             project_uuid: event.data[:project_uuid]
           )
         )
       end
+    end
+
+    def event_store
+      Rails.configuration.event_store
+    end
+
+    def command_bus
+      Rails.configuration.command_bus
     end
   end
 end
