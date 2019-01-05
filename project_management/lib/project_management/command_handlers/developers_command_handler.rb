@@ -23,7 +23,7 @@ module ProjectManagement
       raise Developer::EmailAddressNotUniq if @developer_list_read_model.retrieve.email_taken?(cmd.email)
 
       ActiveRecord::Base.transaction do
-        with_developer(cmd.uuid) do |developer|
+        with_developer(cmd.developer_uuid) do |developer|
           developer.register(cmd.fullname, cmd.email)
         end
       end

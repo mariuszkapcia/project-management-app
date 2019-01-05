@@ -43,9 +43,9 @@ class DevelopersController < ApplicationController
 
   def register_developer
     ProjectManagement::RegisterDeveloper.new(
-      uuid:     params[:uuid],
-      fullname: params[:fullname],
-      email:    params[:email]
+      developer_uuid: params[:uuid],
+      fullname:       params[:fullname],
+      email:          params[:email]
     )
   end
 

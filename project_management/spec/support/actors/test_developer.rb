@@ -7,9 +7,9 @@ module ProjectManagement
         .new(event_store: @event_store)
         .call(
           ProjectManagement::RegisterDeveloper.new(
-            uuid:     developer[:uuid],
-            fullname: developer[:fullname],
-            email:    developer[:email]
+            developer_uuid: developer[:uuid],
+            fullname:       developer[:fullname],
+            email:          developer[:email]
           )
         )
     end
