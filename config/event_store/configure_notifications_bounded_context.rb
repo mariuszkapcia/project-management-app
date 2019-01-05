@@ -1,5 +1,11 @@
 class ConfigureNotificationsBoundedContext
   def call
+    @event_store.subscribe(
+      Notifications::ProjectKickedOffHandler,
+      to: [
+        ProjectManagement::ProjectKickedOff
+      ]
+    )
   end
 
   private
