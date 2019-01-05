@@ -39,8 +39,10 @@ module ProjectManagement
     end
 
     def event_store
-      RailsEventStore::Client.new.tap do |es|
-        ConfigureProjectManagementBoundedContext.new(event_store: es).call
+      @event_store ||= begin
+        RailsEventStore::Client.new.tap do |es|
+          ConfigureProjectManagementBoundedContext.new(event_store: es).call
+        end
       end
     end
   end
