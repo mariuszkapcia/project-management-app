@@ -6,6 +6,8 @@ require_relative '../event_store/configure_project_management_bounded_context'
 require_relative '../event_store/configure_notifications_bounded_context'
 require_relative '../event_store/configure_ui_bounded_context'
 
+require_relative '../event_store/configure_project_kickoff_process_manager'
+
 Rails.configuration.to_prepare do
   Rails.configuration.command_bus = command_bus = Arkency::CommandBus.new
   Rails.configuration.event_store = event_store = RailsEventStore::Client.new(
@@ -28,4 +30,6 @@ Rails.configuration.to_prepare do
   ConfigureProjectManagementBoundedContext.new(event_store: event_store).call
   ConfigureNotificationsBoundedContext.new(event_store: event_store).call
   ConfigureUIBoundedContext.new(event_store: event_store).call
+
+  ConfigureProjectKickoffProcessManager.new(event_store: event_store, command_bus: command_bus).call
 end

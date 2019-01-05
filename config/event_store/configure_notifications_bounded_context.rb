@@ -8,7 +8,7 @@ class ConfigureNotificationsBoundedContext
     )
 
     @event_store.subscribe(
-      Notifications::ProjectKickedOffHandler,
+      Notifications::ProjectKickedOffHandler.new(event_store: @event_store),
       to: [
         ProjectManagement::ProjectKickedOff
       ]

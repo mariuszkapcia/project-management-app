@@ -6,21 +6,11 @@ class ConfigureProjectManagementBoundedContext
         ProjectManagement::DeveloperRegistered
       ]
     )
-
-    @event_store.subscribe(
-      ProjectManagement::ProjectKickoff.new(event_store: @event_store, command_bus: @command_bus),
-      to: [
-        ProjectManagement::ProjectRegistered,
-        ProjectManagement::ProjectEstimated,
-        ProjectManagement::DeadlineAssignedToProject
-      ]
-    )
   end
 
   private
 
-  def initialize(event_store: Rails.configuration.event_store, command_bus: Rails.configuration.command_bus)
+  def initialize(event_store: Rails.configuration.event_store)
     @event_store = event_store
-    @command_bus = command_bus
   end
 end
