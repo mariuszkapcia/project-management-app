@@ -190,8 +190,8 @@ class ProjectsController < ApplicationController
 
   def register_project
     ProjectManagement::RegisterProject.new(
-      uuid: params[:uuid],
-      name: params[:name]
+      project_uuid: params[:uuid],
+      name:         params[:name]
     )
   end
 

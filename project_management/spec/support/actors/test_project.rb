@@ -7,8 +7,8 @@ module ProjectManagement
         .new(event_store: @event_store)
         .call(
           ProjectManagement::RegisterProject.new(
-            uuid: project[:uuid],
-            name: project[:name]
+            project_uuid: project[:uuid],
+            name:         project[:name]
           )
         )
     end
