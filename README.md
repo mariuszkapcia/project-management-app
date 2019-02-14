@@ -12,7 +12,7 @@ Available features:
 - See approximate date of finishing the project.
 - Send project kickoff notification when deadline and estimation are provided.
 
-Live demo available [here](https://limitless-forest-11376.herokuapp.com/).
+Live demo available [here](https://project-management-ddd.herokuapp.com/).
 
 ## Ruby version
 
