@@ -3,10 +3,8 @@ require_dependency 'project_management'
 require_relative '../support/test_attributes'
 
 module ProjectManagement
-  RSpec.describe 'Developer aggregate' do
+  RSpec.describe 'ProjectManagement::Developer' do
     include TestAttributes
-
-    cover 'ProjectManagement::Developer*'
 
     specify 'register a new developer' do
       developer = ProjectManagement::Developer.new(developer_ignacy[:uuid])

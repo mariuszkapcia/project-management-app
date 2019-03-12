@@ -6,8 +6,6 @@ module ProjectManagement
   RSpec.describe 'Developers read model' do
     include TestAttributes
 
-    cover 'ProjectManagement::DeveloperList*'
-
     specify 'list of developers' do
       event_store.publish(developer_registered, stream_name: 'stream_name')
 

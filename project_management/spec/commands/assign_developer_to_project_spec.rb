@@ -6,8 +6,6 @@ module ProjectManagement
   RSpec.describe 'AssignDeveloperToProject command' do
     include TestAttributes
 
-    cover 'ProjectManagement::AssignDeveloperToProject*'
-
     specify 'should validate presence of project_uuid' do
       cmd = ProjectManagement::AssignDeveloperToProject.new(
         project_uuid:       nil,

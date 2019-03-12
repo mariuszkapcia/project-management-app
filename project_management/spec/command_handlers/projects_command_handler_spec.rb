@@ -8,8 +8,6 @@ module ProjectManagement
     include TestAttributes
     include TestActors
 
-    cover 'ProjectManagement::ProjectsCommandHandler*'
-
     specify 'register a new project' do
       project = instance_of_project(event_store: event_store)
       project.register(project_topsecretdddproject)

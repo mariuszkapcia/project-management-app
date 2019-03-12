@@ -6,8 +6,6 @@ module ProjectManagement
   RSpec.describe 'RegisterProject command' do
     include TestAttributes
 
-    cover 'ProjectManagement::RegisterProject*'
-
     specify 'should validate presence of project_uuid' do
       cmd = ProjectManagement::RegisterProject.new(
         project_uuid: nil,

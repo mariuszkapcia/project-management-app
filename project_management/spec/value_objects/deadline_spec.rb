@@ -2,8 +2,6 @@ require_dependency 'project_management'
 
 module ProjectManagement
   RSpec.describe 'Deadline value object' do
-    cover 'ProjectManagement::Deadline*'
-
     it { expect{ Deadline.new(DateTime.current.to_i) }.not_to raise_error }
     it { expect{ Deadline.new(DateTime.current) }.to          raise_error(Deadline::InvalidValue) }
     it { expect{ Deadline.new('01-01-2018') }.to              raise_error(Deadline::InvalidValue) }

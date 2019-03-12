@@ -6,8 +6,6 @@ module ProjectManagement
   RSpec.describe 'EstimateProject command' do
     include TestAttributes
 
-    cover 'ProjectManagement::EstimateProject*'
-
     specify 'should validate presence of project_uuid' do
       cmd = ProjectManagement::EstimateProject.new(
         project_uuid: nil,
