@@ -6,6 +6,8 @@ module ProjectManagement
   RSpec.describe 'KickOffProject command' do
     include TestAttributes
 
+    cover 'ProjectManagement::KickOffProject*'
+
     specify 'should validate presence of project_uuid' do
       cmd = ProjectManagement::KickOffProject.new(
         project_uuid: nil

@@ -6,6 +6,8 @@ module ProjectManagement
   RSpec.describe 'Developer aggregate' do
     include TestAttributes
 
+    cover 'ProjectManagement::Developer*'
+
     specify 'register a new developer' do
       developer = ProjectManagement::Developer.new(developer_ignacy[:uuid])
       developer.register(developer_ignacy[:fullname], developer_ignacy[:email])

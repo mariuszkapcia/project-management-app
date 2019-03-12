@@ -8,6 +8,8 @@ module ProjectManagement
     include TestAttributes
     include TestActors
 
+    cover 'ProjectManagement::ProjectKickoff*'
+
     specify 'happy path' do
       command_bus = FakeCommandBus.new
       process     = ProjectKickoff.new

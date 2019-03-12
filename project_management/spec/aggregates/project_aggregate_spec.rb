@@ -6,6 +6,8 @@ module ProjectManagement
   RSpec.describe 'Project aggregate' do
     include TestAttributes
 
+    cover 'ProjectManagement::Project*'
+
     specify 'register new project' do
       project = ProjectManagement::Project.new(project_topsecretdddproject[:uuid])
       project.register(project_topsecretdddproject[:name])

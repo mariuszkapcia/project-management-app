@@ -8,6 +8,8 @@ module ProjectManagement
     include TestAttributes
     include TestActors
 
+    cover 'ProjectManagement::DevelopersCommandHandler*'
+
     specify 'register a new developer' do
       developer = instance_of_developer(event_store: event_store)
       developer.register(developer_ignacy)

@@ -6,6 +6,8 @@ module ProjectManagement
   RSpec.describe 'AssignDeadline command' do
     include TestAttributes
 
+    cover 'ProjectManagement::AssignDeadline*'
+
     specify 'should validate presence of project_uuid' do
       cmd = ProjectManagement::AssignDeadline.new(
         project_uuid: nil,
