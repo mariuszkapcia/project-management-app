@@ -17,6 +17,7 @@ group :development, :test do
   gem 'rails_event_store-rspec', '~> 0.35.0'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.2', require: false
   gem 'rspec-sidekiq', '~> 3.0', '>= 3.0.3'
+  gem 'mutant-rspec', '~> 0.8.24'
 end
 
 group :development do
