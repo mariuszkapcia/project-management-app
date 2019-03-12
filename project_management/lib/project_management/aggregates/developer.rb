@@ -6,14 +6,13 @@ module ProjectManagement
     EmailAddressNotUniq      = Class.new(StandardError)
 
     def initialize(uuid)
-      @uuid  = uuid
-      @state = nil
+      @uuid = uuid
     end
 
     def register(fullname, email)
-      raise HasBeenAlreadyRegistered if @state == :registered
+      raise HasBeenAlreadyRegistered if @registered
 
-      apply(ProjectManagement::DeveloperRegistered.strict(data: {
+      apply(DeveloperRegistered.strict(data: {
         developer_uuid: @uuid,
         fullname:       fullname,
         email:          email
@@ -22,8 +21,8 @@ module ProjectManagement
 
     private
 
-    def apply_developer_registered(event)
-      @state = :registered
+    def apply_developer_registered(_event)
+      @registered = true
     end
   end
 end
