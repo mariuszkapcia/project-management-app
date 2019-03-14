@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190314214100) do
+ActiveRecord::Schema.define(version: 20190314215625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20190314214100) do
 
   create_table "encryption_keys", force: :cascade do |t|
     t.string "cipher"
-    t.binary "iv"
     t.binary "key"
     t.string "identifier"
     t.index ["identifier", "cipher"], name: "index_encryption_keys_on_identifier_and_cipher", unique: true

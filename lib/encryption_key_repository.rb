@@ -2,18 +2,19 @@ class EncryptionKeyRepository
   DEFAULT_CIPHER = 'aes-256-cbc'.freeze
 
   def key_of(identifier, cipher: DEFAULT_CIPHER)
-    EncryptionKey.where(identifier: identifier, cipher: cipher).take
+    key = EncryptionKey.where(identifier: identifier, cipher: cipher).take.try(:key)
+    RubyEventStore::Mappers::EncryptionKey.new(
+      cipher: cipher,
+      key:    key
+    )
   end
 
   def create(identifier, cipher: DEFAULT_CIPHER)
-    key = random_key(cipher)
-
     EncryptionKey.where(
       identifier: identifier,
       cipher:     cipher
     ).first_or_create!(
-      iv:         key.random_iv,
-      key:        key.random_key
+      key: random_key(cipher)
     )
   end
 
