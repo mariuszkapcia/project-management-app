@@ -15,7 +15,8 @@ Available features:
 Live demo available [here](https://project-management-ddd.herokuapp.com/).
 
 Feature branches:
-- [feature/event_versioning] Sample implementation of event upcaster as RES mapper. To make this possible I needed to introduce `ComposedMapper`. Thanks to that I'm able to pass list of mappers to the RES client.
+- [feature/event-versioning] Sample implementation of event upcaster as RES mapper. To make this possible I needed to introduce `ComposedMapper`. Thanks to that I'm able to pass list of mappers to the RES client.
+- [feature/gdpr-event-encryption] Sample implementation of GDPR in event sourced system. Sensitive data is encrypted with `EncryptionMapper` from RES.
 
 ## Ruby version
 
