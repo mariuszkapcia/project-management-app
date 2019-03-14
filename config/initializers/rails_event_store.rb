@@ -16,6 +16,7 @@ Rails.configuration.to_prepare do
       RubyEventStore::PubSub::Dispatcher.new
     ),
     mapper: ComposedMapper.new(
+      UpcastingMapper.new,
       RubyEventStore::Mappers::Default.new
     )
   )
