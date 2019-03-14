@@ -10,7 +10,7 @@ module ProjectManagement
     end
 
     def register(fullname, email)
-      raise HasBeenAlreadyRegistered if @registered
+      raise HasBeenAlreadyRegistered if @state.equal?(:registered)
 
       apply(DeveloperRegistered.strict(data: {
         developer_uuid: @uuid,
@@ -19,10 +19,22 @@ module ProjectManagement
       }))
     end
 
+    def remove
+      return if @state.equal?(:removed)
+
+      apply(DeveloperRemoved.strict(data: {
+        developer_uuid: @uuid
+      }))
+    end
+
     private
 
     def apply_developer_registered(_event)
-      @registered = true
+      @state = :registered
+    end
+
+    def apply_developer_removed(_event)
+      @state = :removed
     end
   end
 end

@@ -22,10 +22,31 @@ module ProjectManagement
       end.to raise_error(ProjectManagement::Developer::HasBeenAlreadyRegistered)
     end
 
+    specify 'remove developer' do
+      developer = ProjectManagement::Developer.new(developer_ignacy[:uuid])
+      developer.register(developer_ignacy[:fullname], developer_ignacy[:email])
+      developer.remove
+
+      expect(developer).to(have_applied(developer_removed))
+    end
+
+    specify 'developer cannot be removed twice' do
+      developer = ProjectManagement::Developer.new(developer_ignacy[:uuid])
+      developer.register(developer_ignacy[:fullname], developer_ignacy[:email])
+      developer.remove
+      developer.remove
+
+      expect(developer).to(have_applied(developer_removed).exactly(1).times)
+    end
+
     private
 
     def developer_registered
       an_event(ProjectManagement::DeveloperRegistered).with_data(developer_registered_data).strict
+    end
+
+    def developer_removed
+      an_event(ProjectManagement::DeveloperRemoved).with_data(developer_removed_data).strict
     end
 
     def developer_registered_data
@@ -33,6 +54,12 @@ module ProjectManagement
         developer_uuid: developer_ignacy[:uuid],
         fullname:       developer_ignacy[:fullname],
         email:          developer_ignacy[:email]
+      }
+    end
+
+    def developer_removed_data
+      {
+        developer_uuid: developer_ignacy[:uuid]
       }
     end
   end
