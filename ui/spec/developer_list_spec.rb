@@ -12,6 +12,12 @@ module UI
       assert_developer_correct
     end
 
+    specify 'remove developer' do
+      read_model.call(developer_registered)
+      read_model.call(developer_removed)
+      expect(read_model.all.size).to eq(0)
+    end
+
     private
 
     def assert_developer_correct
@@ -25,6 +31,12 @@ module UI
         developer_uuid: developer_ignacy[:uuid],
         fullname:       developer_ignacy[:fullname],
         email:          developer_ignacy[:email]
+      })
+    end
+
+    def developer_removed
+      ProjectManagement::DeveloperRemoved.new(data: {
+        developer_uuid: developer_ignacy[:uuid]
       })
     end
 

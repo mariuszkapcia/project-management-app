@@ -30,7 +30,8 @@ class ConfigureUIBoundedContext
     @event_store.subscribe(
       UI::DeveloperListReadModel,
       to: [
-        ProjectManagement::DeveloperRegistered
+        ProjectManagement::DeveloperRegistered,
+        ProjectManagement::DeveloperRemoved
       ]
     )
 
