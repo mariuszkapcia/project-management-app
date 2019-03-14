@@ -14,7 +14,8 @@ class ConfigureUIBoundedContext
         ProjectManagement::ProjectEstimated,
         ProjectManagement::DeadlineAssignedToProject,
         ProjectManagement::DeveloperAssignedToProject,
-        ProjectManagement::DeveloperWorkingHoursForProjectAssigned
+        ProjectManagement::DeveloperWorkingHoursForProjectAssigned,
+        ProjectManagement::DeveloperRemoved
       ]
     )
 

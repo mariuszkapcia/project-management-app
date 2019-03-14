@@ -15,6 +15,8 @@ module UI
           assign_developer_working_hours(
             event.data[:project_uuid], event.data[:developer_uuid], event.data[:hours_per_week]
           )
+        when ProjectManagement::DeveloperRemoved
+          unassign_developer(event.data[:developer_uuid])
       end
     end
 
@@ -54,6 +56,14 @@ module UI
       project_details.save!
     end
 
+    def unassign_developer(developer_uuid)
+      projects_details = UI::ProjectDetails::Project.all
+      projects_details.each do |project_details|
+        remove_developer(project_details.developers, developer_uuid)
+        project_details.save!
+      end
+    end
+
     def assign_developer_working_hours(project_uuid, developer_uuid, hours_per_week)
       project_details             = UI::ProjectDetails::Project.find_by(uuid: project_uuid)
       developer                   = find_developer(project_details.developers, developer_uuid)
@@ -63,6 +73,10 @@ module UI
 
     def find_developer(developers, developer_uuid)
       developers.find { |developer| developer['uuid'] == developer_uuid }
+    end
+
+    def remove_developer(developers, developer_uuid)
+      developers.reject! { |developer| developer['uuid'] == developer_uuid }
     end
   end
 end

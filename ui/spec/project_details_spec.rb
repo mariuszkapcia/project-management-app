@@ -27,6 +27,16 @@ module UI
       assert_project_with_developers_correct
     end
 
+    specify 'unassign developer from the project' do
+      read_model.call(project_registered)
+      read_model.call(developer_assigned)
+      read_model.call(developer_working_hours_for_project_assigned)
+      expect(read_model.all.size).to eq(1)
+      read_model.call(developer_removed)
+      expect(read_model.all.size).to eq(1)
+      assert_project_correct
+    end
+
     private
 
     def assert_project_correct
@@ -84,6 +94,12 @@ module UI
         project_uuid:   project_topsecretdddproject[:uuid],
         developer_uuid: developer_ignacy[:uuid],
         hours_per_week: developer_ignacy[:hours_per_week]
+      })
+    end
+
+    def developer_removed
+      ProjectManagement::DeveloperRemoved.new(data: {
+        developer_uuid: developer_ignacy[:uuid]
       })
     end
 
