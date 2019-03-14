@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190104193649) do
+ActiveRecord::Schema.define(version: 20190314214100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "encryption_keys", force: :cascade do |t|
+    t.string "cipher"
+    t.binary "iv"
+    t.binary "key"
+    t.string "identifier"
+    t.index ["identifier", "cipher"], name: "index_encryption_keys_on_identifier_and_cipher", unique: true
+  end
 
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "event_type", null: false
