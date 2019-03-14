@@ -5,7 +5,7 @@ module UI
       case event
         when ProjectManagement::ProjectRegistered
           add_project(event.data[:project_uuid])
-        when ProjectManagement::ProjectEstimated
+        when ProjectManagement::ProjectEstimatedV2
           assign_estimation(event.data[:project_uuid], event.data[:hours])
           calculate_aproximate_end(event.data[:project_uuid])
         when ProjectManagement::DeveloperWorkingHoursForProjectAssigned

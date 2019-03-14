@@ -28,12 +28,14 @@ module ProjectManagement
       }))
     end
 
+    # TODO: Handle story_points properly.
     def estimate(hours)
       raise InvalidEstimation if hours < 0
 
-      apply(ProjectManagement::ProjectEstimated.strict(data: {
+      apply(ProjectManagement::ProjectEstimatedV2.strict(data: {
         project_uuid: @uuid,
-        hours:        hours
+        hours:        hours,
+        story_points: 0
       }))
     end
 
@@ -82,7 +84,7 @@ module ProjectManagement
       @state = :registered
     end
 
-    def apply_project_estimated(event)
+    def apply_project_estimated_v2(event)
       @estimation_provided = true
     end
 

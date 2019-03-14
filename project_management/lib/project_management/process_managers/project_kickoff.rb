@@ -34,7 +34,7 @@ module ProjectManagement
         events.each do |event|
           case event
           when ProjectManagement::ProjectRegistered then apply_project_registered(event)
-          when ProjectManagement::ProjectEstimated then apply_project_estimated
+          when ProjectManagement::ProjectEstimatedV2 then apply_project_estimated
           when ProjectManagement::DeadlineAssignedToProject then apply_deadline_assigned_to_project
           end
 

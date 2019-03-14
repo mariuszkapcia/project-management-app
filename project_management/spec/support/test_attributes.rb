@@ -13,10 +13,11 @@ module ProjectManagement
       @deadline ||= 1.hour.from_now.utc.to_datetime
 
       {
-        uuid:       'ab6e9c30-2b1c-474d-824f-7b8f816ced99',
-        name:       '#TopSecretDDDProject',
-        estimation: 40,
-        deadline:   @deadline
+        uuid:         'ab6e9c30-2b1c-474d-824f-7b8f816ced99',
+        name:         '#TopSecretDDDProject',
+        estimation:   40,
+        story_points: 0,
+        deadline:     @deadline
       }
     end
   end

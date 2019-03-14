@@ -82,7 +82,7 @@ module ProjectManagement
     end
 
     def project_estimated
-      an_event(ProjectManagement::ProjectEstimated).with_data(project_estimated_data).strict
+      an_event(ProjectManagement::ProjectEstimatedV2).with_data(project_estimated_data).strict
     end
 
     def developer_assigned
@@ -113,7 +113,8 @@ module ProjectManagement
     def project_estimated_data
       {
         project_uuid: project_topsecretdddproject[:uuid],
-        hours:        project_topsecretdddproject[:estimation]
+        hours:        project_topsecretdddproject[:estimation],
+        story_points: project_topsecretdddproject[:story_points]
       }
     end
 

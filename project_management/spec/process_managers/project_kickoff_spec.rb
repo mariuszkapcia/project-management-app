@@ -108,7 +108,7 @@ module ProjectManagement
     end
 
     def project_estimated
-      ProjectManagement::ProjectEstimated.new(data: {
+      ProjectManagement::ProjectEstimatedV2.new(data: {
         project_uuid: project_topsecretdddproject[:uuid],
         hours:        project_topsecretdddproject[:estimation]
       })

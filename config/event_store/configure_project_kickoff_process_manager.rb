@@ -4,7 +4,7 @@ class ConfigureProjectKickoffProcessManager
       ProjectManagement::ProjectKickoff,
       to: [
         ProjectManagement::ProjectRegistered,
-        ProjectManagement::ProjectEstimated,
+        ProjectManagement::ProjectEstimatedV2,
         ProjectManagement::DeadlineAssignedToProject
       ]
     )

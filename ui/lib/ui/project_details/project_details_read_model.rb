@@ -5,7 +5,7 @@ module UI
       case event
         when ProjectManagement::ProjectRegistered
           create_project(event.data[:project_uuid], event.data[:name])
-        when ProjectManagement::ProjectEstimated
+        when ProjectManagement::ProjectEstimatedV2
           estimate_project(event.data[:project_uuid], event.data[:hours])
         when ProjectManagement::DeadlineAssignedToProject
           assign_deadline(event.data[:project_uuid], event.data[:deadline])

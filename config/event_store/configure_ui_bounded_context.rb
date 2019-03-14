@@ -11,7 +11,7 @@ class ConfigureUIBoundedContext
       UI::ProjectDetailsReadModel,
       to: [
         ProjectManagement::ProjectRegistered,
-        ProjectManagement::ProjectEstimated,
+        ProjectManagement::ProjectEstimatedV2,
         ProjectManagement::DeadlineAssignedToProject,
         ProjectManagement::DeveloperAssignedToProject,
         ProjectManagement::DeveloperWorkingHoursForProjectAssigned
@@ -22,7 +22,7 @@ class ConfigureUIBoundedContext
       UI::ProjectApproximateEndReadModel,
       to: [
         ProjectManagement::ProjectRegistered,
-        ProjectManagement::ProjectEstimated,
+        ProjectManagement::ProjectEstimatedV2,
         ProjectManagement::DeveloperWorkingHoursForProjectAssigned
       ]
     )
