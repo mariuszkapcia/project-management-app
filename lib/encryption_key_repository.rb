@@ -3,6 +3,8 @@ class EncryptionKeyRepository
 
   def key_of(identifier, cipher: DEFAULT_CIPHER)
     key = EncryptionKey.where(identifier: identifier, cipher: cipher).take.try(:key)
+    return nil unless key
+
     RubyEventStore::Mappers::EncryptionKey.new(
       cipher: cipher,
       key:    key
