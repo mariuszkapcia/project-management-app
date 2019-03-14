@@ -33,6 +33,7 @@ module ProjectManagement
       end
     end
 
+    # TODO: Add validation is developer is assigned to the project.
     def remove(cmd)
       cmd.verify!
 
