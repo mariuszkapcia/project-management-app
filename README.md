@@ -14,6 +14,9 @@ Available features:
 
 Live demo available [here](https://project-management-ddd.herokuapp.com/).
 
+Feature branches:
+- [feature/event_versioning] Sample implementation of event upcaster as RES mapper. To make this possible I needed to introduce `ComposedMapper`. Thanks to that I'm able to pass list of mappers to the RES client.
+
 ## Ruby version
 
 2.5.0
