@@ -14,6 +14,10 @@ Rails.configuration.to_prepare do
     dispatcher: RubyEventStore::ComposedDispatcher.new(
       RailsEventStore::AfterCommitAsyncDispatcher.new(scheduler: RailsEventStore::ActiveJobScheduler.new),
       RubyEventStore::PubSub::Dispatcher.new
+    ),
+    mapper: RubyEventStore::Mappers::EncryptionMapper.new(
+      EncryptionKeyRepository.new,
+      serializer: YAML
     )
   )
 
