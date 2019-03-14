@@ -18,7 +18,8 @@ Rails.configuration.to_prepare do
     mapper: RubyEventStore::Mappers::EncryptionMapper.new(
       EncryptionKeyRepository.new,
       serializer: YAML
-    )
+    ),
+    request_metadata: -> (env) { {} }
   )
 
   AggregateRoot.configure do |config|
