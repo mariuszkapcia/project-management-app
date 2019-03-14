@@ -8,8 +8,10 @@ module ProjectManagement
 
     specify 'list of developers' do
       event_store.publish(developer_registered, stream_name: 'stream_name')
+      event_store.publish(developer_removed, stream_name: 'stream_name')
 
       read_model_builder.call(developer_registered)
+      read_model_builder.call(developer_removed)
       developers = read_model_retriever.retrieve.developers
 
       expect(developers.size).to eq(1)
@@ -20,9 +22,17 @@ module ProjectManagement
     def developer_registered
       @developer_registered ||= begin
         ProjectManagement::DeveloperRegistered.new(data: {
-          uuid:     developer_ignacy[:uuid],
-          fullname: developer_ignacy[:fullname],
-          email:    developer_ignacy[:email]
+          developer_uuid: developer_ignacy[:uuid],
+          fullname:       developer_ignacy[:fullname],
+          email:          developer_ignacy[:email]
+        })
+      end
+    end
+
+    def developer_removed
+      @developer_removed ||= begin
+        ProjectManagement::DeveloperRemoved.new(data: {
+          developer_uuid: developer_ignacy[:uuid]
         })
       end
     end

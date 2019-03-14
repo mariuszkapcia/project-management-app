@@ -3,7 +3,8 @@ class ConfigureProjectManagementBoundedContext
     @event_store.subscribe(
       ProjectManagement::DeveloperList::Builder.new(event_store: @event_store),
       to: [
-        ProjectManagement::DeveloperRegistered
+        ProjectManagement::DeveloperRegistered,
+        ProjectManagement::DeveloperRemoved
       ]
     )
   end

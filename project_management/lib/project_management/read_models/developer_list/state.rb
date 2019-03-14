@@ -17,7 +17,8 @@ module ProjectManagement
 
     def map_event_to_handler(event_class)
       {
-        'ProjectManagement::DeveloperRegistered' => :apply_developer_registered
+        'ProjectManagement::DeveloperRegistered' => :apply_developer_registered,
+        'ProjectManagement::DeveloperRemoved'    => :apply_developer_removed
       }.fetch(event_class.to_s)
     end
 
@@ -26,6 +27,11 @@ module ProjectManagement
         uuid:  event.data[:developer_uuid],
         email: event.data[:email]
       }
+    end
+
+    def apply_developer_removed(event)
+      developer         = @developers.find { |developer| developer[:uuid].eql?(event.data[:developer_uuid]) }
+      developer[:email] = ''
     end
   end
 end
