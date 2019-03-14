@@ -4,7 +4,7 @@ RSpec.describe 'Upcasting mapper' do
       project_uuid: project_uuid,
       hours:        hours
     })
-    project_estimated_v2 = UpcastingMapper.new.call(project_estimated)
+    project_estimated_v2 = UpcastingMapper.new.serialized_record_to_event(project_estimated)
 
     expect(project_estimated_v2.class).to eq(ProjectManagement::ProjectEstimatedV2)
     expect(project_estimated.data[:project_uuid]).to eq(project_estimated_v2.data[:project_uuid])
