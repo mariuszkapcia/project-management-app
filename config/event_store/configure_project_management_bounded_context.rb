@@ -7,6 +7,13 @@ class ConfigureProjectManagementBoundedContext
         ProjectManagement::DeveloperRemoved
       ]
     )
+
+    @event_store.subscribe(
+      ProjectManagement::DeveloperRemovedListener,
+      to: [
+        ProjectManagement::DeveloperRemoved
+      ]
+    )
   end
 
   private

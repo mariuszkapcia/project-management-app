@@ -31,4 +31,6 @@ require_dependency 'project_management/read_models/developer_list/builder'
 require_dependency 'project_management/read_models/developer_list/retriever'
 require_dependency 'project_management/read_models/developer_list/state'
 
+require_dependency 'project_management/listeners/developer_removed_listener.rb'
+
 require_dependency 'project_management/value_objects/deadline'
