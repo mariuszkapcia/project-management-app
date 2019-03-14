@@ -7,6 +7,7 @@ require_dependency 'project_management/commands/assign_developer_to_project.rb'
 require_dependency 'project_management/commands/register_developer.rb'
 require_dependency 'project_management/commands/assign_developer_working_hours.rb'
 require_dependency 'project_management/commands/assign_deadline.rb'
+require_dependency 'project_management/commands/remove_developer.rb'
 require_dependency 'project_management/commands/kick_off_project.rb'
 
 require_dependency 'project_management/domain_events/project_registered.rb'
