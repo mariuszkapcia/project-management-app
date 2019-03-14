@@ -24,10 +24,22 @@ module ProjectManagement
       end.to raise_error(ProjectManagement::Developer::EmailAddressNotUniq)
     end
 
+    specify 'remove developer' do
+      developer = instance_of_developer(event_store: event_store)
+      developer.register(developer_ignacy)
+      developer.remove
+
+      expect(event_store).to(have_published(developer_removed))
+    end
+
     private
 
     def developer_registered
       an_event(ProjectManagement::DeveloperRegistered).with_data(developer_registered_data).strict
+    end
+
+    def developer_removed
+      an_event(ProjectManagement::DeveloperRemoved).with_data(developer_removed_data).strict
     end
 
     def developer_registered_data
@@ -35,6 +47,12 @@ module ProjectManagement
         developer_uuid: developer_ignacy[:uuid],
         fullname:       developer_ignacy[:fullname],
         email:          developer_ignacy[:email]
+      }
+    end
+
+    def developer_removed_data
+      {
+        developer_uuid: developer_ignacy[:uuid]
       }
     end
 

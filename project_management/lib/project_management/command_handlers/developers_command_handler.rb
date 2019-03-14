@@ -5,7 +5,8 @@ module ProjectManagement
       @developer_list_read_model = DeveloperList::Retriever.new(event_store: @event_store)
       @command_bus               = Arkency::CommandBus.new
       {
-        ProjectManagement::RegisterDeveloper => method(:register)
+        ProjectManagement::RegisterDeveloper => method(:register),
+        ProjectManagement::RemoveDeveloper   => method(:remove)
       }.map{ |klass, handler| @command_bus.register(klass, handler) }
     end
 
@@ -28,6 +29,16 @@ module ProjectManagement
 
         with_developer(cmd.developer_uuid) do |developer|
           developer.register(cmd.fullname, cmd.email)
+        end
+      end
+    end
+
+    def remove(cmd)
+      cmd.verify!
+
+      ActiveRecord::Base.transaction do
+        with_developer(cmd.developer_uuid) do |developer|
+          developer.remove
         end
       end
     end

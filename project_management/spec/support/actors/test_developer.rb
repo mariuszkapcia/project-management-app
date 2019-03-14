@@ -14,6 +14,16 @@ module ProjectManagement
         )
     end
 
+    def remove
+      @command_handler
+        .new(event_store: @event_store)
+        .call(
+          ProjectManagement::RemoveDeveloper.new(
+            developer_uuid: @uuid
+          )
+        )
+    end
+
     private
 
     def initialize(event_store: Rails.configuration.event_store)
