@@ -29,20 +29,12 @@ module ProjectManagement
       end
     end
 
-    def with_developer(uuid)
-      ProjectManagement::Developer.new(uuid).tap do |developer|
-        load_developer(uuid, developer)
+    def with_developer(developer_uuid)
+      repository = AggregateRoot::Repository.new(@event_store)
+      developer  = Developer.new(developer_uuid)
+      repository.with_aggregate(developer, stream_name(developer_uuid)) do |developer|
         yield developer
-        store_developer(developer)
       end
-    end
-
-    def load_developer(developer_uuid, developer)
-      developer.load(stream_name(developer_uuid), event_store: @event_store)
-    end
-
-    def store_developer(developer)
-      developer.store(event_store: @event_store)
     end
 
     def stream_name(developer_uuid)

@@ -86,20 +86,12 @@ module ProjectManagement
       end
     end
 
-    def with_project(uuid)
-      ProjectManagement::Project.new(uuid).tap do |project|
-        load_project(uuid, project)
-        yield(project)
-        store_project(project)
+    def with_project(project_uuid)
+      repository = AggregateRoot::Repository.new(@event_store)
+      project    = Project.new(project_uuid)
+      repository.with_aggregate(project, stream_name(project_uuid)) do |project|
+        yield project
       end
-    end
-
-    def load_project(project_uuid, project)
-      project.load(stream_name(project_uuid), event_store: @event_store)
-    end
-
-    def store_project(project)
-      project.store(event_store: @event_store)
     end
 
     def stream_name(project_uuid)
