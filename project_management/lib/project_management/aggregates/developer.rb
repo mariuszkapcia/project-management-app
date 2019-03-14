@@ -19,6 +19,7 @@ module ProjectManagement
       }))
     end
 
+    # TODO: Add missing UI for this operation.
     def remove
       return if @state.equal?(:removed)
 
