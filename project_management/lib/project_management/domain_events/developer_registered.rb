@@ -10,5 +10,12 @@ module ProjectManagement
       ClassyHash.validate(data, SCHEMA)
       new(data: data)
     end
+
+    def self.encryption_schema
+      {
+        fullname: ->(data) { data.fetch(:developer_uuid) },
+        email:    ->(data) { data.fetch(:developer_uuid) }
+      }
+    end
   end
 end

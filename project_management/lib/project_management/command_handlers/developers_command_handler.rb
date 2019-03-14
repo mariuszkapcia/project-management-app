@@ -23,6 +23,9 @@ module ProjectManagement
       raise Developer::EmailAddressNotUniq if @developer_list_read_model.retrieve.email_taken?(cmd.email)
 
       ActiveRecord::Base.transaction do
+        encryption_key_repository = EncryptionKeyRepository.new
+        encryption_key_repository.create(cmd.developer_uuid)
+
         with_developer(cmd.developer_uuid) do |developer|
           developer.register(cmd.fullname, cmd.email)
         end
