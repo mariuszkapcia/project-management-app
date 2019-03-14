@@ -15,7 +15,7 @@ module ProjectManagement
     SCHEMA = {
       project_uuid: String,
       hours:        Integer,
-      points:       Integer
+      story_points: Integer
     }.freeze
 
     def self.strict(data:)
