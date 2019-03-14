@@ -14,6 +14,9 @@ Rails.configuration.to_prepare do
     dispatcher: RubyEventStore::ComposedDispatcher.new(
       RailsEventStore::AfterCommitAsyncDispatcher.new(scheduler: RailsEventStore::ActiveJobScheduler.new),
       RubyEventStore::PubSub::Dispatcher.new
+    ),
+    mapper: ComposedMapper.new(
+      RubyEventStore::Mappers::Default.new
     )
   )
 
