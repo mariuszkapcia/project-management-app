@@ -1,7 +1,8 @@
 module ProjectManagement
   class DevelopersCommandHandler
-    def initialize(event_store:)
+    def initialize(event_store:, command_store:)
       @event_store               = event_store
+      @command_store             = command_store
       @developer_list_read_model = DeveloperList::Retriever.new(event_store: @event_store)
       @command_bus               = Arkency::CommandBus.new
       {
@@ -26,6 +27,12 @@ module ProjectManagement
         with_developer(cmd.developer_uuid) do |developer|
           developer.register(cmd.fullname, cmd.email)
         end
+
+        # NOTE: We need to decide at which point we want to store a command.
+        #       Do we want to store incorrect commands (with incorrect data)? It will end up with error anyway.
+        #       What in case if data is correct but validation like above will not pass (EmailAddressNotUniq)?
+        #       I decided to store only commands that have correct data and can pass all validations.
+        @command_store.store(cmd)
       end
     end
 

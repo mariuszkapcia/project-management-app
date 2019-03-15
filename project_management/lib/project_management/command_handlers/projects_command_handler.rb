@@ -1,7 +1,8 @@
 module ProjectManagement
   class ProjectsCommandHandler
-    def initialize(event_store:)
+    def initialize(event_store:, command_store:)
       @event_store               = event_store
+      @command_store             = command_store
       @developer_list_read_model = DeveloperList::Retriever.new(event_store: @event_store)
       @command_bus               = Arkency::CommandBus.new
       {
@@ -29,6 +30,8 @@ module ProjectManagement
         with_project(cmd.project_uuid) do |project|
           project.register(cmd.name)
         end
+
+        @command_store.store(cmd)
       end
     end
 
@@ -39,6 +42,8 @@ module ProjectManagement
         with_project(cmd.project_uuid) do |project|
           project.estimate(cmd.hours)
         end
+
+        @command_store.store(cmd)
       end
     end
 
@@ -51,6 +56,8 @@ module ProjectManagement
         with_project(cmd.project_uuid) do |project|
           project.assign_developer(cmd.developer_uuid, cmd.developer_fullname)
         end
+
+        @command_store.store(cmd)
       end
     end
 
@@ -61,6 +68,8 @@ module ProjectManagement
         with_project(cmd.project_uuid) do |project|
           project.assign_developer_working_hours(cmd.developer_uuid, cmd.hours_per_week)
         end
+
+        @command_store.store(cmd)
       end
     end
 
@@ -73,6 +82,8 @@ module ProjectManagement
         with_project(cmd.project_uuid) do |project|
           project.assign_deadline(deadline)
         end
+
+        @command_store.store(cmd)
       end
     end
 
@@ -83,6 +94,8 @@ module ProjectManagement
         with_project(cmd.project_uuid) do |project|
           project.kick_off
         end
+
+        @command_store.store(cmd)
       end
     end
 

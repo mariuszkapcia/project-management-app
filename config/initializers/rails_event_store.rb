@@ -9,8 +9,9 @@ require_relative '../event_store/configure_ui_bounded_context'
 require_relative '../event_store/configure_project_kickoff_process_manager'
 
 Rails.configuration.to_prepare do
-  Rails.configuration.command_bus = command_bus = Arkency::CommandBus.new
-  Rails.configuration.event_store = event_store = RailsEventStore::Client.new(
+  Rails.configuration.command_store = command_store = CommandStore.new
+  Rails.configuration.command_bus   = command_bus   = Arkency::CommandBus.new
+  Rails.configuration.event_store   = event_store   = RailsEventStore::Client.new(
     dispatcher: RubyEventStore::ComposedDispatcher.new(
       RailsEventStore::AfterCommitAsyncDispatcher.new(scheduler: RailsEventStore::ActiveJobScheduler.new),
       RubyEventStore::PubSub::Dispatcher.new
@@ -24,7 +25,7 @@ Rails.configuration.to_prepare do
   # NOTE: Global command bus for process managers and sagas.
   command_bus.register(
     ProjectManagement::KickOffProject,
-    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store)
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)
   )
 
   ConfigureProjectManagementBoundedContext.new(event_store: event_store).call

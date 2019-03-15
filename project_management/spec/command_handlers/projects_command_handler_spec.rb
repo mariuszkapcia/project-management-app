@@ -2,21 +2,23 @@ require_dependency 'project_management'
 
 require_relative '../support/test_attributes'
 require_relative '../support/test_actors'
+require_relative '../support/fakes'
 
 module ProjectManagement
   RSpec.describe 'ProjectsCommandHandler' do
     include TestAttributes
     include TestActors
+    include Fakes
 
     specify 'register a new project' do
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
 
       expect(event_store).to(have_published(project_registered))
     end
 
     specify 'estimate the project' do
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
       project.estimate(project_topsecretdddproject[:estimation])
 
@@ -25,10 +27,10 @@ module ProjectManagement
 
     specify 'assign developer to the project' do
       # TODO: Pass faked DeveloperList read model to Projects command handler.
-      developer = instance_of_developer(event_store: event_store)
+      developer = instance_of_developer(event_store: event_store, command_store: command_store)
       developer.register(developer_ignacy)
 
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
       project.assign_developer(developer_ignacy)
 
@@ -36,7 +38,7 @@ module ProjectManagement
     end
 
     specify 'cannot assign non existing developer to the project' do
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
 
       expect do
@@ -46,10 +48,10 @@ module ProjectManagement
 
     specify 'assign developer working hours in the project' do
       # TODO: Pass faked DeveloperList read model to Projects command handler.
-      developer = instance_of_developer(event_store: event_store)
+      developer = instance_of_developer(event_store: event_store, command_store: command_store)
       developer.register(developer_ignacy)
 
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
       project.assign_developer(developer_ignacy)
       project.assign_developer_working_hours(developer_ignacy[:uuid], developer_ignacy[:hours_per_week])
@@ -58,7 +60,7 @@ module ProjectManagement
     end
 
     specify 'assign deadline to the project' do
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
       project.assign_deadline(project_topsecretdddproject[:deadline].to_i)
 
@@ -66,7 +68,7 @@ module ProjectManagement
     end
 
     specify 'kick off project' do
-      project = instance_of_project(event_store: event_store)
+      project = instance_of_project(event_store: event_store, command_store: command_store)
       project.register(project_topsecretdddproject)
       project.estimate(project_topsecretdddproject[:estimation])
       project.assign_deadline(project_topsecretdddproject[:deadline].to_i)
@@ -144,6 +146,10 @@ module ProjectManagement
       {
         project_uuid: project_topsecretdddproject[:uuid]
       }
+    end
+
+    def command_store
+      @command_store ||= Fakes::CommandStore.new
     end
 
     def event_store

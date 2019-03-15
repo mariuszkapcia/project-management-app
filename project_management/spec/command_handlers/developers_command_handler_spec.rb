@@ -2,21 +2,23 @@ require_dependency 'project_management'
 
 require_relative '../support/test_attributes'
 require_relative '../support/test_actors'
+require_relative '../support/fakes'
 
 module ProjectManagement
   RSpec.describe 'DevelopersCommandHandler' do
     include TestAttributes
     include TestActors
+    include Fakes
 
     specify 'register a new developer' do
-      developer = instance_of_developer(event_store: event_store)
+      developer = instance_of_developer(event_store: event_store, command_store: command_store)
       developer.register(developer_ignacy)
 
       expect(event_store).to(have_published(developer_registered))
     end
 
     specify 'cannot register developer without uniq email address' do
-      developer = instance_of_developer(event_store: event_store)
+      developer = instance_of_developer(event_store: event_store, command_store: command_store)
       developer.register(developer_ignacy)
 
       expect do
@@ -36,6 +38,10 @@ module ProjectManagement
         fullname:       developer_ignacy[:fullname],
         email:          developer_ignacy[:email]
       }
+    end
+
+    def command_store
+      @command_store ||= Fakes::CommandStore.new
     end
 
     def event_store

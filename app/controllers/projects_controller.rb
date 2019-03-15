@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       begin
         ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store)
+          .new(event_store: event_store, command_store: command_store)
           .call(register_project)
 
         format.json { head :created }
@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       begin
         ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store)
+          .new(event_store: event_store, command_store: command_store)
           .call(estimate_project)
 
         format.json { head :no_content }
@@ -92,7 +92,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       begin
         ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store)
+          .new(event_store: event_store, command_store: command_store)
           .call(assign_developer_to_project)
 
         format.json { head :no_content }
@@ -123,7 +123,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       begin
         ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store)
+          .new(event_store: event_store, command_store: command_store)
           .call(assign_working_hours_to_project)
 
         format.json { head :no_content }
@@ -165,7 +165,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       begin
         ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store)
+          .new(event_store: event_store, command_store: command_store)
           .call(assign_deadline_to_project)
 
         format.json { head :no_content }
@@ -239,5 +239,9 @@ class ProjectsController < ApplicationController
 
   def event_store
     Rails.configuration.event_store
+  end
+
+  def command_store
+    Rails.configuration.command_store
   end
 end

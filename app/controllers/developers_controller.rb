@@ -18,7 +18,7 @@ class DevelopersController < ApplicationController
     respond_to do |format|
       begin
         ProjectManagement::DevelopersCommandHandler
-          .new(event_store: event_store)
+          .new(event_store: event_store, command_store: command_store)
           .call(register_developer)
 
         format.json { head :created }
@@ -51,5 +51,9 @@ class DevelopersController < ApplicationController
 
   def event_store
     Rails.configuration.event_store
+  end
+
+  def command_store
+    Rails.configuration.command_store
   end
 end

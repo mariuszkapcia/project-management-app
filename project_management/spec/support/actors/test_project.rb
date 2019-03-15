@@ -4,7 +4,7 @@ module ProjectManagement
       @uuid = project[:uuid]
 
       @command_handler
-        .new(event_store: @event_store)
+        .new(event_store: @event_store, command_store: @command_store)
         .call(
           ProjectManagement::RegisterProject.new(
             project_uuid: project[:uuid],
@@ -15,7 +15,7 @@ module ProjectManagement
 
     def estimate(estimation)
       @command_handler
-        .new(event_store: @event_store)
+        .new(event_store: @event_store, command_store: @command_store)
         .call(
           ProjectManagement::EstimateProject.new(
             project_uuid: @uuid,
@@ -26,7 +26,7 @@ module ProjectManagement
 
     def assign_developer(developer)
       @command_handler
-        .new(event_store: @event_store)
+        .new(event_store: @event_store, command_store: @command_store)
         .call(
           ProjectManagement::AssignDeveloperToProject.new(
             project_uuid:       @uuid,
@@ -38,7 +38,7 @@ module ProjectManagement
 
     def assign_developer_working_hours(developer_uuid, hours_per_week)
       @command_handler
-        .new(event_store: @event_store)
+        .new(event_store: @event_store, command_store: @command_store)
         .call(
           ProjectManagement::AssignDeveloperWorkingHours.new(
             project_uuid:   @uuid,
@@ -50,7 +50,7 @@ module ProjectManagement
 
     def assign_deadline(deadline)
       @command_handler
-        .new(event_store: @event_store)
+        .new(event_store: @event_store, command_store: @command_store)
         .call(
           ProjectManagement::AssignDeadline.new(
             project_uuid: @uuid,
@@ -61,7 +61,7 @@ module ProjectManagement
 
     def kick_off
       @command_handler
-        .new(event_store: @event_store)
+        .new(event_store: @event_store, command_store: @command_store)
         .call(
           ProjectManagement::KickOffProject.new(
             project_uuid: @uuid
@@ -71,9 +71,10 @@ module ProjectManagement
 
     private
 
-    def initialize(event_store: Rails.configuration.event_store)
+    def initialize(event_store:, command_store:)
       @uuid            = nil
       @event_store     = event_store
+      @command_store   = command_store
       @command_handler = ProjectManagement::ProjectsCommandHandler
     end
   end
