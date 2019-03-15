@@ -11,6 +11,10 @@ module UI
       UI::NotificationList::Notification.all
     end
 
+    def delete_all
+      UI::NotificationList::Notification.destroy_all
+    end
+
     private
 
     def generate_project_kickoff_notification(project_name)

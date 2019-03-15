@@ -11,6 +11,10 @@ module UI
       UI::ProjectList::Project.all
     end
 
+    def delete_all
+      UI::ProjectList::Project.destroy_all
+    end
+
     private
 
     def create_project(project_uuid, name)

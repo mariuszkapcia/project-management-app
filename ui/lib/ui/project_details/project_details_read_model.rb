@@ -26,6 +26,10 @@ module UI
       UI::ProjectDetails::Project.find_by(uuid: uuid)
     end
 
+    def delete_all
+      UI::ProjectDetails::Project.destroy_all
+    end
+
     private
 
     def create_project(project_uuid, name)

@@ -15,6 +15,10 @@ module UI
       UI::DeveloperList::Developer.find(uuid)
     end
 
+    def delete_all
+      UI::DeveloperList::Developer.destroy_all
+    end
+
     private
 
     def create_developer(developer_uuid, fullname, email)

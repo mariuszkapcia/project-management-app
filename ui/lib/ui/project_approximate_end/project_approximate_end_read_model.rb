@@ -20,6 +20,10 @@ module UI
       UI::ProjectApproximateEnd::Project.find_by(uuid: project_uuid).try(:approximate_end)
     end
 
+    def delete_all
+      UI::ProjectApproximateEnd::Project.destroy_all
+    end
+
     private
 
     def add_project(project_uuid)
