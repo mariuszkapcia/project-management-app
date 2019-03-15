@@ -17,9 +17,7 @@ class DevelopersController < ApplicationController
   def create
     respond_to do |format|
       begin
-        ProjectManagement::DevelopersCommandHandler
-          .new(event_store: event_store, command_store: command_store)
-          .call(register_developer)
+        command_bus.call(register_developer)
 
         format.json { head :created }
         format.html { redirect_to developers_path, notice: 'Developer has been added successfully.' }
@@ -55,5 +53,9 @@ class DevelopersController < ApplicationController
 
   def command_store
     Rails.configuration.command_store
+  end
+
+  def command_bus
+    Rails.configuration.command_bus
   end
 end

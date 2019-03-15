@@ -22,7 +22,37 @@ Rails.configuration.to_prepare do
     config.default_event_store = event_store
   end
 
-  # NOTE: Global command bus for process managers and sagas.
+  # ProjectManagement commands.
+  command_bus.register(
+    ProjectManagement::RegisterDeveloper,
+    ProjectManagement::DevelopersCommandHandler.new(event_store: event_store, command_store: command_store)
+  )
+
+  command_bus.register(
+    ProjectManagement::RegisterProject,
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)
+  )
+
+  command_bus.register(
+    ProjectManagement::EstimateProject,
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)
+  )
+
+  command_bus.register(
+    ProjectManagement::AssignDeveloperToProject,
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)
+  )
+
+  command_bus.register(
+    ProjectManagement::AssignDeveloperWorkingHours,
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)
+  )
+
+  command_bus.register(
+    ProjectManagement::AssignDeadline,
+    ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)
+  )
+
   command_bus.register(
     ProjectManagement::KickOffProject,
     ProjectManagement::ProjectsCommandHandler.new(event_store: event_store, command_store: command_store)

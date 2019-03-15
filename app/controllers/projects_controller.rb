@@ -33,9 +33,7 @@ class ProjectsController < ApplicationController
   def create
     respond_to do |format|
       begin
-        ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store, command_store: command_store)
-          .call(register_project)
+        command_bus.call(register_project)
 
         format.json { head :created }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been added successfully.' }
@@ -58,9 +56,7 @@ class ProjectsController < ApplicationController
   def estimate
     respond_to do |format|
       begin
-        ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store, command_store: command_store)
-          .call(estimate_project)
+        command_bus.call(estimate_project)
 
         format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Project has been estimated successfully.' }
@@ -91,9 +87,7 @@ class ProjectsController < ApplicationController
   def assign_developer
     respond_to do |format|
       begin
-        ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store, command_store: command_store)
-          .call(assign_developer_to_project)
+        command_bus.call(assign_developer_to_project)
 
         format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Develper has been assigned successfully.' }
@@ -122,9 +116,7 @@ class ProjectsController < ApplicationController
   def assign_working_hours
     respond_to do |format|
       begin
-        ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store, command_store: command_store)
-          .call(assign_working_hours_to_project)
+        command_bus.call(assign_working_hours_to_project)
 
         format.json { head :no_content }
         format.html do
@@ -164,9 +156,7 @@ class ProjectsController < ApplicationController
   def assign_deadline
     respond_to do |format|
       begin
-        ProjectManagement::ProjectsCommandHandler
-          .new(event_store: event_store, command_store: command_store)
-          .call(assign_deadline_to_project)
+        command_bus.call(assign_deadline_to_project)
 
         format.json { head :no_content }
         format.html { redirect_to project_path(params[:uuid]), notice: 'Deadline has been assigned successfully.' }
@@ -243,5 +233,9 @@ class ProjectsController < ApplicationController
 
   def command_store
     Rails.configuration.command_store
+  end
+
+  def command_bus
+    Rails.configuration.command_bus
   end
 end
