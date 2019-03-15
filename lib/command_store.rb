@@ -7,7 +7,7 @@ class CommandStore
   def store(command)
     Command.create!(
       command_type: command.class.to_s,
-      data:         serializer.dump(command.as_json)
+      data:         serializer.dump(command.serialize)
     )
 
     :success

@@ -17,4 +17,8 @@ module Command
     first_error = errors.to_hash.first[1][0]
     raise ValidationError, first_error
   end
+
+  def serialize
+    as_json.except('validation_context', 'errors')
+  end
 end
