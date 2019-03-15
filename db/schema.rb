@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190104193649) do
+ActiveRecord::Schema.define(version: 20190315164132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "command_store_commands", force: :cascade do |t|
+    t.string "command_type", null: false
+    t.text "data", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_command_store_commands_on_created_at"
+  end
 
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "event_type", null: false
