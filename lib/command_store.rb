@@ -23,6 +23,8 @@ class CommandStore
 
   def delete_all
     Command.destroy_all
+
+    :success
   end
 
   private

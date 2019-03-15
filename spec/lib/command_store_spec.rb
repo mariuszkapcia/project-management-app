@@ -25,7 +25,9 @@ RSpec.describe 'CommandStore' do
     command_store = CommandStore.new
 
     command_store.store(command)
-    command_store.delete_all
+    expect(
+      command_store.delete_all
+    ).to eq(:success)
     commands = command_store.read_all
 
     expect(commands.size).to eq(0)
