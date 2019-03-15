@@ -1,4 +1,4 @@
-require_relative './support/test_attributes'
+require_relative '../support/test_attributes'
 
 RSpec.describe 'Command sourcing', type: :request do
   include TestAttributes
